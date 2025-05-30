@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		/* 基础样式 */
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			line-height: 1.7;
+			color: #333;
+			background-color: #f8f9fa;
+			margin: 0;
+			padding: 20px;
+		}
+
+		/* 文章容器 */
+		.xwz-modBox {
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+			padding: 30px;
+			margin: 30px auto;
+			max-width: 900px;
+			transition: all 0.3s ease;
+		}
+
+		.xwz-modBox:hover {
+			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+			transform: translateY(-3px);
+		}
+
+		/* 标题样式 */
+		.xwz-modBox header h1 {
+			color: #2c3e50;
+			font-size: 28px;
+			margin-bottom: 20px;
+			position: relative;
+			padding-bottom: 10px;
+		}
+
+		.xwz-modBox header h1:after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 60px;
+			height: 3px;
+			background: linear-gradient(90deg, #3498db, #9b59b6);
+		}
+
+		/* 内容区域 */
+		.xwz-con-main {
+			line-height: 1.8;
+			color: #555;
+		}
+
+		/* 链接样式 */
+		.xwz-con-main a {
+			color: #3498db;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.xwz-con-main a:hover {
+			color: #9b59b6;
+			text-decoration: underline;
+		}
+
+		/* 图片样式 */
+		.xwz-con-main img {
+			max-width: 100%;
+			height: auto;
+			border-radius: 8px;
+			margin: 25px 0;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			transition: transform 0.3s;
+		}
+
+		.xwz-con-main img:hover {
+			transform: scale(1.02);
+		}
+
+		/* 列表样式 */
+		.xwz-con-main ol {
+			padding-left: 25px;
+			margin: 20px 0;
+		}
+
+		.xwz-con-main li {
+			margin-bottom: 12px;
+			position: relative;
+			padding-left: 15px;
+		}
+
+		.xwz-con-main li:before {
+			content: "•";
+			position: absolute;
+			left: -15px;
+			color: #3498db;
+			font-size: 18px;
+		}
+
+		/* 代码块样式 */
+		pre {
+			background-color: #f8f9fa;
+			border: 1px solid #e9ecef;
+			border-radius: 6px;
+			padding: 18px;
+			margin: 25px 0;
+			overflow-x: auto;
+			position: relative;
+		}
+
+		pre code {
+			font-family: 'Courier New', Courier, monospace;
+			font-size: 14px;
+			color: #e83e8c;
+			line-height: 1.6;
+		}
+
+		/* 代码高亮（简单版） */
+		pre .keyword {
+			color: #e83e8c;
+		}
+
+		pre .string {
+			color: #28a745;
+		}
+
+		pre .comment {
+			color: #6c757d;
+		}
+
+		/* 导航样式 */
+		.xwz-next {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 40px;
+			padding-top: 20px;
+			border-top: 1px solid #e9ecef;
+		}
+
+		.floatLeft,
+		.floatRight {
+			font-size: 15px;
+			color: #6c757d;
+		}
+
+		.floatLeft a,
+		.floatRight a {
+			color: #3498db;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.floatLeft a:hover,
+		.floatRight a:hover {
+			color: #9b59b6;
+			text-decoration: underline;
+		}
+
+		/* 响应式设计 */
+		@media (max-width: 768px) {
+			.xwz-modBox {
+				padding: 20px;
+				margin: 20px;
+			}
+
+			.xwz-modBox header h1 {
+				font-size: 24px;
+			}
+
+			pre {
+				padding: 15px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<article class="xwz-modBox">
+		<header>
+		<h1>制作网站无缝滚动的通用方法</h1>
+		</header>
+		<div class="xwz-conn mb60">
+		<p>很多网站都会有无缝滚动的效果，通过滚动展示图片。既有效的节约了网站版面，也增加了网站的动感效果。效果如下图：</p>
+		<p><img decoding="async" class="alignnone size-full wp-image-25232" src="https://www.xuewangzhan.net/wp-content/uploads/2019/08/gd.png" alt="网站无缝滚动" width="559" height="197"></p>
+		<p>在我们<a href="https://www.xuewangzhan.net/wangzhanbuzou/">自己做网站</a>时，也可以制作这样的网站无缝滚动效果。下面学做网站论坛介绍一下制作方法。</p>
+		<h2>方法/步骤</h2>
+		<ol>
+		<li>下载导航下拉菜单jquery特效基础包。<a href="https://pan.baidu.com/s/1014VEvjB-hiQE3ANoouoWg" target="_blank" rel="nofollow noopener noreferrer">点击下载</a>&nbsp;提取码: cme9；</li>
+		<li>将下载的压缩包解压出来，将里面的jquery1.42.min.js和jquery.SuperSlide.2.1.3.js二个文件通过FTP工具上传到自己模板的images文件夹里；<br>
+		<img decoding="async" loading="lazy" class="alignnone size-full wp-image-25193" src="https://www.xuewangzhan.net/wp-content/uploads/2019/08/wj.png" alt="" width="381" height="173"></li>
+		<li>在头部模板header.php里找到&lt;/head&gt; 标签，将下的代码放到&lt;/head&gt; 标签上面；（注意文件路径）
+		<pre>
+		<div class="codecolorer-container javascript geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="javascript codecolorer" style="white-space:nowrap"><span style="color: #339933;">&lt;</span>script type<span style="color: #339933;">=</span><span style="color: #3366CC;">"text/javascript"</span>&nbsp;src<span style="color: #339933;">=</span><span style="color: #3366CC;">"&lt;?php echo get_template_directory_uri(); ?&gt;/static/js/jquery1.42.min.js"</span><span style="color: #339933;">&gt;&lt;/</span>script<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #339933;">&lt;</span>script type<span style="color: #339933;">=</span><span style="color: #3366CC;">"text/javascript"</span>&nbsp;src<span style="color: #339933;">=</span><span style="color: #3366CC;">"&lt;?php echo get_template_directory_uri(); ?&gt;/static/js/jquery.SuperSlide.2.1.3.js"</span><span style="color: #339933;">&gt;&lt;/</span>script<span style="color: #339933;">&gt;</span></div></div>
+
+		</pre>
+		</li>
+		<li>在要显示无缝滚动的位置使用下面的代码进行调用。
+		<pre>
+		<div class="codecolorer-container php geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="php codecolorer" style="white-space:nowrap">&nbsp;&lt;div class="picMarquee-left"&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class="bd"&gt;<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;ul class="picList"&gt;<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">if</span> <span style="color: #009900;">(</span>have_posts<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #009900;">)</span> <span style="color: #339933;">:</span> <span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">&lt;?php</span> query_posts<span style="color: #009900;">(</span><span style="color: #0000ff;">'cat=1'</span> <span style="color: #339933;">.</span> <span style="color: #000088;">$mcatID</span><span style="color: #339933;">.</span> <span style="color: #0000ff;">'&amp;caller_get_posts=1&amp;showposts=10'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">while</span> <span style="color: #009900;">(</span>have_posts<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #009900;">)</span> <span style="color: #339933;">:</span> the_post<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;li&gt;<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class="pic"&gt;&lt;a href="<span style="color: #000000; font-weight: bold;">&lt;?php</span> the_permalink<span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>" title="<span style="color: #000000; font-weight: bold;">&lt;?php</span> the_title<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>" target="_blank"&gt;<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">if</span> <span style="color: #009900;">(</span> has_post_thumbnail<span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #009900;">)</span> <span style="color: #009900;">{</span> the_post_thumbnail<span style="color: #009900;">(</span><span style="color: #990000;">array</span><span style="color: #009900;">(</span><span style="color: #0000ff;">'alt'</span><span style="color: #339933;">=&gt;</span> <span style="color: #990000;">trim</span><span style="color: #009900;">(</span><span style="color: #990000;">strip_tags</span><span style="color: #009900;">(</span> <span style="color: #000088;">$post</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">post_title</span> <span style="color: #009900;">)</span><span style="color: #009900;">)</span><span style="color: #009900;">)</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><span style="color: #009900;">}</span> <span style="color: #b1b100;">else</span> <span style="color: #009900;">{</span><span style="color: #000000; font-weight: bold;">?&gt;</span>&lt;img src='<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> get_first_image<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>' alt='<span style="color: #000000; font-weight: bold;">&lt;?php</span> the_title<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>' /&gt;<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #009900;">}</span><span style="color: #000000; font-weight: bold;">?&gt;</span>&lt;/a&gt;&lt;/div&gt;<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class="title"&gt;&lt;a href="<span style="color: #000000; font-weight: bold;">&lt;?php</span> the_permalink<span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>" title="<span style="color: #000000; font-weight: bold;">&lt;?php</span> the_title<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>" target="_blank"&gt;<span style="color: #000000; font-weight: bold;">&lt;?php</span> the_title<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span>&lt;/a&gt;&lt;/div&gt;<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/li&gt;<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">endwhile</span><span style="color: #339933;">;</span><span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">endif</span><span style="color: #339933;">;</span> wp_reset_query<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span> <br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/ul&gt;<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;<br>
+		<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &lt;script type="text/javascript"&gt;<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; jQuery(".picMarquee-left").slide({mainCell:".bd ul",autoPlay:true,effect:"leftMarquee",vis:5,interTime:30});<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &lt;/script&gt;</div></div>
+
+		</pre>
+		</li>
+		<li>在CSS样式表中添加以下的CSS样式，用于控制网站无缝滚动效果。
+		<pre>
+		<div class="codecolorer-container html4strict geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="html4strict codecolorer" style="white-space:nowrap">/* 无缝滚动css */<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; .picMarquee-left{ width:100%; &nbsp;/* 修改宽度 */margin:0 auto;overflow:hidden; position:relative; &nbsp;}<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; .picMarquee-left .bd{ padding:10px; &nbsp; }<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; .picMarquee-left .bd ul{ overflow:hidden; zoom:1; }<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; .picMarquee-left .bd ul li{ width:126px;margin:0 8px; float:left; _display:inline; overflow: hidden;text-overflow: ellipsis; white-space: nowrap; text-align:center; &nbsp;}<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; .picMarquee-left .bd ul li .pic{ text-align:center; }<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; .picMarquee-left .bd ul li .pic img{ width:120px; height:90px; display:block; padding:2px; border:1px solid #ccc; }<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; .picMarquee-left .bd ul li .pic a:hover img{ border-color:#999; &nbsp;}<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; .picMarquee-left .bd ul li .title{ line-height:24px; &nbsp; }</div></div>
+
+		</pre>
+		</li>
+		<li>这样就可以在自己做网站时，制作出一个网站无缝滚动效果了。</li>
+		</ol>
+		</div>
+
+		</article>
+
+</body>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		// 代码块复制功能
+		document.querySelectorAll('pre').forEach(pre => {
+			const code = pre.querySelector('code');
+			if (code) {
+				const copyBtn = document.createElement('button');
+				copyBtn.className = 'copy-btn';
+				copyBtn.textContent = '复制';
+				copyBtn.style.position = 'absolute';
+				copyBtn.style.top = '10px';
+				copyBtn.style.right = '10px';
+				copyBtn.style.padding = '5px 10px';
+				copyBtn.style.background = '#f8f9fa';
+				copyBtn.style.border = 'none';
+				copyBtn.style.borderRadius = '4px';
+				copyBtn.style.cursor = 'pointer';
+
+				// 点击复制
+				copyBtn.addEventListener('click', function () {
+					navigator.clipboard.writeText(code.textContent)
+						.then(() => {
+							copyBtn.textContent = '已复制!';
+							setTimeout(() => {
+								copyBtn.textContent = '复制';
+							}, 2000);
+						})
+						.catch(err => {
+							console.error('复制失败:', err);
+						});
+				});
+
+				// 创建包装元素
+				const wrapper = document.createElement('div');
+				wrapper.style.position = 'relative';
+				wrapper.appendChild(copyBtn);
+				wrapper.appendChild(pre.cloneNode(true));
+
+				// 替换原pre
+				pre.parentNode.replaceChild(wrapper.firstChild, pre);
+			}
+		});
+
+		// 平滑滚动到锚点
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function (e) {
+				e.preventDefault();
+				document.querySelector(this.getAttribute('href')).scrollIntoView({
+					behavior: 'smooth'
+				});
+			});
+		});
+	});
+</script>
+
+</html>

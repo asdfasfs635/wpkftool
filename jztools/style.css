@@ -1,0 +1,204 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+    font-family: "Microsoft YaHei";
+    font-size: 14px;
+    line-height: 1.8;
+    word-wrap: break-word;
+}
+
+body {
+    position: relative;
+    background-color: #fff;
+    background-image: url(images/grid-18px-masked.png);
+    background-repeat: repeat;
+    background-position: 0 40px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a:link {
+    color: #666;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #666;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #568ABE;
+    text-decoration: underline;
+}
+
+a:active {
+    color: #568ABE;
+    text-decoration: none;
+}
+
+.fleft {
+    float: left;
+}
+
+.fright {
+    float: right;
+}
+
+.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    font-size: 0;
+    visibility: hidden;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+#main {
+    width: 980px;
+    margin: 0 auto;
+}
+
+.dmk {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.dmk td {
+    border: 1px solid #bebdbd;
+    padding: 15px 0px;
+}
+
+#wpcodepy {
+    border: none;
+    width: 100%;
+    min-height: 120px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.dmk input {
+    padding: 5px 10px;
+    width: 140px
+}
+
+.curr {
+    background: #ddd;
+}
+
+.topnav {
+    width: 100%;
+    margin: 20px 0 0;
+    background: #f1f1f1;
+}
+
+.topnav li {
+    float: left;
+    border-right: 1px solid #ddd;
+}
+
+.topnav li a {
+    display: block;
+    padding: 10px 20px;
+    color: #0088cc;
+}
+
+.topbarw {
+    height: 40px;
+    line-height: 40px;
+    background-color: #2c2c2c;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    z-index: 1030;
+    margin-bottom: 0;
+}
+
+.topbar {
+    width: 980px;
+    margin: 0 auto;
+    height: 40px;
+    line-height: 40px;
+}
+
+.topbar h1 {
+    float: left;
+    color: #f00;
+    font-weight: 600;
+}
+
+.topbar ul {
+    float: left;
+    padding-left: 40px;
+}
+
+.topbar li {
+    float: left;
+    padding: 0 10px;
+}
+
+.topbar li a {
+    color: #999;
+}
+
+.subhead {
+    margin-top: 50px;
+}
+
+.subhead h2 {
+    font-size: 30px;
+    font-weight: 600;
+    color: #0088cc;
+}
+
+.subhead h2 span {
+    font-size: 18px;
+    font-weight: 600;
+    color: #f00;
+}
+
+.subhead p {
+    font-weight: 300;
+}
+
+.lead {
+    font-size: 18px;
+}
+
+#tishi {
+    height: 15px;
+    line-height: 15px;
+    font-size: 12px;
+    color#f00;
+}

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		/* 基础样式 */
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			line-height: 1.7;
+			color: #333;
+			background-color: #f8f9fa;
+			margin: 0;
+			padding: 20px;
+		}
+
+		/* 文章容器 */
+		.xwz-modBox {
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+			padding: 30px;
+			margin: 30px auto;
+			max-width: 900px;
+			transition: all 0.3s ease;
+		}
+
+		.xwz-modBox:hover {
+			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+			transform: translateY(-3px);
+		}
+
+		/* 标题样式 */
+		.xwz-modBox header h1 {
+			color: #2c3e50;
+			font-size: 28px;
+			margin-bottom: 20px;
+			position: relative;
+			padding-bottom: 10px;
+		}
+
+		.xwz-modBox header h1:after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 60px;
+			height: 3px;
+			background: linear-gradient(90deg, #3498db, #9b59b6);
+		}
+
+		/* 内容区域 */
+		.xwz-con-main {
+			line-height: 1.8;
+			color: #555;
+		}
+
+		/* 链接样式 */
+		.xwz-con-main a {
+			color: #3498db;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.xwz-con-main a:hover {
+			color: #9b59b6;
+			text-decoration: underline;
+		}
+
+		/* 图片样式 */
+		.xwz-con-main img {
+			max-width: 100%;
+			height: auto;
+			border-radius: 8px;
+			margin: 25px 0;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			transition: transform 0.3s;
+		}
+
+		.xwz-con-main img:hover {
+			transform: scale(1.02);
+		}
+
+		/* 列表样式 */
+		.xwz-con-main ol {
+			padding-left: 25px;
+			margin: 20px 0;
+		}
+
+		.xwz-con-main li {
+			margin-bottom: 12px;
+			position: relative;
+			padding-left: 15px;
+		}
+
+		.xwz-con-main li:before {
+			content: "•";
+			position: absolute;
+			left: -15px;
+			color: #3498db;
+			font-size: 18px;
+		}
+
+		/* 代码块样式 */
+		pre {
+			background-color: #f8f9fa;
+			border: 1px solid #e9ecef;
+			border-radius: 6px;
+			padding: 18px;
+			margin: 25px 0;
+			overflow-x: auto;
+			position: relative;
+		}
+
+		pre code {
+			font-family: 'Courier New', Courier, monospace;
+			font-size: 14px;
+			color: #e83e8c;
+			line-height: 1.6;
+		}
+
+		/* 代码高亮（简单版） */
+		pre .keyword {
+			color: #e83e8c;
+		}
+
+		pre .string {
+			color: #28a745;
+		}
+
+		pre .comment {
+			color: #6c757d;
+		}
+
+		/* 导航样式 */
+		.xwz-next {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 40px;
+			padding-top: 20px;
+			border-top: 1px solid #e9ecef;
+		}
+
+		.floatLeft,
+		.floatRight {
+			font-size: 15px;
+			color: #6c757d;
+		}
+
+		.floatLeft a,
+		.floatRight a {
+			color: #3498db;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.floatLeft a:hover,
+		.floatRight a:hover {
+			color: #9b59b6;
+			text-decoration: underline;
+		}
+
+		/* 响应式设计 */
+		@media (max-width: 768px) {
+			.xwz-modBox {
+				padding: 20px;
+				margin: 20px;
+			}
+
+			.xwz-modBox header h1 {
+				font-size: 24px;
+			}
+
+			pre {
+				padding: 15px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<article class="xwz-modBox">
+		<header>
+		<h1>如何制作网站前台用户登录/注册功能</h1>
+		</header>
+		<div class="xwz-conn mb60">
+		<p>使用Wordpress程序建好网站，默认情况下是不带有前台登录/注册功能，我们可以通过自己写代码去制作前台登录/注册功能。</p>
+		<p>下面是学做网站论坛讲解如何制作网站前台用户登录/注册功能视频教程。</p>
+		<div id="wz-video"><video src="/wp-content/themes/xwz/mp4/qiantaidenglu.mp4" width="876" controls></video></div>
+		<p>下面学做网站论坛就来介绍一下<strong>WordPress纯代码制作前台登录/注册功能方法</strong>。（如果你对Wordpress程序不了解，可以先学习一下<a href="https://www.xuewangzhan.net/jz/wordpress/" target="_blank" rel="noopener noreferrer">wordpress教程</a>）<br>
+		<img decoding="async" loading="lazy" class="alignnone size-full wp-image-18607" src="https://www.xuewangzhan.net/wp-content/uploads/2018/05/dll.png" alt="Wordpress前台登录/注册功能" width="291" height="95"></p>
+		<h2>方法/步骤</h2>
+		<ol>
+		<li>下载Wordpress前台登录/注册功能模板文件，<a href="https://www.xuewangzhan.net/cj/65686.html" target="_blank" rel="noopener">下载WP用户注册登录会员中心组件</a>；</li>
+		<li>将下载下来的WP用户注册登录模板压缩包进行解压，得出二个文件和一个images文件夹。如下图：<br>
+		<img decoding="async" loading="lazy" class="alignnone size-full wp-image-18603" src="https://www.xuewangzhan.net/wp-content/uploads/2018/05/dl1.png" alt="dl" width="458" height="192"></li>
+		<li>将这三个文件，全部上传到自己正在使用的模板文件目录下；</li>
+		<li>进行网站后台，点击左侧菜单的【页面】-【新建页面】，分别新建二个页面，一个标题为用户登录，一个标题为用户注册。内容可以不写。如下图：<br>
+		<img decoding="async" loading="lazy" class="alignnone size-full wp-image-18605" src="https://www.xuewangzhan.net/wp-content/uploads/2018/05/reg.png" alt="wordpress用户注册" width="454" height="293"> <img decoding="async" loading="lazy" class="alignnone size-full wp-image-18604" src="https://www.xuewangzhan.net/wp-content/uploads/2018/05/login.png" alt="wordpress用户登录" width="514" height="258"></li>
+		<li>使用以下的代码，放在自己网站上需要显示登录/注册按钮的位置，一般是放在header.php头部模板里。【相关教程：<a href="https://www.xuewangzhan.net/jz/wpmoban/" target="_blank" rel="noopener noreferrer">wordpress模板制作教程</a>】
+		<pre>
+		<div class="codecolorer-container html4strict geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="html4strict codecolorer" style="white-space:nowrap">&lt;<span style="color: #000000; font-weight: bold;">style</span>&gt;.top-userr<span style="color: #66cc66;">{</span><span style="color: #000066;">width</span>:1001px;margin:10px auto <span style="color: #cc66cc;">0</span>;padding:10px;box-sizing:border-box;<span style="color: #000066;">background</span>:#fff;text-<span style="color: #000066;">align</span>:right;border-bottom:1px solid #f4f4f4<span style="color: #66cc66;">}</span>.top-userr a.register<span style="color: #66cc66;">{</span>display:inline-block;margin-right:10px;<span style="color: #000066;">width</span>:90px;<span style="color: #000066;">height</span>:35px;line-<span style="color: #000066;">height</span>:35px;text-<span style="color: #000066;">align</span>:center;<span style="color: #000066;">background</span>:green;<span style="color: #000066;">color</span>:#fff<span style="color: #66cc66;">}</span>.top-userr a.register:hover<span style="color: #66cc66;">{</span>text-decoration:none;<span style="color: #66cc66;">}</span>&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">style</span>&gt;<br>
+		&lt;<span style="color: #000000; font-weight: bold;">div</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"top-userr"</span>&gt;<br>
+		&lt;?php if <span style="color: #66cc66;">(</span>!<span style="color: #66cc66;">(</span>current_user_can<span style="color: #66cc66;">(</span><span style="color: #ff0000;">'level_0'</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">)</span><span style="color: #66cc66;">{</span> ?&gt;<br>
+		&lt;<span style="color: #000000; font-weight: bold;">a</span> <span style="color: #000066;">href</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"&lt;?php echo get_option('home'); ?&gt;/reg"</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"register"</span> <span style="color: #000066;">rel</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"nofollow"</span> &gt;注册&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">a</span>&gt;&lt;<span style="color: #000000; font-weight: bold;">a</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"register"</span> <span style="color: #000066;">href</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"&lt;?php echo get_option('home'); ?&gt;/login"</span> <span style="color: #000066;">rel</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"nofollow"</span> &gt;登录&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">a</span>&gt;<br>
+		&lt;?php <span style="color: #66cc66;">}</span> else <span style="color: #66cc66;">{</span> global $user_identity, $user_level; ?&gt;<br>
+		欢迎您, &lt;<span style="color: #000000; font-weight: bold;">strong</span>&gt;&lt;?php echo $user_identity ?&gt;&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">strong</span>&gt;！<br>
+		&lt;<span style="color: #000000; font-weight: bold;">a</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"log"</span> <span style="color: #000066;">href</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"&lt;?php bloginfo('siteurl');?&gt;/wp-admin/profile.php"</span> <span style="color: #000066;">target</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"_blank"</span> <span style="color: #000066;">rel</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"nofollow"</span>&gt;<span style="color: #66cc66;">[</span>会员中心<span style="color: #66cc66;">]</span>&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">a</span>&gt;<br>
+		&lt;<span style="color: #000000; font-weight: bold;">a</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"log"</span> <span style="color: #000066;">href</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"&lt;?php echo wp_logout_url( get_permalink() ); ?&gt;"</span> <span style="color: #000066;">rel</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"nofollow"</span> &gt;<span style="color: #66cc66;">[</span>安全退出<span style="color: #66cc66;">]</span>&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">a</span>&gt;<br>
+		<br>
+		&lt;?php <span style="color: #66cc66;">}</span>?&gt;<br>
+		&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">div</span>&gt;</div></div>
+
+		</pre>
+		</li>
+		<li>这样，Wordpress前台登录/注册功能就制作好了。代码会自动判断当前用户是否登录，显示按钮或会员中心。</li>
+		</ol>
+		</div>
+
+		</article>
+
+</body>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		// 代码块复制功能
+		document.querySelectorAll('pre').forEach(pre => {
+			const code = pre.querySelector('code');
+			if (code) {
+				const copyBtn = document.createElement('button');
+				copyBtn.className = 'copy-btn';
+				copyBtn.textContent = '复制';
+				copyBtn.style.position = 'absolute';
+				copyBtn.style.top = '10px';
+				copyBtn.style.right = '10px';
+				copyBtn.style.padding = '5px 10px';
+				copyBtn.style.background = '#f8f9fa';
+				copyBtn.style.border = 'none';
+				copyBtn.style.borderRadius = '4px';
+				copyBtn.style.cursor = 'pointer';
+
+				// 点击复制
+				copyBtn.addEventListener('click', function () {
+					navigator.clipboard.writeText(code.textContent)
+						.then(() => {
+							copyBtn.textContent = '已复制!';
+							setTimeout(() => {
+								copyBtn.textContent = '复制';
+							}, 2000);
+						})
+						.catch(err => {
+							console.error('复制失败:', err);
+						});
+				});
+
+				// 创建包装元素
+				const wrapper = document.createElement('div');
+				wrapper.style.position = 'relative';
+				wrapper.appendChild(copyBtn);
+				wrapper.appendChild(pre.cloneNode(true));
+
+				// 替换原pre
+				pre.parentNode.replaceChild(wrapper.firstChild, pre);
+			}
+		});
+
+		// 平滑滚动到锚点
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function (e) {
+				e.preventDefault();
+				document.querySelector(this.getAttribute('href')).scrollIntoView({
+					behavior: 'smooth'
+				});
+			});
+		});
+	});
+</script>
+
+</html>

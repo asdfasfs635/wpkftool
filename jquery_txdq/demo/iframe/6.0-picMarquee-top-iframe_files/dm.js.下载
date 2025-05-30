@@ -1,0 +1,68 @@
+function getUrlParam(name) {
+ var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); 
+ var r = window.location.search.substr(1).match(reg); 
+ if (r != null) return unescape(r[2]); return null; 
+}
+var wzurl = window.location.href;
+var vid = getUrlParam('vid') ? getUrlParam('vid') : '564645456%%%%889897744';
+
+
+jQuery(".tx-more a").click(function(){
+	var nurl = this.dataset.hrefs;
+    jQuery.ajax({  
+        url:"https://www.xuewangzhan.net/jztools/images/huiyuanname2.php?vid="+vid,
+        dataType:'jsonp', 
+        success:function(result) { 
+    if(result.shouquanma){
+	 if(result.endtime == '99999'){
+ alert('VIP授权码已过期，请续费购买VIP会员！');
+window.location.href="https://www.xuewangzhan.net/tools/hy.php?from="+wzurl; 
+	}else{	
+	window.open(nurl+"?vid="+vid);
+	}
+
+    }else{
+	alert('此为VIP工具，使用请先购买VIP会员！');
+window.location.href="https://www.xuewangzhan.net/tools/hy.php?from="+wzurl;
+ 
+}
+ }
+    })
+})
+if(wzurl.indexOf("vid") == -1 ){
+if (window.Event){ 
+document.captureEvents(Event.MOUSEUP); 
+}
+function nocontextmenu(){ 
+event.cancelBubble = true
+event.returnValue = false; 
+return false; 
+} 
+function norightclick(e) { 
+if (window.Event) {
+if (e.which == 2 || e.which == 3) 
+return false; 
+} else if (event.button == 2 || event.button == 3){ 
+event.cancelBubble = true
+event.returnValue = false; 
+return false; 
+}
+} 
+document.oncontextmenu = nocontextmenu; // for IE5+ 
+document.onmousedown = norightclick; // for all others 
+}
+
+if(wzurl.indexOf("vid") != -1 ){
+$("a").click(function(){
+   $(this).attr("href",$(this).attr("href")+"?vid="+vid); 
+});
+}
+
+
+/*function copyUrl2() {
+    var Url2 = document.getElementById("wpcodepy");
+    Url2.select();
+    document.execCommand("Copy");
+   document.getElementById("tishi").innerHTML = "<i style='color:#f00;padding-left:10px'>已复制</i>";
+}*/
+

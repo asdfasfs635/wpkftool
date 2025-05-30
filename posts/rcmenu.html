@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网站响应式栏目菜单制作方法</title>
+    <style>
+        /* 全局样式 */
+        body {
+            font-family: 'Microsoft YaHei', Tahoma, Verdana, Simsun, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 文章容器 */
+        .xwz-modBox {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+            width: 80%;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        /* 标题样式 */
+        .xwz-modBox header h1 {
+            color: #2b41a4;
+            font-size: 24px;
+            border-bottom: 2px solid #eb9b2a;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        /* 主内容区 */
+        .xwz-maincon {
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        /* 链接样式 */
+        a {
+            color: #2b41a4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #eb9b2a;
+            text-decoration: underline;
+        }
+
+        /* 图片样式 */
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+            border-radius: 4px;
+            display: block;
+        }
+
+        /* 代码块样式 */
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            max-width: 800px;
+            text-align: left;
+            display: block;
+        }
+
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            color: #d63384;
+        }
+
+        /* 标题样式 */
+        h2 {
+            color: #2b41a4;
+            font-size: 20px;
+            margin-top: 30px;
+            border-left: 4px solid #eb9b2a;
+            padding-left: 10px;
+            text-align: left;
+        }
+
+        h3 {
+            color: #2b41a4;
+            font-size: 18px;
+            margin-top: 25px;
+            text-align: left;
+        }
+
+        /* 列表样式 */
+        ul {
+            padding-left: 20px;
+            text-align: left;
+        }
+
+        li {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        /* 导航样式 */
+        .xwz-next {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            width: 80%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .floatLeft,
+        .floatRight {
+            font-size: 14px;
+        }
+
+        .floatLeft a,
+        .floatRight a {
+            color: #2b41a4;
+        }
+
+        .floatLeft a:hover,
+        .floatRight a:hover {
+            color: #eb9b2a;
+        }
+    </style>
+</head>
+
+<body>
+    <article class="xwz-modBox">
+        <header>
+            <h1>网站响应式栏目菜单制作方法（点击展开/收缩二级子菜单和三级子子栏目）</h1>
+        </header>
+        <div class="xwz-maincon xb6">
+            <p>在很多<a href="https://www.xuewangzhan.net/qykc/21437.html">企业网站制作</a>中，由于产品分类比较多，在左侧的栏目分类时，就需要使用到<a href="https://www.xuewangzhan.net/wpbbs/57736.html">二级子菜单和三级子子栏目</a>。为了防止栏目太多造成菜单过长，就需要先将三级子子栏目隐藏，点击二级菜单后，再显示出来。效果如下图：<br>
+                <img decoding="async" class="alignnone size-full wp-image-60367" src="https://www.xuewangzhan.net/wp-content/uploads/2021/10/sanji.jpg" alt="展开/收缩二级子菜单和三级子子栏目" width="343" height="844"></p>
+            <h2>制作方法</h2>
+            <p>第一步：使用<a href="https://www.xuewangzhan.net/jztools/">WORDPRESS标签生成</a>调用后台多级栏目；</p>
+            <pre>
+&lt;div class="nav-box" id="subNavs"&gt;
+&lt;ul&gt;
+&lt;?php wp_list_cats('sort_column=name&amp;optioncount=0&amp;hierarchical=1&amp;hide_empty=0&amp;child_of='.&amp;$catid01.'')?&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+            </pre>
+            <p>第二步：引入JQUERY，下载点击收缩/展开响应式菜单的JS文件。（下载地址：链接: https://pan.baidu.com/s/1RtWAjQ10S5hdEtH2_VmcjA 提取码: u8mk ），使用以下的代码将文件引入到自己的网站中。</p>
+            <pre>
+&lt;script src="&lt;?php bloginfo('template_directory'); ?&gt;/static/js/script.js"&gt;&lt;/script&gt;
+            </pre>
+            <p>第三步：在第一步的代码下方放下面的JS代码，来初始化响应式菜单；</p>
+            <pre>
+&lt;script type="text/javascript"&gt;
+var $subNav = $('#subNavs');
+$subNav.children("ul").find("li").InitNav(22);//初始化响应式菜单
+&lt;/script&gt;
+            </pre>
+            <p>第四步：放上响应式菜单所需要的<a href="https://www.xuewangzhan.net/jz/css3/">CSS样式</a>；</p>
+            <pre>
+.nav-box{clear:both;text-align:left;margin-bottom:20px;width:100%;overflow:visible;}
+.nav-box li{width:100%;padding:0px;text-align:left;position:relative;display:block;}
+.nav-box li a{display:block;text-align:center;line-height:50px;color:#fff;font-family:"Microsoft YaHei",Tahoma,Verdana,"Simsun";font-size:16px;background-color: #2b41a4;margin: 20px 20px;}
+.nav-box li a:hover,.nav-box li.current &gt; a{background-color: #eb9b2a;}
+.nav-box li ul{display:none}
+.nav-box li ul li a{padding-left:55px;}
+.nav-box li ul li ul li a{padding-left:85px}
+.nav-box li .children li .arrow{color: #b0b0b0;position: absolute;right: 30px;top: 12px;width: 26px;height: 26px;line-height: 26px;text-align: center;transition-duration: 0.1s;cursor: pointer;background-color: #fff;border-radius: 26px;}
+.nav-box li .children li .arrow:after{font-family:FontAwesome;content:"\f105";display:block;font-weight:bold;font-size:18px}
+.nav-box li.active &gt; ul{display:block}
+.nav-box li.active &gt; .arrow{transform:rotate(90deg);}
+.nav-box&gt;ul&gt;li&gt;ul.children&gt;li&gt;a{background: #7a7676;margin: 10px 20px;}
+.nav-box&gt;ul&gt;li&gt;ul.children{display:block;}
+.nav-box&gt;ul&gt;li&gt;ul.children .children li a{background: #9f9b9b;margin: 10px 20px;}
+            </pre>
+            <p>通过以上四步的操作，就可以在<a href="https://www.xuewangzhan.net/">自己做网站</a>时制作出响应式网站栏目菜单了，可以实现点击展开/收缩二级子菜单和三级子子栏目的效果。</p>
+            <h3>另外一种样式：</h3>
+            <p><img decoding="async" loading="lazy" class="alignnone size-full wp-image-77415" src="https://www.xuewangzhan.net/wp-content/uploads/2021/10/663.png" alt="" width="358" height="396"></p>
+            <div>
+                <p>PHP代码：</p>
+                <pre>
+&lt;ul class="sidebar-cate accordion"&gt;
+&lt;?php
+$args = array(
+'child_of' =&gt; get_category_root_id($cat),
+'parent' =&gt; get_category_root_id($cat),
+'hide_empty' =&gt;'0',
+);
+$categories = get_categories($args);
+foreach($categories as $category) {
+//当前样式
+if($cat == $category-&gt;term_id){$ons='actions';}else{$ons='';}
+?&gt;
+&lt;li class='&lt;?php echo $ons; ?&gt; menu-item LiLevel1'&gt;
+&lt;a href='&lt;?php echo get_category_link( $category-&gt;term_id )?&gt;' &gt;&lt;?php echo $category-&gt;name;?&gt;&lt;/a&gt;
+
+&lt;?php
+//判断子分类
+$argszi = array(
+'child_of' =&gt; $category-&gt;term_id,
+'parent' =&gt; $category-&gt;term_id,
+'hide_empty' =&gt;'0',
+);
+$categorieszi = get_categories($argszi);
+if(!empty($categorieszi)){?&gt;
+&lt;i class="fa fa-angle-down" aria-hidden="true" &gt;&lt;/i&gt;
+&lt;ul class="sub-menu"&gt;
+&lt;?php foreach($categorieszi as $categoryzi) {?&gt;
+&lt;li class="LiLevel2"&gt;
+&lt;a href='&lt;?php echo get_category_link( $categoryzi-&gt;term_id )?&gt;'&gt;&lt;?php echo $categoryzi-&gt;name;?&gt;&lt;/a&gt;
+&lt;/li&gt;
+&lt;?php }?&gt;
+&lt;/ul&gt;
+&lt;?php } ?&gt;
+&lt;/li&gt;
+&lt;?php }?&gt;
+&lt;/ul&gt;
+                </pre>
+            </div>
+            <p>CSS样式：</p>
+            <p>先在style.css最上面引入</p>
+            <pre>
+@import url(font-awesome/css/font-awesome.min.css);
+            </pre>
+            <p>再添加以下的样式：</p>
+            <pre>
+.sidebar-cate.accordion li ul{display:none;border:none!important}
+.sidebar-cate.accordion{padding-left:0}
+.sidebar-cate.accordion li{padding: 10px 0;border-bottom: 1px solid #ddd;}
+            </pre>
+            <p>JS样式：</p>
+            <pre>
+&lt;script&gt;
+jQuery('.sidebar-cate li a').prepend('&lt;i class="fa fa-angle-double-right" aria-hidden="true" /&gt; ');
+jQuery(".sidebar-cate li i").click(function() {
+if(jQuery(this).siblings("ul").length &gt; 0){
+jQuery(this).siblings("ul").stop().slideToggle();
+}
+})
+&lt;/script&gt;
+            </pre>
+        </div>
+    </article>
+</body>
+
+</html>

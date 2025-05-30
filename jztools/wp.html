@@ -1,0 +1,596 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Wordpress仿站助手 - Wordpress标签生成器 - Wordpress站长工具箱</title>
+    <link rel="stylesheet" href="/jztools/style.css">
+    <script type="text/javascript" src="/wp-content/themes/xwz/images/jquery-3.1.0.min.js"></script>
+    <link rel="shortcut icon" href="/jztools/images/favicon.ico" type="images/x-icon" />
+</head>
+
+<body>
+    <div class="topbarw">
+        <div class="topbar clearfix">
+            <h1>Wordpress仿站助手</h1>
+        </div>
+    </div>
+
+    <main id="main">
+        <header class="subhead">
+            <h2>Wordpress标签生成器</h2>
+            <p class="lead">用于Wordpress仿站和模板开发生成页面标签，方便站长仿站建站。 </p>
+        </header>
+
+        <nav class="topnav clearfix">
+            <ul>
+                <li ><a href="/">首页标签</a></li>
+                <li><a href="category.html">列表页标签</a></li>
+                <li><a href="single.html">文章页标签</a></li>
+                <li><a href="other.html">其它标签</a></li>
+                <li class="curr"><a href="wp.html">后台标签</a></li>
+                <li><a href="en.html">多语标签</a></li>
+                <li><a href="/jquery_txdq/" target="_blank">特效大全</a></li>
+
+            </ul>
+        </nav>
+
+        <table class="dmk">
+            <tr>
+                <td height="155" colspan="5" align="center" valign="middle">
+                    <textarea name="show" id="wpcodepy"></textarea>
+                    <div id="tishi"></div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="三大标签" name="<?php $general_options = get_option('wpmbg_general');?>
+<?php $testmoshi=isset($general_options['testmoshi']) ? $general_options['testmoshi'] : '';if($testmoshi == '1' && !current_user_can( 'administrator' )){ exit($general_options['testlr']); }?>
+<title><?php if ( is_home()||is_front_page() ) { ?><?php if($general_options['wpd_title']) {?><?php echo $general_options['wpd_title']; ?><?php }else{?><?php bloginfo('name'); ?><?php } ?><?php }elseif ( is_category() ) {?><?php $cattitle = get_term_meta($cat,'cattitle',true);if($cattitle){echo $cattitle;}else{single_cat_title();}?><?php echo ' - '; bloginfo('name'); $paged = get_query_var('paged'); if ( $paged > 1 ) printf('_ 第 %s 页 ',$paged);}elseif ( is_tag() ) {?><?php $tagname =single_tag_title('', false);$tagid = get_tags(array('name'=> $tagname ))[0]->term_id;$tagtitle = get_term_meta($tagid,'cattitle',true);if($tagtitle){echo $tagtitle;}else{echo single_tag_title('', false);}?><?php echo ' - '; bloginfo('name'); $paged = get_query_var('paged'); if ( $paged > 1 ) printf('_ 第 %s 页 ',$paged);}elseif ( is_single() || is_page()) { ?><?php $wzseotit = get_post_meta($post->ID,'wzseotit',true);if($wzseotit){echo $wzseotit;}else{echo trim(wp_title('',0));} ?> - <?php bloginfo('name'); ?><?php } elseif ( is_author() ) { ?><?php the_author(); ?> - <?php bloginfo('name'); ?><?php }elseif ( is_month() || is_day() ) { ?><?php the_time('Y - F'); ?> - <?php bloginfo('name'); ?><?php }elseif (is_search() ) {?>'<?php echo $s; ?>' - <?php bloginfo('name'); ?><?php } elseif (is_404() ) {?>'404' - <?php bloginfo('name'); ?><?php } ?></title>
+<?php if ( is_home()||is_front_page() ) { ?>
+<meta name='description' content='<?php if($general_options['wpd_des']) {?><?php echo $general_options['wpd_des']; ?><?php }else{?><?php bloginfo('name'); ?><?php } ?>'/>
+<meta name='keywords' content='<?php if($general_options['wpd_keys']) {?><?php echo $general_options['wpd_keys']; ?><?php }else{?><?php bloginfo('name'); ?><?php } ?>' />
+<?php }elseif ( is_single() || is_page()) { ?>
+<meta name='description' content='<?php $wzseodes = get_post_meta($post->ID,'wzseodes',true);if($wzseodes){?><?php echo $wzseodes;?><?php }else{?><?php echo trim(wp_title('',0)); ?>，<?php $des= mb_strimwidth(strip_tags(apply_filters('the_content', $post->post_content)), 0, 120,''); echo str_replace(array('\r\n', '\r', '\n'), '', $des);?><?php }?>' />
+<meta name='keywords' content='<?php $wzseokeys = get_post_meta($post->ID,'wzseokeys',true);if($wzseokeys){?><?php echo $wzseokeys;?><?php }else{?><?php echo trim(wp_title('',0)); ?><?php single_cat_title(); ?><?php } ?>' />
+<?php }elseif ( is_category() ) { ?>
+<meta name='description' content='<?php $catdes = get_term_meta($cat,'catdes',true);if($catdes){echo $catdes;}else{?><?php bloginfo('name'); ?><?php single_cat_title(); ?>。<?php } ?>' />
+<meta name='keywords' content='<?php $catkeys = get_term_meta($cat,'catkeys',true);if($catkeys){echo $catkeys;}else{?><?php single_cat_title(); ?><?php } ?>' />
+<?php }elseif ( is_tag() ) { ?>
+<meta name='description' content='<?php $tagdes = get_term_meta($tagid,'catdes',true);if($tagdes){echo $tagdes;}else{?><?php bloginfo('name'); ?><?php single_tag_title(); ?>。<?php } ?>' />
+<meta name='keywords' content='<?php $tagkeys = get_term_meta($tagid,'catkeys',true);if($tagkeys){echo $tagkeys;}else{?><?php single_tag_title(); ?><?php } ?>' />
+<?php } ?>
+<?php if($general_options['wpheadhs'] == 1) {?><?php wp_head(); ?><?php } ?>
+
+" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="CSS/ICO引入" name="<link href='https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;600;700&display=swap' rel='stylesheet'>
+<link type='text/css' rel='stylesheet' href='<?php bloginfo( 'stylesheet_url' ); ?>'>
+<?php echo $general_options['headdaima']; ?>
+<link rel='icon' href='<?php if($general_options['favicon']) {?><?php echo $general_options['favicon']; ?><?php }else{?><?php echo get_template_directory_uri(); ?>/favicon.ico<?php }?>' mce_href='favicon.ico'>
+<?php wp_body_open(); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="模板路径" name="<?php echo get_template_directory_uri(); ?>/static/" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="LOGO调用" name="<?php if($general_options['logo']) {?><?php echo $general_options['logo']; ?><?php }else{?><?php } ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="模板命名" name="<?php /*Template Name: 关于我们页面模板*/ ?>" onclick="myFun(this)"></td>
+            </tr>
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="调用总数据" name="<?php $general_options = get_option('wpmbg_general');//调用后台总数据?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用轮播图" name="<?php $general_options = get_option('wpmbg_general');//调用后台总数据?><?php /*edit*/ if (current_user_can('level_10')){?><b class='mbg_ban mbg_s'></b><?php }?>
+
+ <?php $bannerarr = $general_options['banner'];if(is_array($bannerarr)){?>
+
+  <?php for($i=0;$i<count($bannerarr);$i++){?>
+
+<a href='<?php echo $bannerarr[$i+1]['link']; ?>'><img src='<?php echo $bannerarr[$i+1]['image']; ?>'/></a>
+
+  <?php }}else{?>
+
+  默认轮播图
+
+  <?php }?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="关于我们左图" name="<?php if($general_options['aboutusimg']) {?><?php echo $general_options['aboutusimg']; ?><?php }else{?><?php } ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="缩略图调用" name="<?php if ( has_post_thumbnail() ) { ?><?php $post_ID=$post->ID;$post_thumbnail_id = get_post_thumbnail_id( $post_ID );$post_thumbnail_src = wp_get_attachment_image_src($post_thumbnail_id,'full');?><?php echo $post_thumbnail_src[0]; ?><?php }else {?><?php echo get_first_image(); ?><?php }?>"
+                        onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="关于我们内容" name="<?php /*edit*/ if (current_user_can('level_10')){?><b class='mbg_ablr mbg_s'></b><?php }?><?php $aboutus = $general_options['aboutus'];echo $aboutus;?>" onclick="myFun(this)"></td>
+            </tr>
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="电话" name="<?php echo $general_options['tellphone']; ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="邮箱" name="<?php echo $general_options['email']; ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="地址" name="<?php echo $general_options['dizhi']; ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="手机" name="<?php echo $general_options['shouji']; ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="QQ号" name="<?php echo $general_options['qqhao']; ?>" onclick="myFun(this)"></td>
+            </tr>
+            <tr>
+
+                <td align="center" valign="middle"> <input type="button" value="关于我们URL" name="<?php echo $general_options['abouturl']; ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="联系我们URL" name="<?php echo $general_options['contactus']; ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="版权信息" name="Copyright @ <?php echo date('Y'); ?> <?php bloginfo('name'); ?> 版权所有     <?php if ( is_home() ) { ?><a href='https://wpmbg.com/' target='_blank'>Wordpress模板网</a>提供网站主题支持<?php }?><?php if($general_options['beianhao']){?>    <a href='https://beian.miit.gov.cn/' target='_blank' title='<?php echo $general_options['beianhao']; ?>'>ICP备案编号：<?php echo $general_options['beianhao']; ?></a><?php }?><?php if($general_options['gabeianhao']){?>&nbsp;&nbsp;<a href='<?php echo $general_options['gabeianhaolink']; ?>' target='_blank' title='<?php echo $general_options['gabeianhao']; ?>'>公安备案：<img src='<?php echo get_template_directory_uri(); ?>/basic/images/gabn.png'> <?php echo $general_options['gabeianhao']; ?></a><?php }?>"
+                        onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="微信二唯码" name="<?php if($general_options['weixinimg']) {?><?php echo $general_options['weixinimg']; ?><?php }else{?><?php }?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="热搜关键词" name="<?php $scwordsarr=$general_options['scwords'] ? $general_options['scwords'] : array('公司','企业');
+		for($i=0;$i<count($scwordsarr);$i++){
+			echo '<a href=【'.get_option('home').'/?s='.$scwordsarr[$i].'】>'.$scwordsarr[$i].'</a>';
+		}
+?>" onclick="myFun(this)"></td>
+            </tr>
+
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="文章标题" name="<?php the_title(); ?>" onclick="myFun(this)"></td>
+
+                <td align="center" valign="middle"> <input type="button" value="文章链接" name="<?php the_permalink(); ?>" onclick="myFun(this)"></td>
+
+                <td align="center" valign="middle"> <input type="button" value="文章简介" name="<?php $wzjianjie = get_post_meta($post->ID,'wzjianjie',true);$wzjj=$wzjianjie ? $wzjianjie : $post->post_content;echo mb_strimwidth(strip_tags(apply_filters('the_content', $wzjj)), 0, 200,''); ?>"
+                        onclick="myFun(this)"></td>
+
+                <td align="center" valign="middle"> <input type="button" value="头部模板调用" name="<?php get_header();?>" onclick="myFun(this)"></td>
+
+                <td align="center" valign="middle"> <input type="button" value="底部模板调用" name="<?php get_footer();?>" onclick="myFun(this)"></td>
+            </tr>
+
+
+
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="分类BANNER图片" name="<?php if(is_category()){$catbannerimgs = get_term_meta($cat,'catbannerimg',true);}elseif(is_tag()){$catbannerimgs = get_term_meta(get_queried_object_id(),'catbannerimg',true);}if($catbannerimgs){echo $catbannerimgs;}else{?><?php }?>"
+                        onclick="myFun(this)"></td>
+
+
+                <td align="center" valign="middle"> <input type="button" value="文章BANNER图片" name="<?php $category = get_the_category();$singlebannerimgs = get_term_meta($category[0]->term_id,'catbannerimg',true);if($singlebannerimgs){echo $singlebannerimgs;}else{?><?php }?>" onclick="myFun(this)"></td>
+
+                <td align="center" valign="middle"> <input type="button" value="页面BANNER图片" name="<?php $pagebannerimg = get_post_meta($post->ID,'pageban_img',true);if($pagebannerimg){echo $pagebannerimg;}else{?><?php }?>" onclick="myFun(this)"></td>
+
+                <td align="center" valign="middle"> <input type="button" value="用户提交模板" name="<?php /*Template Name: 用户留言模板*/ ?>
+  <?php include( TEMPLATEPATH . '/tijiao.php' ); ?>
+
+action地址：
+<?php echo $_SERVER['REQUEST_URI']; $current_user = wp_get_current_user(); ?>
+
+<?php $module=mt_rand(100000,999999);?>
+<input type='hidden' name='module' value='<?php echo $module;?>'/>
+<input type='hidden' name='timestamp' value='<?php echo time();?>'/>
+<input type='hidden' name='token' value='<?php echo md5($module.'#$@%!^*%*ty'.time());?>'/>
+<input type='hidden' value='<?php echo home_url();?>' name='tougao_form' />
+
+
+姓名*：
+tougao_authorname
+电话*：
+tougao_tell
+地址：
+tougao_dizhi
+邮箱：
+tougao_authoremail
+标题：
+tougao_title
+内容*：
+tougao_content" onclick="myFun(this)"></td>
+
+
+                <td align="center" valign="middle"> <input type="button" value="分类页调用子分类" name="<?php
+$args=array(
+'child_of'=> get_category_root_id($cat),
+'parent'  => get_category_root_id($cat),
+'hide_empty'=>'0',
+);
+$categories=get_categories($args);
+foreach($categories as $category) {
+//当前样式
+if($cat == $category->term_id){$ons='active';}else{$ons='';}
+?>
+<li class='<?php echo $ons;?>'><a href='<?php echo get_category_link( $category->term_id );?>' ><?php echo $category->name;?></a>
+<?php /*
+//判断子分类
+$argszi=array(
+'child_of'=> $category->term_id,
+'parent' => $category->term_id,
+'hide_empty'=>'0',
+);
+$categorieszi=get_categories($argszi);
+if(!empty($categorieszi)){?>
+<span class='jia'>+</span>
+<ul class='zicategory'>
+<?php foreach($categorieszi as $categoryzi) {?>
+<li><a href='<?php echo get_category_link( $categoryzi->term_id );?>'><?php echo $categoryzi->name;?></a></li>
+<?php }?>
+</ul>
+<?php } */?>
+</li>
+<?php }?>" onclick="myFun(this)"></td>
+            </tr>
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="文章调顶级子分类" name="<?php $currecategory = get_the_category();$djcatid = get_category_root_id($currecategory[0]->cat_ID);?>
+<?php
+$args=array(
+'child_of'=> $djcatid,
+'parent'  => $djcatid,
+'hide_empty'=>'0',
+);
+$categories=get_categories($args);
+foreach($categories as $category) {?>
+<li><a href='<?php echo get_category_link( $category->term_id );?>'><?php echo $category->name;?></a>
+<?php /*
+//判断子分类
+$argszi=array(
+'child_of'=> $category->term_id,
+'parent' => $category->term_id,
+'hide_empty'=>'0',
+);
+$categorieszi=get_categories($argszi);
+if(!empty($categorieszi)){?>
+<span class='jia'>+</span>
+<ul class='zicategory'>
+<?php foreach($categorieszi as $categoryzi) {?>
+<li><a href='<?php echo get_category_link( $categoryzi->term_id );?>'><?php echo $categoryzi->name;?></a></li>
+<?php }?>
+</ul>
+<?php } */?>
+</li>
+<?php }?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用PAGE子页面" name="<?php
+$pageArray = get_post_ancestors($post->ID);//获取父页面ID
+
+if($pageArray){
+$pageid = $pageArray[0];
+}else{
+$pageid = $post->ID;
+}
+$pages = get_pages('child_of='.$pageid.'&sort_column=menu_order&sort_order=desc&parent='.$pageid);
+foreach($pages as $page){
+//当前样式
+if($post->ID == $page->ID){$ons='active';}else{$ons='';}
+?>
+
+<li class='<?php echo $ons;?>'><a href='<?php echo get_page_link($page->ID);?>'><?php echo $page->post_title;?></a></li>
+
+<?php } ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="后台栏目ID调用" name="
+	<?php $general_options = get_option('wpmbg_general');//调用后台总数据?>
+<?php
+	$catid01=$general_options['catid01'];//产品中心
+	$catid02=$general_options['catid02'];//解决方案
+	$catid03=$general_options['catid03'];//服务优势
+	$catid04=$general_options['catid04'];//新闻资讯
+	$catid05=$general_options['catid05'];//合作客户
+?> " onclick="myFun(this)"></td>
+
+                <td align="center" valign="middle"> <input type="button" value="ID获取分类名" name="<?php echo get_cat_name( $catid01 );?><?php /*edit*/ if (current_user_can('level_10')){?><b class='mbg_icat mbg_s'></b><?php }?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="ID获取分类链接" name="<?php echo get_category_link( $catid01 );?>" onclick="myFun(this)"></td>
+
+
+            </tr>
+
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="ID获取分类描述" name="<?php $catdess= category_description( $catid01 ); if($catdess){ echo str_replace(array('\r\n', '\r', '\n','<p>','</p>'), '', $catdess);}else{echo '';}?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="分类目录缩略图" name="<?php $catimgs = get_term_meta($cat,'catimg',true);if($catimgs){echo $catimgs;}else{?><?php }?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="指定分类循环代码" name="<?php query_posts('cat='.$catid01.'&ignore_sticky_posts=1&showposts=6'); ?>
+<?php $p=1;while (have_posts()) : the_post(); ?>
+
+<?php if($p==1){?>
+
+
+<?php }else{?>
+
+
+<?php echo $p;?>
+
+
+<?php }?>
+
+<?php $p++;endwhile;?>
+<?php wp_reset_query(); ?>" onclick="myFun(this)"></td>
+
+                <td align="center" valign="middle"> <input type="button" value="分类编辑器字段" name="<?php
+$cat_desc = get_term_meta($catid01 , '分类字段名',true);
+$cat_desc = apply_filters('the_content', $cat_desc);
+$cat_desc = str_replace(']]>', ']]&gt;', $cat_desc);
+echo $cat_desc;
+?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章编辑器字段" name="<?php
+$product_desc = get_post_meta($post->ID,'字段名',true);
+$product_desc = apply_filters('the_content', $product_desc);
+$product_desc = str_replace(']]>', ']]&gt;', $product_desc);
+echo $product_desc;
+?>" onclick="myFun(this)"></td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="文章字段输出" name="<?php echo get_post_meta($post->ID,'制作周期',true);?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章字段判断输出" name="<?php $meta_value = get_post_meta($post->ID,'制作周期',true);if($meta_value){?><?php echo $meta_value;?><?php }else{?><?php }?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章图片组字段输出" name="<?php
+$attachment_ids = get_post_meta($post->ID,'imgzuurl',true);
+if( !empty($attachment_ids) && is_array($attachment_ids) ){
+$i=1;
+foreach($attachment_ids as $attachment_id){ //循环图片ID
+  $attachment_src = wp_get_attachment_image_src( $attachment_id, 'full' );
+  if ( $attachment_src ){?>
+    <?php echo $attachment_src[0];?>
+ <?php $i++;}
+}
+}?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章图片组第一张图" name="<?php
+	$attachment_ids = get_post_meta($post->ID,'imgzuurl',true);
+	if( !empty($attachment_ids) && is_array($attachment_ids) ){?>
+
+	<?php echo wp_get_attachment_image_src( $attachment_ids[0], 'full' )[0];?>
+
+
+  <?php }?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="手机切换判断" name="<?php if (check_wap()): ?>
+
+<?php else: ?>
+
+<?php endif ;?>" onclick="myFun(this)"></td>
+            </tr>
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="手机模板调用" name="<?php include( TEMPLATEPATH . '/wap/index.php' ); ?>
+<?php include( TEMPLATEPATH . '/wap/header.php' ); ?>
+<?php include( TEMPLATEPATH . '/wap/footer.php' ); ?>
+<?php include( TEMPLATEPATH . '/wap/category-pro.php' ); ?>
+<?php include( TEMPLATEPATH . '/wap/single-pro.php' ); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"><input type="button" value="手机站模板路径" name="<?php echo get_template_directory_uri(); ?>/wap/static/" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="首页/模板路径" name="首页地址不输出 ：
+home_url()
+$url = home_url('/images/'); echo $url; //输出：http://www.test.com/images/
+
+模板路径：<?php echo get_template_directory_uri(); ?>" onclick="myFun(this)"></td>
+
+                <td align="center" valign="middle"> <input type="button" value="用户登录判断" name="<div class='top-userr'>
+<?php
+$hts = $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
+$url_this = $hts.''.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+if (!(current_user_can('level_0'))){ ?>
+<a href='<?php echo $general_options['zhuce']; ?>?from=<?php echo $url_this;?>' class='register' rel='nofollow' >注册</a>&nbsp;&nbsp;&nbsp;&nbsp;<a class='register' href='<?php echo $general_options['denglu']; ?>?from=<?php echo $url_this;?>' rel='nofollow' >登录</a>
+<?php } else { global $user_identity, $user_level; ?>
+<a>欢迎您, <strong><?php echo $user_identity ?></strong>！</a>&nbsp;&nbsp;
+<a class='log' href='<?php echo $general_options['hycenter']; ?>' target='_blank' rel='nofollow'>[会员中心]</a>&nbsp;&nbsp;
+<a class='log' href='<?php echo wp_logout_url(home_url()); ?>' rel='nofollow' >[退出]</a>
+
+<?php }?>
+</div>" onclick="myFun(this)"></td>
+
+                <td align="center" valign="middle"><input type="button" value="复杂结构导航" name="<?php
+wp_nav_menu( array(
+'theme_location' => 'topmenu',
+'depth' => 2,
+'container' => false,
+'menu_class' => 'nav navbar-nav mbg_topnav mbg_s',
+'menu_id' => 'topmeau',
+'fallback_cb' => 'wp_page_menu',
+'walker' => new wp_bootstrap_navwalker())
+);
+?>" onclick="myFun(this)"></td>
+            </tr>
+
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="判断型边栏导航(外)" onclick="javascript:window.open('/posts/btymdydn.html')"></td>
+                <td align="center" valign="middle"> <input type="button" value="中英文菜单(外)" onclick="javascript:window.open('/posts/enzh.html','_blank')"></td>
+                <td align="center" valign="middle"> <input type="button" value="表单询盘弹窗" name="<?php /*
+ 1、顶部添加 <?php include( TEMPLATEPATH . '/tijiao.php' ); ?>
+ 2、按钮添加类：showbtn
+ */?>
+ <?php include( TEMPLATEPATH . '/basic/form.php' ); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="分类目录字段" name="<?php $catmt = get_term_meta($cat,'catmt',true);if($catmt){echo $catmt;}else{echo '';}?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="位置地图" name="<?php include( TEMPLATEPATH . '/basic/map.php' ); ?>" onclick="myFun(this)"></td>
+
+            </tr>
+
+            <tr>
+
+                <td align="center" valign="middle"> <input type="button" value="追加元素" name=".topnav li:nth-child(1) a:before{content:url(images/iconnav01.png);}
+
+<script>
+	// append:内后  prepend()：内前 after()：外后  before()：外前
+    $('.topnav>li.menu-item-has-children>a').append('<span></span>');
+</script>
+
+<script>
+//循环追加动态元素
+	  var nll= $('.topnav>li').length;
+	  for(var i=1;i<=nll;i++){
+    $('.topnav>li:nth-child('+i+')>a').append(i);
+	  }
+</script>
+" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="头条轮播推荐" name="<?php /*edit*/ if (current_user_can('level_10')){?><b class='mbg_tuijian mbg_s'></b><?php }?>
+ <?php
+$args = array(
+'meta_query'=>array(
+array(
+'key'=>'leixing',
+'value'=>'tuijian',
+'compare'=>'LIKE'
+)
+),
+'post__not_in' => get_option('sticky_posts'),
+//lunbo toutiao tuijian
+//'cat' => $catid01,//指定分类数组
+'showposts' =>5,
+);
+$m=1;
+$query = new WP_Query( $args );
+while ($query->have_posts()) : $query->the_post(); ?>
+
+
+
+
+<?php echo $m;?>
+
+
+
+
+<?php $m++;endwhile; ?>
+<?php wp_reset_query();?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="广告判断调用" name="<?php /*edit*/ if (current_user_can('level_10')){?><b class='mbg_ad mbg_s'></b><?php }?>
+<?php if($general_options['adimg1']) {?>
+
+                        <a href='<?php echo $general_options['adlink1']; ?>' target='_blank'><img src='<?php echo $general_options['adimg1']; ?>' width='100%'/></a>
+
+
+					<?php } ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="响应式QQ链接" name="<?php if (wp_is_mobile()): ?>mqqwpa://im/chat?chat_type=wpa&amp;uin=<?php echo $general_options['qqhao']; ?>&amp;version=1&amp;src_type=web<?php else: ?>http://wpa.qq.com/msgrd?v=3&uin=<?php echo $general_options['qqhao']; ?>&site=&menu=yes<?php endif ;?>"
+                        onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="浏览量排序" name="<?php
+$args=array(
+'meta_key' => 'views',//字段名
+'orderby' => 'meta_value_num',//按字段值排序
+'post__not_in' => get_option( 'sticky_posts' ),//排除置顶文章
+//'cat' => $catid01,//指定分类数组
+'posts_per_page'=>4,//显示文章数量
+'order' => 'DESC'
+);
+$w=1;
+query_posts($args); while (have_posts()) : the_post();?>
+<li> <a href='<?php the_permalink(); ?>' target='_blank'><?php the_title(); ?></a></li>
+<?php $w++;endwhile;wp_reset_query();?>" onclick="myFun(this)"></td>
+
+            </tr>
+
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="JS提交表单" name="<script>
+					$('.ssbtn').click(function(){
+					$('form.tjform').submit();
+					});
+					</script>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="微信QQ分享按钮" name="<?php include( TEMPLATEPATH . '/basic/share/share.php' ); ?>" onclick="myFun(this)"></td>
+
+                <td align="center" valign="middle"> <input type="button" value="谷歌分享按钮" name="<?php include( TEMPLATEPATH . '/basic/ggshare.php' ); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="后台展示性内容" name="<?php /*edit*/ if (current_user_can('level_10')){?><b class='mbg_zs mbg_s'></b><?php }?>
+	   <?php $kehuarr = $general_options['kehu'];if(is_array($kehuarr)){?>
+  <?php for($i=0;$i<count($kehuarr);$i++){?>
+
+<?php echo $kehuarr[$i+1]['link']; ?>
+
+<?php echo $kehuarr[$i+1]['image']; ?>
+
+<?php echo $kehuarr[$i+1]['title']; ?>
+
+<?php echo $kehuarr[$i+1]['des']; ?>
+
+<?php $des = $kehuarr[$i+1]['des'];$des= apply_filters('the_content', $des);$des= str_replace(']]>', ']]>', $des);echo $des;?>
+
+
+<?php }}?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="For循环" name="<?php for($i=0;$i<count($catid01);$i++){?>
+
+	<?php if($i==0){?>
+
+	<?php }else{?>
+
+	<?php }?>
+
+<?php }?>" onclick="myFun(this)"></td>
+
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="二唯码咨询弹窗" name="<?php
+//放代码底部  按钮添加class类 showewm
+include( TEMPLATEPATH . '/basic/wxewm.php' ); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="JS跳转超链接" name=" onclick='javascript:window.location.href='http://url/''
+
+	<script>
+var get_source_code='http://';
+
+$('.button1s').on('click',function () {
+window.open(get_source_code);
+});
+
+</script>
+
+" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="QQ咨询弹窗" name="<?php
+//放代码底部  按钮添加class类 showqq
+include( TEMPLATEPATH . '/basic/qqewm.php' ); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="PC/WAP切换判断" name="<?php if (check_wap()){
+//放在首页、PAGE各类页面模板顶部 分类页、文章页不需要，
+//如果只有一个分类模板或者文章模板，也要放来判断
+if(is_home()){
+$mbname = 'index.php';
+}elseif(is_page()){
+$mbname = basename(get_page_template());
+}elseif(is_category() || is_archive() || is_search() || is_tag()){
+$mbname = basename(get_archive_template());
+}elseif(is_single()){
+$mbname = basename(get_single_template());
+}
+//echo $mbname;
+include( TEMPLATEPATH . '/wap/'.$mbname );
+
+return false;
+}
+?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章循环字段调用" name="<?php /*edit*/ if (current_user_can('level_10')){?><b class='mbg_sxx mbg_s'></b><?php }?>
+	<?php $anliarr = get_post_meta($post->ID,'procanshu',true);if(is_array($anliarr)){?>
+  <?php for($i=0;$i<count($anliarr);$i++){?>
+
+<?php echo $anliarr[$i+1]['title']; ?>
+<?php echo $anliarr[$i+1]['title2']; ?>
+<?php echo $anliarr[$i+1]['des']; ?>
+<?php echo $anliarr[$i+1]['image']; ?>
+<?php echo $anliarr[$i+1]['link']; ?>
+
+<?php $singledes = $anliarr[$i+1]['des'];$singledes= apply_filters('the_content', $singledes);$singledes= str_replace(']]>', ']]>', $singledes);echo $singledes;?>
+<?php }}?>" onclick="myFun(this)"></td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="关于内容带样式" name="<?php /*edit*/ if (current_user_can('level_10')){?><b class='mbg_ablr mbg_s'></b><?php }?><?php $aboutus = $general_options['aboutus'];$aboutus= apply_filters('the_content', $aboutus);$aboutus= str_replace(']]>', ']]&gt;', $aboutus);echo $aboutus;?>"
+                        onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章自定义简介" name="<?php $wzjianjie = get_post_meta($post->ID,'wzjianjie',true);if($wzjianjie){$wzjianjie= apply_filters('the_content', $wzjianjie);$wzjianjie= str_replace(']]>', ']]>', $wzjianjie);echo $wzjianjie;}else{?><?php echo mb_strimwidth(strip_tags(apply_filters('the_content', $post->post_content)), 0, 200,'……'); ?><?php }?>"
+                        onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="页面自定义简介" name="<?php $pagejianjie = get_post_meta($post->ID,'pagejianjie',true);if($pagejianjie){$pagejianjie= apply_filters('the_content', $pagejianjie);$pagejianjie= str_replace(']]>', ']]>', $pagejianjie);echo $pagejianjie;}else{?><?php echo mb_strimwidth(strip_tags(apply_filters('the_content', $post->post_content)), 0, 200,'……'); ?><?php }?>"
+                        onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="页面循环字段调用" name="<?php /*edit*/ if (current_user_can('level_10')){?><b class='mbg_pxx mbg_s'></b><?php }?>
+	<?php $pageryarr = get_post_meta($post->ID,'pagery',true);if(is_array($pageryarr)){?>
+  <?php for($i=0;$i<count($pageryarr);$i++){?>
+
+<?php echo $pageryarr[$i+1]['title']; ?>
+<?php echo $pageryarr[$i+1]['des']; ?>
+<?php echo $pageryarr[$i+1]['image']; ?>
+<?php echo $pageryarr[$i+1]['link']; ?>
+
+<?php $pagedes = $pageryarr[$i+1]['des'];$pagedes= apply_filters('the_content', $pagedes);$pagedes= str_replace(']]>', ']]>', $pagedes);echo $pagedes;?>
+
+<?php }}?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="后台单一图片组" name="<?php
+$attachment_ids = $general_options['gallery_example'];
+if( !empty($attachment_ids) && is_array($attachment_ids) ){
+$i=1;
+foreach($attachment_ids as $attachment_id){ //循环图片ID
+  $attachment_src = wp_get_attachment_image_src( $attachment_id, 'full' );
+  if ( $attachment_src ){?>
+    <?php echo $attachment_src[0];?>
+ <?php $i++;}
+}
+}?>" onclick="myFun(this)"></td>
+            </tr>
+
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="单一BANNER图组" name="<?php /*edit*/ if (current_user_can('level_10')){?><b class='mbg_ban mbg_s'></b><?php }?>
+	<?php $bannerarr = $general_options['banner'];if(is_array($bannerarr)){?>
+
+<?php echo $bannerarr['title']; ?>
+<?php echo $bannerarr['des']; ?>
+<?php echo $bannerarr['image']; ?>
+
+<?php }?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="统计/底部函数" name="<?php echo $general_options['tongjidaima']; wp_footer();?><?php include( TEMPLATEPATH . '/basic/edit.php' ); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="BANNER前台图标" name="<?php if (current_user_can('level_10')){?><?php if(is_category()){?><b class='mbg_fban mbg_s fleft'></b><b class='mbg_fcat mbg_s fleft'></b><?php }elseif(is_page()){?><b class='mbg_pban mbg_s'></b><?php }?><?php }?>"
+                        onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="待定" name="" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="待定" name="" onclick="myFun(this)"></td>
+
+            </tr>
+
+        </table>
+    </main>
+
+    <script src="https://www.xuewangzhan.net/jztools/images/dm.js?v=3"></script>
+    <script src="https://www.xuewangzhan.net/wp-content/themes/xwz/images/tj.js"></script>
+
+</body>
+
+</html>

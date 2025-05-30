@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Wordpress仿站助手 - Wordpress标签生成器 - Wordpress站长工具箱</title>
+    <link rel="stylesheet" href="/jztools/style.css">
+    <script type="text/javascript" src="/wp-content/themes/xwz/images/jquery-3.1.0.min.js"></script>
+    <link rel="shortcut icon" href="/jztools/images/favicon.ico" type="images/x-icon" />
+</head>
+
+<body>
+    <div class="topbarw">
+        <div class="topbar clearfix">
+            <h1>Wordpress仿站助手</h1>
+        </div>
+    </div>
+
+    <main id="main">
+        <header class="subhead">
+            <h2>Wordpress标签生成器</h2>
+            <p class="lead">用于Wordpress仿站和模板开发生成页面标签，方便站长仿站建站。 </p>
+        </header>
+
+        <nav class="topnav clearfix">
+            <ul>
+                <li><a href="/">首页标签</a></li>
+                <li><a href="category.html">列表页标签</a></li>
+                <li><a href="single.html">文章页标签</a></li>
+                <li class="curr"><a href="other.html">其它标签</a></li>
+                <li><a href="wp.html">后台标签</a></li>
+                <li><a href="en.html">多语标签</a></li>
+                <li><a href="/jquery_txdq/" target="_blank">特效大全</a></li>
+
+            </ul>
+        </nav>
+        <table class="dmk">
+            <tr>
+                <td height="155" colspan="5" align="center" valign="middle">
+                    <textarea name="show" id="wpcodepy"></textarea>
+                    <div id="tishi"></div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="搜索框地址" name="<?php bloginfo('url'); ?>/" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="默认搜索框" name=" <?php include (TEMPLATEPATH . '/searchform.php'); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="不同分类模板(外)" onclick="javascript:window.open('/posts/wpbtfl.html','_blank')"></td>
+                <td align="center" valign="middle"> <input type="button" value="不同文章模板(外)" onclick="javascript:window.open('/posts/wpbtwz.html','_blank')"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用标签云" name="<?php wp_tag_cloud('smallest=12&largest=18&unit=px&number=0&orderby=count&order=DESC');?>" onclick="myFun(this)"></td>
+
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="所属分类ID" name="<?php $category = get_the_category(); echo $category[0]->cat_ID;?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="所属分类名无链接" name="<?php $category = get_the_category(); echo $category[0]->cat_name;?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="所属分类纯链接" name="<?php $category = get_the_category();echo get_category_link($category[0]->term_id );?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="登录/注册链接" name="Wp注册与登录：<?php if (get_option('users_can_register')) { ?><a href='<?php echo site_url('wp-login.php?action=register', 'login') ?>'>注册会员</a><?php }?>
+<?php } else { global $user_identity, $user_level; ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用登录名" name="  <?php if (get_option('users_can_register')) { ?><a href='<?php bloginfo('siteurl');?>/wp-admin/profile.php'>[个人中心]</a><?php }?>
+                <a href='<?php echo wp_logout_url( get_permalink() ); ?>'>[退出]</a>" onclick="myFun(this)"></td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="二级下拉菜单(外)" onclick="javascript:window.open('/posts/twomenu.html','_blank')"></td>
+                <td align="center" valign="middle"> <input type="button" value="网站轮播图(外)" onclick="javascript:window.open('/posts/banner.html','_blank')"></td>
+                <td align="center" valign="middle"> <input type="button" value="横排样式控制(外)" onclick="javascript:window.open('/posts/lihs.html','_blank')"></td>
+                <td align="center" valign="middle"> <input type="button" value="网站无缝滚动(外)" onclick="javascript:window.open('/posts/wfgd.html','_blank')"></td>
+                <td align="center" valign="middle"> <input type="button" value="404页面代码" name="您查找的页面不存在，请返回<a href='<?php echo get_option('home'); ?>'>首页</a>查看！" onclick="myFun(this)"></td>
+            </tr>
+
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="同样式多个分类" name="<?php $display_categories = array(9,10); foreach ($display_categories as $category) { ?>
+<?php query_posts('showposts=6&cat=$category')?>
+<?php if($category==9):?>
+	 <div class='w367 fl h259 mr5'>
+<?php else : ?>
+    <div class='w364 fl h259'>
+<?php endif; ?>
+
+<a href='<?php echo get_category_link($category);?>'><?php single_cat_title(); ?></a>//分类名+分类链接
+
+
+<?php while (have_posts()) : the_post(); ?>
+<?php if ($catcnts == 0 || $catcnts == 6|| $catcnts == 12|| $catcnts == 18) : ?>
+
+<a href='<?php the_permalink() ?>' title='<?php the_title(); ?>'><?php the_title(); ?></a>//文章名+文章链接
+
+<?php else : ?>
+
+<?php endif; $catcnts++; ?>
+<?php endwhile;?>
+
+<?php } wp_reset_query();?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="前台注册登录(外)" onclick="javascript:window.open('/posts/qtlogin.html','_blank')"></td>
+                <td align="center" valign="middle"> <input type="button" value="前台投稿功能(外)" onclick="javascript:window.open('/posts/qtfb.html','_blank')"></td>
+                <td align="center" valign="middle"> <input type="button" value="序列编号调用" name="<?php echo(1+$cmntCnw++); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="站点副标题" name="<?php echo get_bloginfo( 'description');?>" onclick="myFun(this)"></td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="指定分类子分类(外)" onclick="javascript:window.open('/posts/dyzfl.html')"></td>
+                <td align="center" valign="middle"> <input type="button" value="Flex布局语法(外)" onclick="javascript:window.open('/posts/flex.html','_blank')"></td>
+                <td align="center" valign="middle"> <input type="button" value="数组转字符串" name="<?php $catid01s = implode(',', $catid01);?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="CSS手形" name="cursor:pointer;" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="PAGE子页面带图" name="<?php
+
+$pageid = $catid01;//总页面ID
+
+$pages = get_pages('child_of='.$pageid.'&amp;sort_column=menu_order&amp;sort_order=desc&amp;parent='.$pageid);
+$v=1;
+foreach($pages as $page){?>
+
+<li>
+
+<img src='<?php echo get_the_post_thumbnail_url($page->ID); ?>' />
+
+<a href='<?php echo get_page_link($page->ID); ?>'><?php echo $page->post_title; ?></a>
+
+<p><?php echo mb_strimwidth(strip_tags(apply_filters('the_content', $page->post_content)), 0, 200,'……'); ?></p>
+
+</li>
+
+<?php $v++;
+if($v>5)
+break;
+} ?>" onclick="myFun(this)"></td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="JS其它版本" name="<script src='<?php echo get_template_directory_uri(); ?>/admin/js/jquery-3.1.0.min.js'></script>
+	<script src='<?php echo get_template_directory_uri(); ?>/admin/js/jquery-2.1.4.min.js'></script>
+	<script src='<?php echo get_template_directory_uri(); ?>/admin/js/jquery-1.11.3.min.js'></script>
+	" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章缩略图地址" name="<?php if ( has_post_thumbnail() ) { ?><?php echo get_the_post_thumbnail_url($post->ID); ?><?php }else {?><?php echo get_first_image(); ?><?php }?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="一级菜单禁跳转" name="<script>
+$('.navlist>li.menu-item-has-children>a').click(
+function(){
+$(this).attr('href','#');
+$(this).next('ul').slideToggle();
+});
+</script>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="默认手机判断" name="<?php if (wp_is_mobile()): ?>
+
+<?php else: ?>
+
+<?php endif ;?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="自动判断BANNER图" name="<?php if(is_category()){$bannerimgs = get_term_meta($cat,'catbannerimg',true);}elseif(is_tag()){$bannerimgs = get_term_meta(get_queried_object_id(),'catbannerimg',true);}elseif(is_single()){$category = get_the_category();$bannerimgs = get_term_meta($category[0]->term_id,'catbannerimg',true);}elseif(is_page()){$bannerimgs = get_post_meta($post->ID,'pageban_img',true);}else{$bannerimgs='';}if($bannerimgs){echo $bannerimgs;}else{?><?php }?>"
+                        onclick="myFun(this)"></td>
+            </tr>
+            <tr>
+
+
+
+                <td align="center" valign="middle"> <input type="button" value="文章标题限字数" name="<?php echo mb_strimwidth(get_the_title(), 0, 30, '…'); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="英文日期" name="<?php
+echo date('F',get_the_time('U')); //月
+echo get_the_time('jS Y');// 日-年 9th 2021
+?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="循环内容" name="<?php if (have_posts()) : ?>
+<?php while (have_posts()) : the_post(); ?>
+<?php the_content(''); ?>
+<?php endwhile;?>
+<?php endif; ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="二三级栏目展/缩(外)" onclick="javascript:window.open('/posts/rcmenu.html','_blank')"></td>
+                <td align="center" valign="middle"> </td>
+            </tr>
+
+        </table>
+    </main>
+    <script src="https://www.xuewangzhan.net/jztools/images/dm.js?v=3"></script>
+</body>
+
+</html>

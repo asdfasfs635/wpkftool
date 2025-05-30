@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Wordpress仿站助手 - Wordpress标签生成器 - Wordpress站长工具箱</title>
+    <link rel="stylesheet" href="/jztools/style.css">
+    <script type="text/javascript" src="/wp-content/themes/xwz/images/jquery-3.1.0.min.js"></script>
+    <link rel="shortcut icon" href="/jztools/images/favicon.ico" type="images/x-icon" />
+</head>
+
+<body>
+    <div class="topbarw">
+        <div class="topbar clearfix">
+            <h1>Wordpress仿站助手</h1>
+        </div>
+    </div>
+
+    <main id="main">
+        <header class="subhead">
+            <h2>Wordpress标签生成器</h2>
+            <p class="lead">用于Wordpress仿站和模板开发生成页面标签，方便站长仿站建站。 </p>
+        </header>
+
+        <nav class="topnav clearfix">
+            <ul>
+                <li ><a href="/">首页标签</a></li>
+                <li><a href="category.html">列表页标签</a></li>
+                <li><a href="single.html">文章页标签</a></li>
+                <li><a href="other.html">其它标签</a></li>
+                <li><a href="wp.html">后台标签</a></li>
+                <li class="curr"><a href="en.html">多语标签</a></li>
+                <li><a href="/jquery_txdq/" target="_blank">特效大全</a></li>
+
+            </ul>
+        </nav>
+
+        <table class="dmk">
+            <tr>
+                <td height="155" colspan="5" align="center" valign="middle">
+                    <textarea name="show" id="wpcodepy"></textarea>
+                    <div id="tishi"></div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="三大标签替换" name="<?php $general_options = get_option('wpmbg_general');//调用后台总数据?><?php $en = qtrans_getLanguage();$gudingwz=$general_options['gudingwz'.$en] ? preg_split('/[\n\r]+/', $general_options['gudingwz'.$en], -1, PREG_SPLIT_NO_EMPTY) : array(); ?>
+<title><?php if ( is_home() ) { ?><?php if($general_options['wpd_title'.$en]) {?><?php echo $general_options['wpd_title'.$en]; ?><?php }else{?><?php bloginfo('name'); ?><?php } ?><?php } ?>
+<?php if ( is_category() ) {?><?php $cattitle = get_term_meta($cat,'cattitle'.$en,true);if($cattitle){echo $cattitle;}else{single_cat_title();}?><?php echo ' - '; bloginfo('name'); $paged = get_query_var('paged'); if ( $paged > 1 ) printf('_ 第 %s 页 ',$paged);} ?>
+<?php if ( is_tag() ) {?><?php $tagname =single_tag_title('', false);$tagid = get_tags(array('name'=> $tagname ))[0]->term_id;$tagtitle = get_term_meta($tagid,'cattitle'.$en,true);if($tagtitle){echo $tagtitle;}else{echo single_tag_title('', false);}?><?php echo ' - '; bloginfo('name'); $paged = get_query_var('paged'); if ( $paged > 1 ) printf('_ 第 %s 页 ',$paged);} ?>
+<?php if ( is_single() || is_page()) { ?><?php $wzseotit = get_post_meta($post->ID,'wzseotit'.$en,true);if($wzseotit){echo $wzseotit;}else{echo trim(wp_title('',0));} ?> - <?php bloginfo('name'); ?><?php } ?>
+<?php if ( is_author() ) { ?><?php the_author(); ?> - <?php bloginfo('name'); ?><?php } ?>
+<?php if ( is_month() || is_day() ) { ?><?php the_time('Y - F'); ?> - <?php bloginfo('name'); ?><?php } ?>
+<?php if (is_search() ) {?>'<?php echo $s; ?>' - <?php bloginfo('name'); ?><?php } ?>
+<?php if (is_404() ) {?>'404' - <?php bloginfo('name'); ?><?php } ?>
+</title>
+<?php if ( is_home() ) { ?>
+<meta name='description' content='<?php if($general_options['wpd_des'.$en]) {?><?php echo $general_options['wpd_des'.$en]; ?><?php }else{?><?php bloginfo('name'); ?><?php } ?>'/>
+<meta name='keywords' content='<?php if($general_options['wpd_keys'.$en]) {?><?php echo $general_options['wpd_keys'.$en]; ?><?php }else{?><?php bloginfo('name'); ?><?php } ?>' />
+<?php } ?>
+<?php if ( is_single() || is_page()) { ?>
+<meta name='description' content='<?php $wzseodes = get_post_meta($post->ID,'wzseodes'.$en,true);if($wzseodes){?><?php echo $wzseodes;?><?php }else{?><?php echo trim(wp_title('',0)); ?>，<?php $des= mb_strimwidth(strip_tags(apply_filters('the_content', $post->post_content)), 0, 120,''); echo str_replace(array('\r\n', '\r', '\n'), '', $des);?><?php }?>' />
+<meta name='keywords' content='<?php $wzseokeys = get_post_meta($post->ID,'wzseokeys'.$en,true);if($wzseokeys){?><?php echo $wzseokeys;?><?php }else{?><?php echo trim(wp_title('',0)); ?><?php single_cat_title(); ?><?php } ?>' />
+<?php } ?>
+<?php if ( is_category() ) { ?>
+<meta name='description' content='<?php $catdes = get_term_meta($cat,'catdes'.$en,true);if($catdes){echo $catdes;}else{?><?php bloginfo('name'); ?><?php single_cat_title(); ?>。<?php } ?>' />
+<meta name='keywords' content='<?php $catkeys = get_term_meta($cat,'catkeys'.$en,true);if($catkeys){echo $catkeys;}else{?><?php single_cat_title(); ?><?php } ?>' />
+<?php } ?>
+<?php if ( is_tag() ) { ?>
+<meta name='description' content='<?php $tagdes = get_term_meta($tagid,'catdes'.$en,true);if($tagdes){echo $tagdes;}else{?><?php bloginfo('name'); ?><?php single_tag_title(); ?>。<?php } ?>' />
+<meta name='keywords' content='<?php $tagkeys = get_term_meta($tagid,'catkeys'.$en,true);if($tagkeys){echo $tagkeys;}else{?><?php single_tag_title(); ?><?php } ?>' />
+<?php } ?>
+
+" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="中英文按钮调用" name="<?php /*要图标启用head()函数*/?>
+	<div class='languagediv'><?php echo qtrans_generateLanguageSelectCode('both'); ?></div>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"><input type="button" value="全局性变量" name="<?php $general_options = get_option('wpmbg_general');//调用后台总数据?>
+	<?php $en = qtrans_getLanguage();
+$gudingwz=$general_options['gudingwz'.$en] ? preg_split('/[\n\r]+/', $general_options['gudingwz'.$en], -1, PREG_SPLIT_NO_EMPTY) : array();
+?>" onclick="myFun(this)"></td>
+
+                <td align="center" valign="middle"> <input type="button" value="后台字段调用" name="<?php //在字段名下加 .$en
+echo get_post_meta($post->ID,'xylx'.$en,true);
+
+$general_options['banwz1'.$en];
+
+?>" onclick="myFun(this)"></td>
+
+                <td align="center" valign="middle"> <input type="button" value="面包屑替换" name="qtrans_getLanguage()=='zh' ? '首页' : 'Home';" onclick="myFun(this)"></td>
+
+            </tr>
+
+            <tr>
+
+                <td align="center" valign="middle"> <input type="button" value="固定文字替换" name="<?php echo $gudingwz[0];?>" onclick="myFun(this)"></td>
+
+                <td align="center" valign="middle"> <input type="button" value="前台语言判断" name="<?php if(qtrans_getLanguage()=='zh'): ?>
+中文
+<?php endif; ?>
+<?php if(qtrans_getLanguage()=='en'): ?>
+English
+<?php endif; ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="前台判断简写" name="<?php _e('[:zh]  中文    [:en]   英文   ');?>" onclick="myFun(this)"></td>
+
+
+                <td align="center" valign="middle"> <input type="button" value="指定ID页面标题" name="<?php echo strip_tags(apply_filters('the_content', get_page($catid01[$i])->post_title)); ?>" onclick="myFun(this)"></td>
+
+
+
+                <td align="center" valign="middle"> <input type="button" value="自动翻译按钮" name="<?php echo do_shortcode('[gtranslate]'); ?>" onclick="myFun(this)"></td>
+            </tr>
+
+            <tr>
+
+                <td align="center" valign="middle"> <input type="button" value="文章自定义简介" name="<?php
+$product_desc = get_post_meta($post->ID,'wzjianjie'.$en,true);
+if($product_desc){
+$product_desc = apply_filters('the_content', $product_desc);
+$product_desc = str_replace(']]>', ']]>', $product_desc);
+echo $product_desc;
+}else{
+?>
+<?php echo mb_strimwidth(strip_tags(apply_filters('the_content', $post->post_content)), 0, 200,'……'); ?><?php }?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> </td>
+                <td align="center" valign="middle"> </td>
+                <td align="center" valign="middle"> </td>
+                <td align="center" valign="middle"> </td>
+            </tr>
+        </table>
+    </main>
+
+    <script src="https://www.xuewangzhan.net/jztools/images/dm.js?v=3"></script>
+    <script src="https://www.xuewangzhan.net/wp-content/themes/xwz/images/tj.js"></script>
+</body>
+
+</html>

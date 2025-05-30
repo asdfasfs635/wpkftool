@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Wordpress仿站助手 - Wordpress标签生成器 - Wordpress站长工具箱</title>
+    <link rel="stylesheet" href="/jztools/style.css">
+    <script type="text/javascript" src="/wp-content/themes/xwz/images/jquery-3.1.0.min.js"></script>
+    <link rel="shortcut icon" href="/jztools/images/favicon.ico" type="images/x-icon" />
+</head>
+
+<body>
+    <div class="topbarw">
+        <div class="topbar clearfix">
+            <h1>Wordpress仿站助手</h1>
+        </div>
+    </div>
+
+    <main id="main">
+        <header class="subhead">
+            <h2>Wordpress标签生成器</h2>
+            <p class="lead">用于Wordpress仿站和模板开发生成页面标签，方便站长仿站建站。 </p>
+        </header>
+
+        <nav class="topnav clearfix">
+            <ul>
+                <li ><a href="/">首页标签</a></li>
+                <li class="curr"><a href="category.html">列表页标签</a></li>
+                <li><a href="single.html">文章页标签</a></li>
+                <li><a href="other.html">其它标签</a></li>
+                <li><a href="wp.html">后台标签</a></li>
+                <li><a href="en.html">多语标签</a></li>
+                <li><a href="/jquery_txdq/" target="_blank">特效大全</a></li>
+
+            </ul>
+        </nav>
+
+        <table class="dmk">
+            <tr>
+                <td height="155" colspan="5" align="center" valign="middle">
+                    <textarea name="show" id="wpcodepy"></textarea>
+                    <div id="tishi"></div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="调用头部模块" name="<?php get_header();?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用底部模块" name="<?php get_footer();?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用边栏模块" name="<?php get_sidebar();?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用其它模块" name="<?php include( TEMPLATEPATH . '/文件名' ); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用页面名字" name="<?php wp_title('');?>" onclick="myFun(this)"></td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="不限分类循环代码" name="<?php if (have_posts()) : ?>
+<?php while (have_posts()) : the_post(); ?>
+
+<?php endwhile;?>
+<?php endif; ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章标题" name="<?php the_title(); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章链接" name="<?php the_permalink() ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章简介" name="<?php echo mb_strimwidth(strip_tags(apply_filters('the_content', $post->post_content)), 0, 200,'……'); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章缩略图" name="<img src='<?php if ( has_post_thumbnail() ) { ?><?php $post_ID=$post->ID;$post_thumbnail_id = get_post_thumbnail_id( $post_ID );$post_thumbnail_src = wp_get_attachment_image_src($post_thumbnail_id,'full');?><?php echo $post_thumbnail_src[0]; ?><?php }else {?><?php echo get_first_image(); ?><?php }?>'  alt='<?php the_title(); ?>' width='296' height='296'/>"
+                        onclick="myFun(this)"></td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="日期调用" name="<?php the_time('Y-m-d'); ?> " onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="面包屑导航(外)" onclick="javascript:window.open('/posts/mbx.html','_blank')"></td>
+                <td align="center" valign="middle"> <input type="button" value="分页导航(外)" onclick="javascript:window.open('/posts/pagenav.html','_blank')"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章浏览量(外)" onclick="javascript:window.open('/posts/postlll.html','_blank')"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用评论数" name="<?php comments_number('暂无评论', '1条评论', '% 评论' );?>" onclick="myFun(this)"></td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="分类别名大写" name="<?php $mycat = get_category($catid01);echo strtoupper($mycat->slug);?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="页面别名大写" name="<?php $slug = get_page( $page_id ); echo strtoupper($slug->post_name);?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章分类别名大写" name="<?php $cats = get_the_category(); echo strtoupper($cats[0]->slug);?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用分类描述" name="<?php $ncatdess= category_description( $cat ); echo str_replace(array('\r\n', '\r', '\n','<p>','</p>'), '', $ncatdess);?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="模板的命名" name="<?php /*Template Name: 产品列表模板*/ ?>" onclick="myFun(this)"></td>
+
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="自定义字段" name="<?php echo get_post_meta($post->ID,'字段名',true);?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="评论数" name="<?php comments_number('暂无评论', '1条评论', '% 评论' );?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> </td>
+                <td align="center" valign="middle"></td>
+                <td align="center" valign="middle"></td>
+            </tr>
+
+        </table>
+    </main>
+
+    <script src="https://www.xuewangzhan.net/jztools/images/dm.js?v=3"></script>
+</body>
+
+</html>

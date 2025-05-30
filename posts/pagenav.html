@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordPress 无插件 纯代码实现分页导航</title>
+    <style>
+        /* 全局样式 */
+        body {
+            font-family: 'Microsoft YaHei', Tahoma, Verdana, Simsun, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* 保持顶部对齐 */
+            min-height: 100vh;
+        }
+
+        /* 文章容器 */
+        .xwz-modBox {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+            width: 80%;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        /* 标题样式 */
+        .xwz-modBox header h1 {
+            color: #2b41a4;
+            font-size: 24px;
+            border-bottom: 2px solid #eb9b2a;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        /* 主内容区 */
+        .xwz-conn {
+            line-height: 1.8;
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto; /* 内容居中 */
+        }
+
+        /* 链接样式 */
+        a {
+            color: #2b41a4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #eb9b2a;
+            text-decoration: underline;
+        }
+
+        /* 图片样式 */
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+            border-radius: 4px;
+            display: block;
+        }
+
+        /* 列表样式 */
+        ol {
+            padding-left: 20px;
+            text-align: left;
+        }
+
+        li {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        /* 代码块样式 */
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            max-width: 800px;
+            text-align: left;
+            display: block;
+            white-space: pre-wrap; /* 保留换行但允许自动换行 */
+            word-break: break-all; /* 允许长单词换行 */
+        }
+
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            color: #d63384;
+        }
+
+        /* 代码块中的代码保持原样 */
+        .code-block {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            max-width: 800px;
+            text-align: left;
+            display: block;
+            white-space: pre; /* 保留所有空格和换行 */
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+        }
+
+        /* 导航样式 */
+        .xwz-next {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            width: 80%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .floatLeft,
+        .floatRight {
+            font-size: 14px;
+        }
+
+        .floatLeft a,
+        .floatRight a {
+            color: #2b41a4;
+        }
+
+        .floatLeft a:hover,
+        .floatRight a:hover {
+            color: #eb9b2a;
+        }
+    </style>
+</head>
+
+<body>
+    <article class="xwz-modBox">
+        <header>
+            <h1>WordPress 无插件 纯代码实现分页导航</h1>
+        </header>
+        <div class="xwz-conn mb60">
+            <p>在以前的建站培训课程中，我们说了网站分页都采用<a href="https://www.xuewangzhan.net/cj/3160.html" target="_blank" rel="noopener noreferrer">网站分页插件wp-page-numbers</a>来实现的，但对于不喜欢使用插件的学做网站学员来说，也可以使用无插件纯代码的方法实现网站分页。<br>
+                <img decoding="async" class="alignnone size-full wp-image-14055" alt="wordpress无插件纯代码实现分页的方法" src="https://www.xuewangzhan.net/wp-content/uploads/2014/05/fy.jpg" width="442" height="210"></p>
+            <h2 align="left">方法/步骤</h2>
+            <ol>
+                <li>第一步：将以下代码放到自己使用的wordpress主题的模板函数文件functions.php中。
+                    <div class="code-block">
+function kriesi_pagination($query_string){
+    global $posts_per_page, $paged;
+    $my_query = new WP_Query($query_string ."&amp;posts_per_page=-1");
+    $total_posts = $my_query-&gt;post_count;
+    if(empty($paged))$paged = 1;
+    $prev = $paged - 1;
+    $next = $paged + 1;
+    $range = 2; // only edit this if you want to show more page-links
+    $showitems = ($range * 2)+1;
+    $pages = ceil($total_posts/$posts_per_page);
+    if(1 != $pages){
+        echo "&lt;div class='pagination'&gt;";
+        echo ($paged &gt; 2 &amp;&amp; $paged+$range+1 &gt; $pages &amp;&amp; $showitems &lt; $pages)? "&lt;a href='".get_pagenum_link(1)."' rel='external nofollow'&gt;最前&lt;/a&gt;":"";
+        echo ($paged &gt; 1 &amp;&amp; $showitems &lt; $pages)? "&lt;a href='".get_pagenum_link($prev)."' rel='external nofollow'&gt;上一页&lt;/a&gt;":"";
+        for ($i=1; $i &lt;= $pages; $i++){
+            if (1 != $pages &amp;&amp;( !($i &gt;= $paged+$range+1 || $i &lt;= $paged-$range-1) || $pages &lt;= $showitems )){
+                echo ($paged == $i)? "&lt;span class='current'&gt;".$i."&lt;/span&gt;":"&lt;a href='".get_pagenum_link($i)."' class='inactive' rel='external nofollow'&gt;".$i."&lt;/a&gt;";
+            }
+        }
+        echo ($paged &lt; $pages &amp;&amp; $showitems &lt; $pages) ? "&lt;a href='".get_pagenum_link($next)."' rel='external nofollow'&gt;下一页&lt;/a&gt;" :"";
+        echo ($paged &lt; $pages-1 &amp;&amp; $paged+$range-1 &lt; $pages &amp;&amp; $showitems &lt; $pages) ? "&lt;a href='".get_pagenum_link($pages)."' rel='external nofollow'&gt;最后&lt;/a&gt;":"";
+        echo "&lt;/div&gt;\n";
+    }
+}</div>
+                </li>
+                <li>第二步：在<a href="https://www.xuewangzhan.net/wpmoban/8145.html" target="_blank" rel="noopener noreferrer">wordpress分类目录模板(archive.php)</a>中需要显示分页的代码放上下面的调用代码：
+                    <div class="code-block">
+&lt;?php kriesi_pagination($query_string); ?&gt;
+</div>
+                </li>
+                <li>第三步：将以下CSS样式放到自己模板的style.css中。
+                    <div class="code-block">
+.pagination{line-height:23px;text-align:center;}
+.pagination:after {clear: both;content: ".";display: block;height: 0;font-size: 0;visibility: hidden;}
+.pagination span, .pagination a{font-size:12px;margin: 2px 6px 2px 0;background:#fff;border:1px solid #e5e5e5;color:#787878;padding:2px 5px 2px 5px;text-decoration:none;}
+.pagination a:hover{background: #8391A7;border:1px solid #fff;color:#fff;}
+.pagination .current{background: #fff;border:1px solid #8d8d8d;color:#393939;font-size:12px;padding:2px 5px 2px 5px;}</div>
+                </li>
+                <li>第四步：在网站后台设置每页显示文章数量，当达到这个数量后，自动分页显示。<br>
+                    <img decoding="async" loading="lazy" class="alignnone size-full wp-image-14056" alt="wordpress无插件纯代码实现分页的方法" src="https://www.xuewangzhan.net/wp-content/uploads/2014/05/sl.png" width="481" height="188"></li>
+            </ol>
+            <p>通过以上四步的修改，我们在自己做网站时，就可以不使用插件也能做出分页效果了。如果你对wordpress程序不了解，请先学习<a href="https://www.xuewangzhan.net/jz/wordpress/" target="_blank" rel="noopener noreferrer">wordpress入门教程</a>。</p>
+        </div>
+
+    </article>
+</body>
+
+</html>

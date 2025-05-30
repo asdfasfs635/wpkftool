@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>如何制作网站面包屑导航</title>
+    <style>
+        /* 全局样式 */
+        body {
+            font-family: 'Microsoft YaHei', Tahoma, Verdana, Simsun, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 文章容器 */
+        .xwz-modBox {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+            width: 80%;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        /* 标题样式 */
+        .xwz-modBox header h1 {
+            color: #2b41a4;
+            font-size: 24px;
+            border-bottom: 2px solid #eb9b2a;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        /* 主内容区 */
+        .xwz-con-main {
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        /* 链接样式 */
+        a {
+            color: #2b41a4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #eb9b2a;
+            text-decoration: underline;
+        }
+
+        /* 图片样式 */
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+            border-radius: 4px;
+            display: block;
+        }
+
+        /* 列表样式 */
+        ol {
+            padding-left: 20px;
+            text-align: left;
+        }
+
+        li {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        /* 代码块样式 */
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            max-width: 800px;
+            text-align: left;
+            display: block;
+        }
+
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            color: #d63384;
+        }
+
+        /* 导航样式 */
+        .xwz-next {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            width: 80%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .floatLeft,
+        .floatRight {
+            font-size: 14px;
+        }
+
+        .floatLeft a,
+        .floatRight a {
+            color: #2b41a4;
+        }
+
+        .floatLeft a:hover,
+        .floatRight a:hover {
+            color: #eb9b2a;
+        }
+    </style>
+</head>
+
+<body>
+    <article class="xwz-modBox">
+        <header>
+            <h1>如何制作网站面包屑导航</h1>
+        </header>
+        <div class="xwz-con-main yc6">
+            <h3>什么是网站面包屑导航</h3>
+            <p>相信很多初学建站的学员对<a href="https://www.xuewangzhan.net/topic/meau/" target="_blank" rel="noopener noreferrer">网站菜单导航</a>并不陌生，但对于<strong>网站面包屑导航</strong>却知之甚少，那么什么是网站面包屑导航呢？就是网站首页之外的主题内容上面的阶梯形导航。如下图：<br>
+                <img decoding="async" class="alignnone size-full wp-image-14016" alt="wordpress网站面包屑导航制作" src="https://www.xuewangzhan.net/wp-content/uploads/2014/06/mbx1.jpg" width="556" height="217"></p>
+            <h3>面包屑导航制作方法</h3>
+            <p>从网站面包屑导航的作用来看，它对于我们做网站<a href="https://www.xuewangzhan.net/jz/why/seo/" target="_blank" rel="noopener noreferrer">SEO优化</a>有着相当的作用。那么如何做网站时能够制作出网站面包屑导航呢？方法如下：</p>
+            <ol>
+                <li>进入自己做网站的后台，找到主题下面的编辑按钮；<br>
+                    <img decoding="async" loading="lazy" class="alignnone size-full wp-image-14017" alt="wordpress网站面包屑导航制作&quot;" src="https://www.xuewangzhan.net/wp-content/uploads/2014/06/bj.jpg" width="316" height="239"></li>
+                <li>将以下的代码复制到模板函数functions.php里；
+                  <pre><code>//面包屑
+function wheatv_breadcrumbs() {
+    $delimiter = ' &gt; ';
+    $name = '首页';
+
+    if ( !is_home() || !is_front_page() || is_paged() ) {
+
+        global $post;
+        $home = home_url();
+        echo '&lt;a href="' . $home . '" &nbsp;class="gray"&gt;' . $name . '&lt;/a&gt; ' . $delimiter . ' ';
+
+        if ( is_category() ) {
+
+            global $wp_query;
+            $cat_obj = $wp_query->get_queried_object();
+            $thisCat = $cat_obj->term_id;
+            $thisCat = get_category($thisCat);
+            $parentCat = get_category($thisCat->parent);
+            if($thisCat->parent != 0) echo(get_category_parents($parentCat, TRUE, ' ' . $delimiter . ' '));
+            echo single_cat_title();
+
+        } elseif ( is_day() ) {
+
+            echo '&lt;a href="' . get_year_link(get_the_time('Y')) . '" &nbsp;class="gray"&gt;' . get_the_time('Y') . '&lt;/a&gt; ' . $delimiter . ' ';
+            echo '&lt;a href="' . get_month_link(get_the_time('Y'),get_the_time('m')) . '" &nbsp;class="gray"&gt;' . get_the_time('F') . '&lt;/a&gt; ' . $delimiter . ' ';
+            echo get_the_time('d');
+
+        } elseif ( is_month() ) {
+
+            echo '&lt;a href="' . get_year_link(get_the_time('Y')) . '" &nbsp;class="gray"&gt;' . get_the_time('Y') . '&lt;/a&gt; ' . $delimiter . ' ';
+            echo '&lt;a href="' . get_month_link(get_the_time('Y'),get_the_time('m')) . '" &nbsp;class="gray"&gt;' . get_the_time('F') . '&lt;/a&gt; ' . $delimiter . ' ';
+            echo get_the_time('d');
+
+        } elseif ( is_year() ) {
+
+            echo get_the_time('Y');
+
+        } elseif ( is_single() ) {
+
+            $cat = get_the_category();
+            $cat = $cat[0];
+            echo get_category_parents($cat, TRUE, ' ' . $delimiter . ' ');
+            echo the_title();
+
+        } elseif ( is_page() || !$post->post_parent ) {
+            the_title();
+
+        } elseif ( is_page() || $post->post_parent ) {
+            $parent_id = $post->post_parent;
+            $breadcrumbs = array();
+            while ($parent_id) {
+                $page = get_page($parent_id);
+                $breadcrumbs[] = '&lt;a href="' . get_permalink($page->ID) . '" &nbsp;class="gray"&gt;' . get_the_title($page->ID) . '&lt;/a&gt;';
+                $parent_id = $page->post_parent;
+            }
+            $breadcrumbs = array_reverse($breadcrumbs);
+            foreach ($breadcrumbs as $crumb) echo $crumb . ' ' . $delimiter . ' ';
+            the_title();
+
+        } elseif ( is_search() ) {
+            echo get_search_query();
+
+        } elseif ( is_tag() ) {
+            echo single_tag_title();
+
+        } elseif ( is_author() ) {
+            global $author;
+            $userdata = get_userdata($author);
+            echo '由' . $userdata->display_name . '发表';
+
+        } elseif ( is_404() ) {
+            echo '404 错误';
+
+        }
+        if ( get_query_var('paged') ) {
+            if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo '(';
+            echo '第' . ' ' . get_query_var('paged') . ' 页';
+            if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ')';
+        }
+    } else {
+        echo $name;
+    }
+}</code></pre>
+                </li>
+                <li>在需要调用面包屑导航页面的合适位置添加以下代码：
+                  <pre><code>&lt;?php wheatv_breadcrumbs(); ?&gt;</code></pre>
+                </li>
+            </ol>
+            <p>就这样二步，我们就可以在自己做网站时，给自己的wordpress网站上添加<strong>面包屑导航</strong>了。</p>
+        </div>
+
+    </article>
+
+    <script>
+        // 排版函数示例 - 可以用于格式化代码
+        function formatCode(code) {
+            // 这里可以添加代码格式化逻辑
+            // 例如：替换&nbsp;为空格，处理换行等
+            return code.replace(/&nbsp;/g, ' ').replace(/\n/g, '\n');
+        }
+
+        // 使用示例
+        // const formattedCode = formatCode(yourCodeString);
+        // console.log(formattedCode);
+    </script>
+</body>
+
+</html>

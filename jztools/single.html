@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Wordpress仿站助手 - Wordpress标签生成器 - Wordpress站长工具箱</title>
+    <link rel="stylesheet" href="/jztools/style.css">
+    <script type="text/javascript" src="/wp-content/themes/xwz/images/jquery-3.1.0.min.js"></script>
+    <link rel="shortcut icon" href="/jztools/images/favicon.ico" type="images/x-icon" />
+</head>
+
+<body>
+    <div class="topbarw">
+        <div class="topbar clearfix">
+            <h1>Wordpress仿站助手</h1>
+        </div>
+    </div>
+
+    <main id="main">
+        <header class="subhead">
+            <h2>Wordpress标签生成器</h2>
+            <p class="lead">用于Wordpress仿站和模板开发生成页面标签，方便站长仿站建站。 </p>
+        </header>
+
+        <nav class="topnav clearfix">
+            <ul>
+                <li ><a href="/">首页标签</a></li>
+                <li><a href="category.html">列表页标签</a></li>
+                <li class="curr"><a href="single.html">文章页标签</a></li>
+                <li><a href="other.html">其它标签</a></li>
+                <li><a href="wp.html">后台标签</a></li>
+                <li><a href="en.html">多语标签</a></li>
+                <li><a href="/jquery_txdq/" target="_blank">特效大全</a></li>
+
+            </ul>
+        </nav>
+
+        <table class="dmk">
+            <tr>
+                <td height="155" colspan="5" align="center" valign="middle">
+                    <textarea name="show" id="wpcodepy"></textarea>
+                    <div id="tishi"></div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="调用头部模块" name="<?php get_header();?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用底部模块" name="<?php get_footer();?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用边栏模块" name="<?php get_sidebar();?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用其它模块" name="<?php include( TEMPLATEPATH . '/文件名' ); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="所属分类名字" name="<?php the_category(', ') ?>" onclick="myFun(this)"></td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="不限分类循环代码" name="<?php if (have_posts()) : ?>
+<?php while (have_posts()) : the_post(); ?>
+
+<?php endwhile;?>
+<?php endif; ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章标题" name="<?php the_title(); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章内容" name="<?php the_content(''); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章简介" name="<?php echo mb_strimwidth(strip_tags(apply_filters('the_content', $post->post_content)), 0, 200,'……'); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章作者" name="<?php echo get_the_author_meta( 'display_name', $post->post_author ); ?>" onclick="myFun(this)"></td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="日期调用" name="<?php the_time('Y-m-d'); ?> " onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="面包屑导航" name="<?php wheatv_breadcrumbs(); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="分页导航" name="<?php kriesi_pagination($query_string); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章tag标签" name="<?php the_tags('', ' ', ''); ?> " onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="浏览量调用" name="<?php setPostViews(get_the_ID()); echo number_format(getPostViews(get_the_ID())); ?>" onclick="myFun(this)"></td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="调用评论数" name="<?php comments_number('0', '1', '%' );?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="上一篇调用" name="<?php previous_post_link('%link','上一篇：%title',true) ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="下一篇调用" name="<?php next_post_link('%link','下一篇：%title',true) ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="最新文章调用" name="<?php $rand_posts = get_posts('category=&numberposts=10&orderby=date');foreach($rand_posts as $post) : ?>
+    <li><a href='<?php the_permalink(); ?>'> <?php the_title(); ?></a></li>
+<?php endforeach;wp_reset_query();?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="相关文章调用" name="<?php
+$cats = wp_get_post_categories($post->ID);
+if ($cats) {
+$args = array(
+        'category__in' => array( $cats[0] ),
+        'post__not_in' => array( $post->ID ),
+        'showposts' => 6,
+        'ignore_sticky_posts' => 1
+    );
+query_posts($args);
+if (have_posts()) : while (have_posts()) : the_post(); update_post_caches($posts); ?>
+ <li><a href='<?php the_permalink(); ?>' ><?php the_title(); ?></a></li>
+<?php endwhile; else : ?>
+<?php endif; wp_reset_query(); } ?>" onclick="myFun(this)"></td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="评论框调用" name="<?php comments_template(); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="评论框CSS" name="/*评论*/
+#comments {width: 100%;margin: 10px 0px;padding:0;text-indent: 8px;border-bottom: 0px solid #d8dde0;}
+h3#comments{font-size:18px;font-weight:400;border-left:2px solid #f60;padding-left:10px;margin:20px 0}
+ol.commentlist{margin-left:0;}
+#commentform{font-size:14px}
+.commentlist p {text-indent: 0px;font-size: 14px;line-height: 1.6;padding:10px 0 10px 55px;}
+.commentlist a:hover{text-decoration:none !important;}
+.commentlist>li.comment{margin: 20px 0;padding:10px;}
+.commentlist a:link, .commentlist a:visited {background: none;color: #333;}
+.comment-awaiting-moderation{position: absolute;top: -20px;right: 0;font-size: 13px;color: #999;}
+.comment-body{font-size:14px}
+.commentlist li {list-style: none;background: #FFF;border-bottom: 1px solid #eee;box-sizing:border-box;position:relative}
+.commentlist li .gravatar {display:inline-block;vertical-align:top;width: 48px;margin: 0px 8px 5px 0px;padding: 1px 1px;text-align: center;border: 1px solid #C7C7C7;}
+.commentlist li .gravatar img,.comment-author img{margin: 0px;margin-right:10px;padding: 0px;border-radius: 50%;vertical-align: top;width: 40px;height: 40px;}
+.comment-body,.commentlist li ul li{position:relative;padding-bottom:10px;}
+cite.fn{font-style: normal;color: #980606;padding-right: 5px;position: relative;top: -4px;}
+.commentlist .comment-author:hover img {-moz-transform: rotate(360deg);-webkit-transform: rotate(360deg);-webkit-transition: all ease-in-out .5s;-moz-transition: all ease-in-out .5s;}
+.commentuser{display:inline-block;width:570px;}
+.commentuser .codecolorer-container {width:560px !important;}
+.commentlist li .floor {float: left;width: 48px;margin-top: 1px;padding: 2px 0px 1px;text-align: center;border-top: 1px solid #A7B6BE;background: F8F8F8;color: #999999;}
+.commentlist li .authordata {float: right;width: 480px;}
+.commentlist li .commentmetadata {font-size: 10px;color: #999;padding: 0 0 0px 57px;position: absolute;top: 20px;}
+.commentlist li .commentmetadata a{color:#999}
+.commentlist li .commentcontent {float: right;width: 480px;}
+#editcomment p {padding: 10px 10px 5px;}
+#author, #email, #url,#result{margin:5px 0 0 0;border: 1px solid #ced4da;color: #906;background: #FCFCFC;padding: 5px 5%;width:90%;}
+#commentform label[for='url'],#commentform input#url{display:none;}
+#respond {width: 100%;}
+#respond h3,h3#respond{font-size:16px;padding:10px 0;border-bottom:1px solid #d8dde0;}
+#comment {padding: 10px 3%;margin:5px 0 0 0;width: 94%;height:10em;color: #333;font-size: 14px;border: 1px solid #ced4da;}
+#but_submit {margin-left: 72px;}
+#commentform #submit {border-radius: 0;padding: 8px 10%;border: 0;background-color: #000;color:#fff;font-size:16px;cursor: pointer;margin-top:20px;}
+#commentform #submit:hover{background-color: #333;}
+#ctrl_enter {margin: 16px 0px 0px 5px;color: #066283;font-weight: bold;}
+.submit_hover {border: 2px solid #FF6600;}
+.comment-notes,label[for='comment'],.comment-form-cookies-consent{display:none;}
+.comment-form-author{width:49%;float:left;}
+.comment-form-email{width:49%;float:right;}
+span.says{display:none}
+.comment .reply{display: inline-block;position: absolute;top: 0px;right: 20px;font-size:12px;}
+.comment .reply a{color:#999}" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用随机文章" name="<?php $rand_posts = get_posts('category=&numberposts=6&orderby=rand');  foreach( $rand_posts as $post ) : ?>
+<li><a href='<?php the_permalink(); ?>' title='<?php the_title(); ?>'><?php the_title(); ?></a></li>
+<?php endforeach; ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用子分类" name=" <?php wp_list_cats('sort_column=name&optioncount=0&hierarchical=1&hide_empty=0&child_of=ID号'); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="开启特色图片" name="//特色图片
+add_theme_support( 'post-thumbnails' );" onclick="myFun(this)"></td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="特色图片地址(大)" name="<?php the_post_thumbnail_url( 'full' ); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="特色图片地址(中)" name="<?php the_post_thumbnail_url( 'middle' ); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="特色图片地址(小)" name="<?php the_post_thumbnail_url( 'thumbnail' ); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="特色图片URL" name="<?php if ( has_post_thumbnail() ) { ?><?php $post_ID=$post->ID;$post_thumbnail_id = get_post_thumbnail_id( $post_ID );$post_thumbnail_src = wp_get_attachment_image_src($post_thumbnail_id,'Full');?><img src='<?php echo $post_thumbnail_src[0]; ?>' alt='<?php the_title(); ?>' /><?php }else {?><img src='<?php echo get_first_image(); ?>' alt='<?php the_title(); ?>' /><?php }?>"
+                        onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="待定标签" name="待定标签" onclick="myFun(this)"></td>
+            </tr>
+        </table>
+    </main>
+    <script src="https://www.xuewangzhan.net/jztools/images/dm.js?v=3"></script>
+</body>
+
+</html>

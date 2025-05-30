@@ -1,0 +1,118 @@
+.fleft {
+    float: left;
+}
+
+.fright {
+    float: right;
+}
+
+.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    font-size: 0;
+    visibility: hidden;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+/* 顶部导航条 */
+
+#header {
+    width: 100%;
+    background: #000;
+}
+
+#header a {
+    color: #fff;
+}
+
+#header #logo {
+    font-size: 14px;
+    padding: 15px;
+    float: left;
+    font-weight: 600;
+    color: #fff;
+}
+
+.topmeau {
+    padding-left: 20px;
+    float: left;
+}
+
+.topmeau li {
+    padding: 15px;
+    float: left;
+    font-size: 14px;
+}
+
+.tback {
+    padding: 15px;
+    font-size: 14px;
+}
+
+.abouttx {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 20px;
+}
+
+.abouttx h2 {
+    font-size: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #f5f5f5;
+    color: #39A4DC;
+}
+
+.abouttx p {
+    line-height: 2.5em;
+    font-size: 15px;
+    max-width: 1200px;
+}
+
+.abouttx p span {
+    color: #f00;
+}
+
+/* 使用方法 */
+
+.useall {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 20px;
+    text-align: left;
+}
+
+.useall h2 {
+    font-size: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #f5f5f5;
+    color: #39A4DC;
+}
+
+.usefy li {
+    line-height: 2em;
+    padding: 10px 0;
+    font-size: 16px;
+}
+
+.usefy li img {
+    display: block;
+    margin: 10px;
+    padding: 2px;
+    border: 1px solid #ddd;
+}
+
+.usefy li TEXTAREA {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    max-width: 800px;
+}

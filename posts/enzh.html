@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		/* 基础样式 */
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			line-height: 1.7;
+			color: #333;
+			background-color: #f8f9fa;
+			margin: 0;
+			padding: 20px;
+		}
+
+		/* 文章容器 */
+		.xwz-modBox {
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+			padding: 30px;
+			margin: 30px auto;
+			max-width: 900px;
+			transition: all 0.3s ease;
+		}
+
+		.xwz-modBox:hover {
+			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+			transform: translateY(-3px);
+		}
+
+		/* 标题样式 */
+		.xwz-modBox header h1 {
+			color: #2c3e50;
+			font-size: 28px;
+			margin-bottom: 20px;
+			position: relative;
+			padding-bottom: 10px;
+		}
+
+		.xwz-modBox header h1:after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 60px;
+			height: 3px;
+			background: linear-gradient(90deg, #3498db, #9b59b6);
+		}
+
+		/* 内容区域 */
+		.xwz-con-main {
+			line-height: 1.8;
+			color: #555;
+		}
+
+		/* 链接样式 */
+		.xwz-con-main a {
+			color: #3498db;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.xwz-con-main a:hover {
+			color: #9b59b6;
+			text-decoration: underline;
+		}
+
+		/* 图片样式 */
+		.xwz-con-main img {
+			max-width: 100%;
+			height: auto;
+			border-radius: 8px;
+			margin: 25px 0;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			transition: transform 0.3s;
+		}
+
+		.xwz-con-main img:hover {
+			transform: scale(1.02);
+		}
+
+		/* 列表样式 */
+		.xwz-con-main ol {
+			padding-left: 25px;
+			margin: 20px 0;
+		}
+
+		.xwz-con-main li {
+			margin-bottom: 12px;
+			position: relative;
+			padding-left: 15px;
+		}
+
+		.xwz-con-main li:before {
+			content: "•";
+			position: absolute;
+			left: -15px;
+			color: #3498db;
+			font-size: 18px;
+		}
+
+		/* 代码块样式 */
+		pre {
+			background-color: #f8f9fa;
+			border: 1px solid #e9ecef;
+			border-radius: 6px;
+			padding: 18px;
+			margin: 25px 0;
+			overflow-x: auto;
+			position: relative;
+		}
+
+		pre code {
+			font-family: 'Courier New', Courier, monospace;
+			font-size: 14px;
+			color: #e83e8c;
+			line-height: 1.6;
+		}
+
+		/* 代码高亮（简单版） */
+		pre .keyword {
+			color: #e83e8c;
+		}
+
+		pre .string {
+			color: #28a745;
+		}
+
+		pre .comment {
+			color: #6c757d;
+		}
+
+		/* 导航样式 */
+		.xwz-next {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 40px;
+			padding-top: 20px;
+			border-top: 1px solid #e9ecef;
+		}
+
+		.floatLeft,
+		.floatRight {
+			font-size: 15px;
+			color: #6c757d;
+		}
+
+		.floatLeft a,
+		.floatRight a {
+			color: #3498db;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.floatLeft a:hover,
+		.floatRight a:hover {
+			color: #9b59b6;
+			text-decoration: underline;
+		}
+
+		/* 响应式设计 */
+		@media (max-width: 768px) {
+			.xwz-modBox {
+				padding: 20px;
+				margin: 20px;
+			}
+
+			.xwz-modBox header h1 {
+				font-size: 24px;
+			}
+
+			pre {
+				padding: 15px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<article class="xwz-modBox">
+		<header>
+			<h1>WordPress 网站导航菜单实现上面中文下面英文</h1>
+		</header>
+		<div class="xwz-maincon xb6">
+			<p>通常的网站导航栏目是纯中文或者纯英文，这种比较简单，只要直接调用网站后台设置的导航菜单即可。如下图就是纯中文的导航菜单效果。</p>
+			<p><img decoding="async" class="alignnone size-full wp-image-68392"
+					src="https://www.xuewangzhan.net/wp-content/uploads/2022/12/nav1.jpg" alt="纯中文的导航菜单" width="527"
+					height="295"></p>
+			<p>也有一些网站的导航菜单比较特殊，每个栏目上面是中文，下面是英文。如下图：</p>
+			<p><img decoding="async" loading="lazy" class="alignnone size-medium wp-image-68393"
+					src="https://www.xuewangzhan.net/wp-content/uploads/2022/12/nav2.jpg" alt="中英文导航菜单" width="555"
+					height="283"></p>
+			<p>这种导航菜单是无法直接在后台进行设置的。那么怎么制作这种上面中文下面英文的导航菜单呢？下面学做网站论坛以WORDPRESS网站为例介绍一下实现方法。（其它网站方法一样）</p>
+			<p>第一步：还是按正常的纯中文的导航菜单调用代码来调用出纯中文的导航菜单；</p>
+			<pre>
+		<div class="codecolorer-container php geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="php codecolorer" style="white-space:nowrap"><span style="color: #000000; font-weight: bold;">&lt;?php</span> wp_nav_menu<span style="color: #009900;">(</span> <span style="color: #990000;">array</span><span style="color: #009900;">(</span> <span style="color: #0000ff;">'theme_location'</span> <span style="color: #339933;">=&gt;</span><span style="color: #0000ff;">'topmenu'</span><span style="color: #339933;">,</span><span style="color: #0000ff;">'container'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">''</span><span style="color: #339933;">,</span><span style="color: #0000ff;">'menu_class'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'topnav'</span><span style="color: #339933;">,</span><span style="color: #0000ff;">'menu_id'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'topmeau'</span><span style="color: #339933;">,</span><span style="color: #0000ff;">'depth'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #009900;">)</span> <span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span></div></div>
+
+		</pre>
+			<p>第二步：使用JQUERY的append()函数，将英文菜单的每一个LI里面的内容追加到纯中文导航菜单里，一一对应；</p>
+			<pre>
+		<div class="codecolorer-container javascript geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="javascript codecolorer" style="white-space:nowrap"><span style="color: #339933;">&lt;</span>script<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #006600; font-style: italic;">//循环追加动态元素</span><br>
+		<span style="color: #000066; font-weight: bold;">var</span> nll<span style="color: #339933;">=</span> $<span style="color: #009900;">(</span><span style="color: #3366CC;">'.topnav&gt;li'</span><span style="color: #009900;">)</span>.<span style="color: #660066;">length</span><span style="color: #339933;">;</span><br>
+		<span style="color: #000066; font-weight: bold;">for</span><span style="color: #009900;">(</span><span style="color: #000066; font-weight: bold;">var</span> i<span style="color: #339933;">=</span><span style="color: #CC0000;">1</span><span style="color: #339933;">;</span>i<span style="color: #339933;">&lt;=</span>nll<span style="color: #339933;">;</span>i<span style="color: #339933;">++</span><span style="color: #009900;">)</span><span style="color: #009900;">{</span><br>
+		<span style="color: #000066; font-weight: bold;">var</span> naven<span style="color: #339933;">=</span>$<span style="color: #009900;">(</span><span style="color: #3366CC;">'.topnav&gt;li:nth-child('</span><span style="color: #339933;">+</span>i<span style="color: #339933;">+</span><span style="color: #3366CC;">')&gt;a'</span><span style="color: #009900;">)</span>.<span style="color: #660066;">attr</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'title'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><br>
+		$<span style="color: #009900;">(</span><span style="color: #3366CC;">'.topnav&gt;li:nth-child('</span><span style="color: #339933;">+</span>i<span style="color: #339933;">+</span><span style="color: #3366CC;">')&gt;a'</span><span style="color: #009900;">)</span>.<span style="color: #660066;">append</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'&lt;span&gt;'</span><span style="color: #339933;">+</span>naven<span style="color: #339933;">+</span><span style="color: #3366CC;">'&lt;/span&gt;'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><br>
+		<span style="color: #009900;">}</span><br>
+		<span style="color: #339933;">&lt;/</span>script<span style="color: #339933;">&gt;</span></div></div>
+
+		</pre>
+			<p>第三步：在后台---外观---菜单处，勾选title属性，并且给每一个菜单添加title，这个title就是英文内容。</p>
+			<p><img decoding="async" loading="lazy" class="alignnone size-full wp-image-75673"
+					src="https://www.xuewangzhan.net/wp-content/uploads/2022/12/navv.png" alt="菜单添加title" width="648"
+					height="153"></p>
+			<p>这样我们网站的导航菜单就会出现上面中文下面英文的效果了。</p>
+		</div>
+
+	</article>
+
+</body>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		// 代码块复制功能
+		document.querySelectorAll('pre').forEach(pre => {
+			const code = pre.querySelector('code');
+			if (code) {
+				const copyBtn = document.createElement('button');
+				copyBtn.className = 'copy-btn';
+				copyBtn.textContent = '复制';
+				copyBtn.style.position = 'absolute';
+				copyBtn.style.top = '10px';
+				copyBtn.style.right = '10px';
+				copyBtn.style.padding = '5px 10px';
+				copyBtn.style.background = '#f8f9fa';
+				copyBtn.style.border = 'none';
+				copyBtn.style.borderRadius = '4px';
+				copyBtn.style.cursor = 'pointer';
+
+				// 点击复制
+				copyBtn.addEventListener('click', function () {
+					navigator.clipboard.writeText(code.textContent)
+						.then(() => {
+							copyBtn.textContent = '已复制!';
+							setTimeout(() => {
+								copyBtn.textContent = '复制';
+							}, 2000);
+						})
+						.catch(err => {
+							console.error('复制失败:', err);
+						});
+				});
+
+				// 创建包装元素
+				const wrapper = document.createElement('div');
+				wrapper.style.position = 'relative';
+				wrapper.appendChild(copyBtn);
+				wrapper.appendChild(pre.cloneNode(true));
+
+				// 替换原pre
+				pre.parentNode.replaceChild(wrapper.firstChild, pre);
+			}
+		});
+
+		// 平滑滚动到锚点
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function (e) {
+				e.preventDefault();
+				document.querySelector(this.getAttribute('href')).scrollIntoView({
+					behavior: 'smooth'
+				});
+			});
+		});
+	});
+</script>
+
+</html>

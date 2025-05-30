@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		/* 基础样式 */
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			line-height: 1.7;
+			color: #333;
+			background-color: #f8f9fa;
+			margin: 0;
+			padding: 20px;
+		}
+
+		/* 文章容器 */
+		.xwz-modBox {
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+			padding: 30px;
+			margin: 30px auto;
+			max-width: 900px;
+			transition: all 0.3s ease;
+		}
+
+		.xwz-modBox:hover {
+			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+			transform: translateY(-3px);
+		}
+
+		/* 标题样式 */
+		.xwz-modBox header h1 {
+			color: #2c3e50;
+			font-size: 28px;
+			margin-bottom: 20px;
+			position: relative;
+			padding-bottom: 10px;
+		}
+
+		.xwz-modBox header h1:after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 60px;
+			height: 3px;
+			background: linear-gradient(90deg, #3498db, #9b59b6);
+		}
+
+		/* 内容区域 */
+		.xwz-con-main {
+			line-height: 1.8;
+			color: #555;
+		}
+
+		/* 链接样式 */
+		.xwz-con-main a {
+			color: #3498db;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.xwz-con-main a:hover {
+			color: #9b59b6;
+			text-decoration: underline;
+		}
+
+		/* 图片样式 */
+		.xwz-con-main img {
+			max-width: 100%;
+			height: auto;
+			border-radius: 8px;
+			margin: 25px 0;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			transition: transform 0.3s;
+		}
+
+		.xwz-con-main img:hover {
+			transform: scale(1.02);
+		}
+
+		/* 列表样式 */
+		.xwz-con-main ol {
+			padding-left: 25px;
+			margin: 20px 0;
+		}
+
+		.xwz-con-main li {
+			margin-bottom: 12px;
+			position: relative;
+			padding-left: 15px;
+		}
+
+		.xwz-con-main li:before {
+			content: "•";
+			position: absolute;
+			left: -15px;
+			color: #3498db;
+			font-size: 18px;
+		}
+
+		/* 代码块样式 */
+		pre {
+			background-color: #f8f9fa;
+			border: 1px solid #e9ecef;
+			border-radius: 6px;
+			padding: 18px;
+			margin: 25px 0;
+			overflow-x: auto;
+			position: relative;
+		}
+
+		pre code {
+			font-family: 'Courier New', Courier, monospace;
+			font-size: 14px;
+			color: #e83e8c;
+			line-height: 1.6;
+		}
+
+		/* 代码高亮（简单版） */
+		pre .keyword {
+			color: #e83e8c;
+		}
+
+		pre .string {
+			color: #28a745;
+		}
+
+		pre .comment {
+			color: #6c757d;
+		}
+
+		/* 导航样式 */
+		.xwz-next {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 40px;
+			padding-top: 20px;
+			border-top: 1px solid #e9ecef;
+		}
+
+		.floatLeft,
+		.floatRight {
+			font-size: 15px;
+			color: #6c757d;
+		}
+
+		.floatLeft a,
+		.floatRight a {
+			color: #3498db;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.floatLeft a:hover,
+		.floatRight a:hover {
+			color: #9b59b6;
+			text-decoration: underline;
+		}
+
+		/* 响应式设计 */
+		@media (max-width: 768px) {
+			.xwz-modBox {
+				padding: 20px;
+				margin: 20px;
+			}
+
+			.xwz-modBox header h1 {
+				font-size: 24px;
+			}
+
+			pre {
+				padding: 15px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<article class="xwz-modBox">
+		<header>
+		<h1>wordpress调用指定分类下的子分类</h1>
+		</header>
+		<div class="xwz-con-main yc6">
+		<p>使用wordpress建网站时，在侧边栏往往需要调用某个指定分类下的子分类，这样只要在网站后台添加分类后，网站界面就会自动的调用显示出来。（要想在不同的分类调用各自的子分类，请学习<a href="https://www.xuewangzhan.net/wpbbs/5149.html" target="_blank" rel="noopener noreferrer">wordpress不同分类调用当前子分类</a>教程。）</p>
+		<p>以下为wordpress调用批定分类下的子分类的代码：</p>
+		<pre>
+		<div class="codecolorer-container php geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="php codecolorer" style="white-space:nowrap"><span style="color: #000000; font-weight: bold;">&lt;?php</span> wp_list_categories<span style="color: #009900;">(</span><span style="color: #0000ff;">'orderby=ID&amp;order=ASC&amp;style=list&amp;use_desc_for_title =0&amp;title_li=0&amp;show_option_none=0&amp;show_count=1&amp;hierarchical=1&amp;hide_empty=0&amp;depth=1&amp;child_of=51'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span></div></div>
+
+		</pre>
+		<p>效果如下图：<br>
+		<img decoding="async" src="https://www.xuewangzhan.net/wp-content/uploads/2015/04/11.jpg" alt="wordpress调用批定分类下的子分类1" width="281" height="332"></p>
+		<p><strong>代码解释</strong>：sort_column=name为调用分类名；<br>
+		optioncount=1为调用分类下的文章数量；<br>
+		hide_empty=0为是否隐藏没有文章的分类；<br>
+		child_of=51为调用的父分类ID号，需要改为你自己的父分类的ID号。</p>
+		<p>以上的代码是同时调用出子分类名和子分类下的文章数，如果只想调用子分类名，不需要显示文章数量，可以使用以下的代码：（更多修改请参考<a href="https://www.xuewangzhan.net/wpbbs/9241.html" target="_blank" rel="noopener noreferrer">wordpress程序开发手册</a>）</p>
+		<pre>
+		<div class="codecolorer-container php geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="php codecolorer" style="white-space:nowrap"><span style="color: #000000; font-weight: bold;">&lt;?php</span> wp_list_categories<span style="color: #009900;">(</span><span style="color: #0000ff;">'orderby=ID&amp;order=ASC&amp;style=list&amp;use_desc_for_title =0&amp;title_li=0&amp;show_option_none=0&amp;show_count=0&amp;hierarchical=1&amp;hide_empty=0&amp;depth=1&amp;child_of=51'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span></div></div>
+
+		</pre>
+		<p>调用动态的子分类</p>
+		<pre>
+		<div class="codecolorer-container php geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="php codecolorer" style="white-space:nowrap"><span style="color: #000000; font-weight: bold;">&lt;?php</span> wp_list_categories<span style="color: #009900;">(</span><span style="color: #0000ff;">'orderby=ID&amp;order=ASC&amp;style=list&amp;use_desc_for_title =0&amp;title_li=0&amp;show_option_none=0&amp;show_count=0&amp;hierarchical=1&amp;hide_empty=0&amp;depth=1&amp;child_of='</span><span style="color: #339933;">.</span><span style="color: #000088;">$catid01</span><span style="color: #339933;">.</span><span style="color: #0000ff;">''</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span></div></div>
+
+		</pre>
+		<p>效果如下图：<br>
+		<img decoding="async" loading="lazy" class="alignnone size-full wp-image-6772" src="https://www.xuewangzhan.net/wp-content/uploads/2015/04/23.jpg" alt="wordpress调用批定分类下的子分类2" width="236" height="231"></p>
+		<p>更灵活的调用指定分类下的子分类的方法：</p>
+		<pre>
+		<div class="codecolorer-container php geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="php codecolorer" style="white-space:nowrap"><span style="color: #000000; font-weight: bold;">&lt;?php</span><br>
+		<span style="color: #000088;">$args</span><span style="color: #339933;">=</span><span style="color: #990000;">array</span><span style="color: #009900;">(</span><br>
+		<span style="color: #0000ff;">'type'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'post'</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'child_of'</span><span style="color: #339933;">=&gt;</span> <span style="color: #000088;">$catid01</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'parent'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #000088;">$catid01</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'orderby'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'ID'</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'order'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'ASC'</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'hide_empty'</span><span style="color: #339933;">=&gt;</span><span style="color: #0000ff;">'0'</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'hierarchical'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'exclude'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">''</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'include'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">''</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'number'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">''</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'pad_counts'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900; font-weight: bold;">false</span><br>
+		<span style="color: #009900;">)</span><span style="color: #339933;">;</span><br>
+		<span style="color: #000088;">$categories</span><span style="color: #339933;">=</span>get_categories<span style="color: #009900;">(</span><span style="color: #000088;">$args</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><br>
+		<span style="color: #000088;">$r</span><span style="color: #339933;">=</span><span style="color: #cc66cc;">1</span><span style="color: #339933;">;</span><br>
+		<span style="color: #b1b100;">foreach</span><span style="color: #009900;">(</span><span style="color: #000088;">$categories</span> <span style="color: #b1b100;">as</span> <span style="color: #000088;">$category</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span><span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #339933;">&lt;</span>li<span style="color: #339933;">&gt;&lt;</span>a href<span style="color: #339933;">=</span><span style="color: #0000ff;">"&lt;?php echo get_category_link( <span style="color: #006699; font-weight: bold;">$category-&gt;term_id</span> );?&gt;"</span><span style="color: #339933;">&gt;</span><span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> <span style="color: #000088;">$category</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">name</span><span style="color: #339933;">;</span><span style="color: #000000; font-weight: bold;">?&gt;</span><span style="color: #339933;">&lt;/</span>a<span style="color: #339933;">&gt;&lt;/</span>li<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #000088;">$r</span><span style="color: #339933;">++;</span><br>
+		<span style="color: #b1b100;">if</span><span style="color: #009900;">(</span><span style="color: #000088;">$r</span><span style="color: #339933;">&gt;</span><span style="color: #cc66cc;">15</span><span style="color: #009900;">)</span><br>
+		<span style="color: #b1b100;">break</span><span style="color: #339933;">;</span><br>
+		<span style="color: #009900;">}</span><br>
+		<span style="color: #000000; font-weight: bold;">?&gt;</span></div></div>
+
+		</pre>
+		<p>补充：如果调用的子分类下还有子子分类，但只想调用子分类不想显示子子分类，可以在上面的代码里加上depth=1；</p>
+		<pre>
+		<div class="codecolorer-container php geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="php codecolorer" style="white-space:nowrap"><span style="color: #000000; font-weight: bold;">&lt;?php</span> wp_list_cats<span style="color: #009900;">(</span><span style="color: #0000ff;">'sort_column=name&amp;optioncount=0&amp;hierarchical=1&amp;depth=1&amp;hide_empty=0&amp;child_of=150'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span></div></div>
+
+		</pre>
+		<p>如果在调用多个子分类时与其它代码产生冲突，可以使用以下的代码来调用 ：</p>
+		<pre><div class="codecolorer-container php geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="php codecolorer" style="white-space:nowrap"><span style="color: #339933;">&lt;</span>div <span style="color: #000000; font-weight: bold;">class</span><span style="color: #339933;">=</span><span style="color: #0000ff;">"sub-menu hide"</span> id<span style="color: #339933;">=</span><span style="color: #0000ff;">"sub-menu"</span><span style="color: #339933;">&gt;</span><br>
+		<br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">for</span><span style="color: #009900;">(</span><span style="color: #000088;">$i</span><span style="color: #339933;">=</span><span style="color: #cc66cc;">0</span><span style="color: #339933;">;</span><span style="color: #000088;">$i</span><span style="color: #339933;">&lt;</span><span style="color: #990000;">count</span><span style="color: #009900;">(</span><span style="color: #000088;">$catidarr</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><span style="color: #000088;">$i</span><span style="color: #339933;">++</span><span style="color: #009900;">)</span><span style="color: #009900;">{</span><span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #339933;">&lt;</span>div <span style="color: #000000; font-weight: bold;">class</span><span style="color: #339933;">=</span><span style="color: #0000ff;">"inner-box"</span><span style="color: #339933;">&gt;</span><br>
+		<br>
+		&nbsp;<br>
+		<br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span><br>
+		<span style="color: #000088;">$args</span><span style="color: #339933;">=</span><span style="color: #990000;">array</span><span style="color: #009900;">(</span><br>
+		<span style="color: #0000ff;">'type'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'post'</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'child_of'</span><span style="color: #339933;">=&gt;</span> <span style="color: #000088;">$catidarr</span><span style="color: #009900;">[</span><span style="color: #000088;">$i</span><span style="color: #009900;">]</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'parent'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">''</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'orderby'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'ID'</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'order'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'ASC'</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'hide_empty'</span><span style="color: #339933;">=&gt;</span><span style="color: #0000ff;">'0'</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'hierarchical'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'exclude'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">''</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'include'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">''</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'number'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">''</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'pad_counts'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900; font-weight: bold;">false</span><br>
+		<span style="color: #009900;">)</span><span style="color: #339933;">;</span><br>
+		<span style="color: #000088;">$categories</span><span style="color: #339933;">=</span>get_categories<span style="color: #009900;">(</span><span style="color: #000088;">$args</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><br>
+		<span style="color: #000088;">$k</span><span style="color: #339933;">=</span><span style="color: #cc66cc;">1</span><span style="color: #339933;">;</span><br>
+		<span style="color: #b1b100;">foreach</span><span style="color: #009900;">(</span><span style="color: #000088;">$categories</span> <span style="color: #b1b100;">as</span> <span style="color: #000088;">$category</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span><span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #339933;">&lt;</span>dl<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #339933;">&lt;</span>dt<span style="color: #339933;">&gt;</span> <span style="color: #339933;">&lt;</span>a href<span style="color: #339933;">=</span><span style="color: #0000ff;">"&lt;?php echo get_category_link( <span style="color: #006699; font-weight: bold;">$category-&gt;term_id</span> );?&gt;"</span><span style="color: #339933;">&gt;</span> <span style="color: #339933;">&lt;</span>strong<span style="color: #339933;">&gt;</span><span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> <span style="color: #000088;">$category</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">name</span><span style="color: #339933;">;</span><span style="color: #000000; font-weight: bold;">?&gt;</span><span style="color: #339933;">&lt;/</span>strong<span style="color: #339933;">&gt;&lt;/</span>a<span style="color: #339933;">&gt;</span> <span style="color: #339933;">&lt;/</span>dt<span style="color: #339933;">&gt;</span><br>
+		<br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">if</span> <span style="color: #009900;">(</span>have_posts<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #009900;">)</span> <span style="color: #339933;">:</span> <span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> query_posts<span style="color: #009900;">(</span><span style="color: #0000ff;">'cat='</span><span style="color: #339933;">.</span><span style="color: #000088;">$category</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">term_id</span><span style="color: #339933;">.</span><span style="color: #0000ff;">'&amp;ignore_sticky_posts=1&amp;showposts=9'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">while</span> <span style="color: #009900;">(</span>have_posts<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #009900;">)</span> <span style="color: #339933;">:</span> the_post<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<br>
+		<span style="color: #339933;">&lt;</span>dd<span style="color: #339933;">&gt;&lt;</span>a href<span style="color: #339933;">=</span><span style="color: #0000ff;">"&lt;?php the_permalink() ?&gt;"</span><span style="color: #339933;">&gt;</span><span style="color: #000000; font-weight: bold;">&lt;?php</span> the_title<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span><span style="color: #339933;">&lt;/</span>a<span style="color: #339933;">&gt;&lt;/</span>dd<span style="color: #339933;">&gt;</span><br>
+		<br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">endwhile</span><span style="color: #339933;">;</span><span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">endif</span><span style="color: #339933;">;</span> wp_reset_query<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<br>
+		<span style="color: #339933;">&lt;/</span>dl<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span><br>
+		<span style="color: #000088;">$k</span><span style="color: #339933;">++;</span><br>
+		<span style="color: #b1b100;">if</span><span style="color: #009900;">(</span><span style="color: #000088;">$k</span><span style="color: #339933;">&gt;</span><span style="color: #cc66cc;">15</span><span style="color: #009900;">)</span><br>
+		<span style="color: #b1b100;">break</span><span style="color: #339933;">;</span><br>
+		<span style="color: #009900;">}</span><span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<br>
+		&nbsp;<br>
+		<br>
+		&nbsp;<br>
+		<br>
+		<span style="color: #339933;">&lt;/</span>div<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #009900;">}</span><span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #339933;">&lt;/</span>div<span style="color: #339933;">&gt;</span></div></div>
+		</pre>
+		</div>
+
+		</article>
+</body>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		// 代码块复制功能
+		document.querySelectorAll('pre').forEach(pre => {
+			const code = pre.querySelector('code');
+			if (code) {
+				const copyBtn = document.createElement('button');
+				copyBtn.className = 'copy-btn';
+				copyBtn.textContent = '复制';
+				copyBtn.style.position = 'absolute';
+				copyBtn.style.top = '10px';
+				copyBtn.style.right = '10px';
+				copyBtn.style.padding = '5px 10px';
+				copyBtn.style.background = '#f8f9fa';
+				copyBtn.style.border = 'none';
+				copyBtn.style.borderRadius = '4px';
+				copyBtn.style.cursor = 'pointer';
+
+				// 点击复制
+				copyBtn.addEventListener('click', function () {
+					navigator.clipboard.writeText(code.textContent)
+						.then(() => {
+							copyBtn.textContent = '已复制!';
+							setTimeout(() => {
+								copyBtn.textContent = '复制';
+							}, 2000);
+						})
+						.catch(err => {
+							console.error('复制失败:', err);
+						});
+				});
+
+				// 创建包装元素
+				const wrapper = document.createElement('div');
+				wrapper.style.position = 'relative';
+				wrapper.appendChild(copyBtn);
+				wrapper.appendChild(pre.cloneNode(true));
+
+				// 替换原pre
+				pre.parentNode.replaceChild(wrapper.firstChild, pre);
+			}
+		});
+
+		// 平滑滚动到锚点
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function (e) {
+				e.preventDefault();
+				document.querySelector(this.getAttribute('href')).scrollIntoView({
+					behavior: 'smooth'
+				});
+			});
+		});
+	});
+</script>
+
+</html>

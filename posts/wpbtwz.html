@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		/* 基础样式 */
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			line-height: 1.7;
+			color: #333;
+			background-color: #f8f9fa;
+			margin: 0;
+			padding: 20px;
+		}
+
+		/* 文章容器 */
+		.xwz-modBox {
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+			padding: 30px;
+			margin: 30px auto;
+			max-width: 900px;
+			transition: all 0.3s ease;
+		}
+
+		.xwz-modBox:hover {
+			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+			transform: translateY(-3px);
+		}
+
+		/* 标题样式 */
+		.xwz-modBox header h1 {
+			color: #2c3e50;
+			font-size: 28px;
+			margin-bottom: 20px;
+			position: relative;
+			padding-bottom: 10px;
+		}
+
+		.xwz-modBox header h1:after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 60px;
+			height: 3px;
+			background: linear-gradient(90deg, #3498db, #9b59b6);
+		}
+
+		/* 内容区域 */
+		.xwz-con-main {
+			line-height: 1.8;
+			color: #555;
+		}
+
+		/* 链接样式 */
+		.xwz-con-main a {
+			color: #3498db;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.xwz-con-main a:hover {
+			color: #9b59b6;
+			text-decoration: underline;
+		}
+
+		/* 图片样式 */
+		.xwz-con-main img {
+			max-width: 100%;
+			height: auto;
+			border-radius: 8px;
+			margin: 25px 0;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			transition: transform 0.3s;
+		}
+
+		.xwz-con-main img:hover {
+			transform: scale(1.02);
+		}
+
+		/* 列表样式 */
+		.xwz-con-main ol {
+			padding-left: 25px;
+			margin: 20px 0;
+		}
+
+		.xwz-con-main li {
+			margin-bottom: 12px;
+			position: relative;
+			padding-left: 15px;
+		}
+
+		.xwz-con-main li:before {
+			content: "•";
+			position: absolute;
+			left: -15px;
+			color: #3498db;
+			font-size: 18px;
+		}
+
+		/* 代码块样式 */
+		pre {
+			background-color: #f8f9fa;
+			border: 1px solid #e9ecef;
+			border-radius: 6px;
+			padding: 18px;
+			margin: 25px 0;
+			overflow-x: auto;
+			position: relative;
+		}
+
+		pre code {
+			font-family: 'Courier New', Courier, monospace;
+			font-size: 14px;
+			color: #e83e8c;
+			line-height: 1.6;
+		}
+
+		/* 代码高亮（简单版） */
+		pre .keyword {
+			color: #e83e8c;
+		}
+
+		pre .string {
+			color: #28a745;
+		}
+
+		pre .comment {
+			color: #6c757d;
+		}
+
+		/* 导航样式 */
+		.xwz-next {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 40px;
+			padding-top: 20px;
+			border-top: 1px solid #e9ecef;
+		}
+
+		.floatLeft,
+		.floatRight {
+			font-size: 15px;
+			color: #6c757d;
+		}
+
+		.floatLeft a,
+		.floatRight a {
+			color: #3498db;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.floatLeft a:hover,
+		.floatRight a:hover {
+			color: #9b59b6;
+			text-decoration: underline;
+		}
+
+		/* 响应式设计 */
+		@media (max-width: 768px) {
+			.xwz-modBox {
+				padding: 20px;
+				margin: 20px;
+			}
+
+			.xwz-modBox header h1 {
+				font-size: 24px;
+			}
+
+			pre {
+				padding: 15px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<article class="xwz-modBox">
+		<header>
+		<h1>WordPress不同分类调用不同文章模板</h1>
+		</header>
+		<div class="xwz-conn mb60">
+		<p><strong>问题：</strong></p>
+		<p>老师你好，我是学做网站论坛的一个学员，我学习了<a href="https://www.xuewangzhan.net/jz/wordpress/" target="_blank" rel="noopener noreferrer">wordpress建站教程</a>后，使用Wordpress程序建了一个网站，我想不同的分类目录调用不同的文章模板。例如：产品列表分类下的文章与新闻列表分类下的文章调用各个不同的文章模板。这应该怎么实现呢？</p>
+		<p><strong>回复：</strong></p>
+		<p>不同分类调用不同的文章模板，可以给分类目录添加属性，可以通过代码的方式去实现，并且可以在文章页面去调用自己添加的分目的属性。</p>
+		<pre>
+		<div class="codecolorer-container php geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="php codecolorer" style="white-space:nowrap"><span style="color: #000000; font-weight: bold;">&lt;?php</span><br>
+		<span style="color: #000088;">$post</span> <span style="color: #339933;">=</span> <span style="color: #000088;">$wp_query</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">post</span><span style="color: #339933;">;</span><br>
+		<span style="color: #b1b100;">if</span> <span style="color: #009900;">(</span> in_category<span style="color: #009900;">(</span><span style="color: #990000;">array</span><span style="color: #009900;">(</span><span style="color: #0000ff;">"1"</span><span style="color: #339933;">,</span><span style="color: #0000ff;">"2"</span><span style="color: #009900;">)</span><span style="color: #009900;">)</span> <span style="color: #339933;">||</span> post_is_in_descendant_category<span style="color: #009900;">(</span><span style="color: #0000ff;">"1"</span><span style="color: #009900;">)</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span><br>
+		<span style="color: #b1b100;">include</span><span style="color: #009900;">(</span>TEMPLATEPATH <span style="color: #339933;">.</span> <span style="color: #0000ff;">'/single-pro.php'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><br>
+		<span style="color: #009900;">}</span><br>
+		<span style="color: #b1b100;">else</span> <span style="color: #009900;">{</span><br>
+		<span style="color: #b1b100;">include</span><span style="color: #009900;">(</span>TEMPLATEPATH <span style="color: #339933;">.</span> <span style="color: #0000ff;">'/single-wz.php'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><br>
+		<span style="color: #009900;">}</span> <span style="color: #000000; font-weight: bold;">?&gt;</span></div></div>
+
+		</pre>
+		<p>这样的代码去判断分类的ID号来调用不同的模板。</p>
+		</div>
+
+		</article>
+</body>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		// 代码块复制功能
+		document.querySelectorAll('pre').forEach(pre => {
+			const code = pre.querySelector('code');
+			if (code) {
+				const copyBtn = document.createElement('button');
+				copyBtn.className = 'copy-btn';
+				copyBtn.textContent = '复制';
+				copyBtn.style.position = 'absolute';
+				copyBtn.style.top = '10px';
+				copyBtn.style.right = '10px';
+				copyBtn.style.padding = '5px 10px';
+				copyBtn.style.background = '#f8f9fa';
+				copyBtn.style.border = 'none';
+				copyBtn.style.borderRadius = '4px';
+				copyBtn.style.cursor = 'pointer';
+
+				// 点击复制
+				copyBtn.addEventListener('click', function () {
+					navigator.clipboard.writeText(code.textContent)
+						.then(() => {
+							copyBtn.textContent = '已复制!';
+							setTimeout(() => {
+								copyBtn.textContent = '复制';
+							}, 2000);
+						})
+						.catch(err => {
+							console.error('复制失败:', err);
+						});
+				});
+
+				// 创建包装元素
+				const wrapper = document.createElement('div');
+				wrapper.style.position = 'relative';
+				wrapper.appendChild(copyBtn);
+				wrapper.appendChild(pre.cloneNode(true));
+
+				// 替换原pre
+				pre.parentNode.replaceChild(wrapper.firstChild, pre);
+			}
+		});
+
+		// 平滑滚动到锚点
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function (e) {
+				e.preventDefault();
+				document.querySelector(this.getAttribute('href')).scrollIntoView({
+					behavior: 'smooth'
+				});
+			});
+		});
+	});
+</script>
+
+</html>

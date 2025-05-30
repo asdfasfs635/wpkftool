@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		/* 基础样式 */
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			line-height: 1.7;
+			color: #333;
+			background-color: #f8f9fa;
+			margin: 0;
+			padding: 20px;
+		}
+
+		/* 文章容器 */
+		.xwz-modBox {
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+			padding: 30px;
+			margin: 30px auto;
+			max-width: 900px;
+			transition: all 0.3s ease;
+		}
+
+		.xwz-modBox:hover {
+			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+			transform: translateY(-3px);
+		}
+
+		/* 标题样式 */
+		.xwz-modBox header h1 {
+			color: #2c3e50;
+			font-size: 28px;
+			margin-bottom: 20px;
+			position: relative;
+			padding-bottom: 10px;
+		}
+
+		.xwz-modBox header h1:after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 60px;
+			height: 3px;
+			background: linear-gradient(90deg, #3498db, #9b59b6);
+		}
+
+		/* 内容区域 */
+		.xwz-con-main {
+			line-height: 1.8;
+			color: #555;
+		}
+
+		/* 链接样式 */
+		.xwz-con-main a {
+			color: #3498db;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.xwz-con-main a:hover {
+			color: #9b59b6;
+			text-decoration: underline;
+		}
+
+		/* 图片样式 */
+		.xwz-con-main img {
+			max-width: 100%;
+			height: auto;
+			border-radius: 8px;
+			margin: 25px 0;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			transition: transform 0.3s;
+		}
+
+		.xwz-con-main img:hover {
+			transform: scale(1.02);
+		}
+
+		/* 列表样式 */
+		.xwz-con-main ol {
+			padding-left: 25px;
+			margin: 20px 0;
+		}
+
+		.xwz-con-main li {
+			margin-bottom: 12px;
+			position: relative;
+			padding-left: 15px;
+		}
+
+		.xwz-con-main li:before {
+			content: "•";
+			position: absolute;
+			left: -15px;
+			color: #3498db;
+			font-size: 18px;
+		}
+
+		/* 代码块样式 */
+		pre {
+			background-color: #f8f9fa;
+			border: 1px solid #e9ecef;
+			border-radius: 6px;
+			padding: 18px;
+			margin: 25px 0;
+			overflow-x: auto;
+			position: relative;
+		}
+
+		pre code {
+			font-family: 'Courier New', Courier, monospace;
+			font-size: 14px;
+			color: #e83e8c;
+			line-height: 1.6;
+		}
+
+		/* 代码高亮（简单版） */
+		pre .keyword {
+			color: #e83e8c;
+		}
+
+		pre .string {
+			color: #28a745;
+		}
+
+		pre .comment {
+			color: #6c757d;
+		}
+
+		/* 导航样式 */
+		.xwz-next {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 40px;
+			padding-top: 20px;
+			border-top: 1px solid #e9ecef;
+		}
+
+		.floatLeft,
+		.floatRight {
+			font-size: 15px;
+			color: #6c757d;
+		}
+
+		.floatLeft a,
+		.floatRight a {
+			color: #3498db;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.floatLeft a:hover,
+		.floatRight a:hover {
+			color: #9b59b6;
+			text-decoration: underline;
+		}
+
+		/* 响应式设计 */
+		@media (max-width: 768px) {
+			.xwz-modBox {
+				padding: 20px;
+				margin: 20px;
+			}
+
+			.xwz-modBox header h1 {
+				font-size: 24px;
+			}
+
+			pre {
+				padding: 15px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<article class="xwz-modBox">
+		<header>
+		<h1>WordPress网站如何添加在线投稿功能</h1>
+		</header>
+		<div class="xwz-conn mb60">
+		<p>我们<a href="https://www.xuewangzhan.net/" target="_blank" rel="noopener noreferrer">自己建网站</a>过程中，使用的很多程序是没有自带的投稿，发布页面，需要我们自己去做这样的页面，其实并不复杂，按照下面的步骤，你就可以在学做网站过程中做出类似的投稿页面和发布页面了。</p>
+		<p><strong>以下是学做网站论坛讲解的网站如何添加在线投稿发布功能视频教程</strong><br>
+		<video src="/wp-content/themes/xwz/mp4/qtfb.mp4" width="876" controls></video>
+		</p>
+		<ul>
+		<li>1、首先在当前主题的目录下新建一个php文件，命名为tougao.php，然后将page.php中的所有代码复制到tougao.php中；【相关教程：<a href="https://www.xuewangzhan.net/jz/wpmoban/" target="_blank" rel="noopener noreferrer">wordpress模板制作教程</a>】</li>
+		<li>2、删除tougao.php开头的所有注释，即 /* 与 */ ，以及它们之间的所有内容；</li>
+		<li>3、搜索:the_content，可以查找到类似代码&lt;?php the_content(); ?&gt;，将其替换为下面的代码：
+		<div class="codecolorer-container text geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="text codecolorer" style="white-space:nowrap">&lt;?php the_content(); ?&gt;<br>
+		&lt;!-- 关于表单样式，请自行调整--&gt;<br>
+		&lt;form class="ludou-tougao" method="post" action="&lt;?php echo $_SERVER["REQUEST_URI"]; $current_user = wp_get_current_user(); ?&gt;"&gt;&nbsp;&lt;div style="text-align: left; padding-top: 10px;"&gt;<br>
+		&lt;label for="tougao_title"&gt;标题:*&lt;/label&gt;&lt;br/&gt;<br>
+		&lt;input style="width:80%;height:30px;line-height:30px" type="text" size="40" value="" id="tougao_title" name="tougao_title" /&gt;<br>
+		&lt;/div&gt;<br>
+		&lt;div style="text-align: left; padding-top: 10px;"&gt;<br>
+		&lt;label style="vertical-align:top" for="tougao_content"&gt;内容:*&lt;/label&gt;&lt;br/&gt;<br>
+		&lt;textarea style="width:80%;height:300px" rows="15" cols="55" id="tougao_content" name="tougao_content"&gt;&lt;/textarea&gt;<br>
+		&lt;/div&gt;&lt;div class="feilei" style="text-align: left; padding-top: 10px;"&gt;<br>
+		&lt;label for="tougaocategorg"&gt;分类:*&lt;/label&gt;&lt;br/&gt;<br>
+		&lt;?php wp_dropdown_categories('hide_empty=0&amp;id=tougaocategorg&amp;show_count=1&amp;hierarchical=1&amp;include=84'); ?&gt;<br>
+		&lt;/div&gt;&lt;div style="text-align: left; padding-top: 10px;"&gt;<br>
+		&lt;label for="tougao_authorname"&gt;昵称:*&lt;/label&gt;&lt;br/&gt;<br>
+		&lt;input style="width:80%;height:30px;line-height:30px" type="text" size="40" value="&lt;?php if ( 0 != $current_user-&gt;ID ) echo $current_user-&gt;user_login; ?&gt;" id="tougao_authorname" name="tougao_authorname" /&gt;<br>
+		&lt;/div&gt;&lt;div style="text-align: left; padding-top: 10px;"&gt;<br>
+		&lt;label for="tougao_authoremail"&gt;邮箱:*&lt;/label&gt;&lt;br/&gt;<br>
+		&lt;input style="width:80%;height:30px;line-height:30px" type="text" size="40" value="&lt;?php if ( 0 != $current_user-&gt;ID ) echo $current_user-&gt;user_email; ?&gt;" id="tougao_authoremail" name="tougao_authoremail" /&gt;<br>
+		&lt;/div&gt;<br>
+		<br>
+		&lt;br clear="all"&gt;<br>
+		&lt;div style="text-align: center; padding-top: 10px;"&gt;<br>
+		&lt;input type="hidden" value="send" name="tougao_form" /&gt;<br>
+		&lt;input style="width:100px;height:30px;line-height:30px;background:#39F;color:#FFF" type="submit" value="提交" /&gt;<br>
+		&lt;input style="width:100px;height:30px;line-height:30px;background:#39F;color:#FFF" type="reset" value="重填" /&gt;<br>
+		&lt;/div&gt;<br>
+		&lt;/form&gt;</div></div>
+		</li>
+		<li>4、下载<a href="https://www.xuewangzhan.net/xiazai/67665.html" target="_blank" rel="noopener">在线投稿功能的处理文件tougao.php</a>；将tougao.php上传到主题文件夹下；</li>
+		<li>在tougao.php开头，找到&lt; ?php get_header(); ? &gt;，在它的上面加上以下的代码：
+		<pre>
+		<div class="codecolorer-container php geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="php codecolorer" style="white-space:nowrap"><span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">include</span><span style="color: #009900;">(</span> TEMPLATEPATH <span style="color: #339933;">.</span> <span style="color: #0000ff;">'/fabu.php'</span> <span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #000000; font-weight: bold;">?&gt;</span></div></div>
+
+		</pre>
+		</li>
+		<li>5、最后以UTF-8编码保存tougao.php，否则中文可能会乱码。然后进入WordPress管理后台 – 页面 – 创建页面，标题为投稿（可以自己起名），内容填上投稿说明等，右侧可以选择模板，选择 “发布模板”即可。</li>
+		<li>6、如果你觉得本文提供的文章编辑框太过单调，需要一个富文本编辑，你可以看看这篇文章（包含图片上传功能）。<br>
+		<img decoding="async" src="https://www.xuewangzhan.net/wp-content/uploads/2014/05/bjk.jpg" alt="带WP富文本编辑框的在线投稿发布功能页面，" width="600"><p></p>
+		<ul>
+		<li>一、下载KindEditor （下载地址：http://kindeditor.net/down.php ）这里我们将使用KindEditor来作为我们的编辑器，点此下载KindEditor。下载后解压，将文件夹重命名为kindeditor，放到你当前主题文件夹下。（kindeditor官网如果无法下载，可在此处下载：https://pan.baidu.com/s/1dF89Dwl）</li>
+		<li>二、&nbsp;将代码一中第41行的&lt;/form&gt;改成：
+		<div class="codecolorer-container text geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="text codecolorer" style="white-space:nowrap">&lt;/form&gt;<br>
+		&lt;script charset="utf-8" src="&lt;?php bloginfo('template_url'); ?&gt;/kindeditor/kindeditor-min.js"&gt;&lt;/script&gt;<br>
+		&lt;script charset="utf-8" src="&lt;?php bloginfo('template_url'); ?&gt;/kindeditor/lang/zh_CN.js"&gt;&lt;/script&gt;<br>
+		&lt;script&gt;<br>
+		/* 编辑器初始化代码 start */<br>
+		var editor;<br>
+		KindEditor.ready(function(K) {<br>
+		editor = K.create('#tougao_content', {<br>
+		resizeType : 1,<br>
+		allowPreviewEmoticons : false,<br>
+		allowImageUpload : true, /* 开启图片上传功能，不需要就将true改成false */<br>
+		items : [<br>
+		'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',<br>
+		'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',<br>
+		'insertunorderedlist', '|', 'emoticons', 'image', 'link']<br>
+		});<br>
+		});<br>
+		/* 编辑器初始化代码 end */<br>
+		&lt;/script&gt;</div></div>
+		</li>
+		</ul>
+		</li>
+		</ul>
+		<ul>
+		<li>三、继续对tougao.php代码进行修改。 将代码一中第41行的:
+		<div class="codecolorer-container text geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="text codecolorer" style="white-space:nowrap">$content = isset( $_POST['tougao_content'] ) ? trim(htmlspecialchars($_POST['tougao_content'], ENT_QUOTES)) : '';</div></div>
+		<p>改成下面代码：</p>
+		<div class="codecolorer-container text geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="text codecolorer" style="white-space:nowrap">$content = isset( $_POST['tougao_content'] ) ? trim($_POST['tougao_content']) : '';<br>
+		$content = str_ireplace('?&gt;', '?&amp;gt;', $content);<br>
+		$content = str_ireplace('&lt;?', '&amp;lt;?', $content);<br>
+		$content = str_ireplace('&lt;script', '&amp;lt;script', $content);<br>
+		$content = str_ireplace('&lt;a ', '&lt;a rel="external nofollow" ', $content);</div></div>
+		</li>
+		<li>四、修改富文本编辑框样式： 如果你觉得以上自己做的编辑框不符合自己的要求，那就换其它的样式。我们下载的kindeditor目录下有个examples文件夹，这里是部分演示，双击打开index.html可以看到所有演示。你是否看中某个演示呢？那就用文本编辑器打开它的html文件，查看里面的代码。这些html文件的代码中都可以看到类似代码：
+		<div class="codecolorer-container text geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="text codecolorer" style="white-space:nowrap">&lt;script charset="utf-8" src="../kindeditor-min.js"&gt;&lt;/script&gt;<br>
+		&lt;script charset="utf-8" src="../lang/zh_CN.js"&gt;&lt;/script&gt;<br>
+		&lt;script&gt;<br>
+		... 编辑器初始化代码<br>
+		&lt;/script&gt;</div></div>
+		<p style="display: inline !important;">将以上代码中 编辑器初始化代码 那部分代码替换第三步中的编辑器初始化代码，然后将 'textarea[name="content"]' ，改成 '#tougao_content' 即可。</p>
+		</li>
+		</ul>
+		</div>
+
+		</article>
+</body>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		// 代码块复制功能
+		document.querySelectorAll('pre').forEach(pre => {
+			const code = pre.querySelector('code');
+			if (code) {
+				const copyBtn = document.createElement('button');
+				copyBtn.className = 'copy-btn';
+				copyBtn.textContent = '复制';
+				copyBtn.style.position = 'absolute';
+				copyBtn.style.top = '10px';
+				copyBtn.style.right = '10px';
+				copyBtn.style.padding = '5px 10px';
+				copyBtn.style.background = '#f8f9fa';
+				copyBtn.style.border = 'none';
+				copyBtn.style.borderRadius = '4px';
+				copyBtn.style.cursor = 'pointer';
+
+				// 点击复制
+				copyBtn.addEventListener('click', function () {
+					navigator.clipboard.writeText(code.textContent)
+						.then(() => {
+							copyBtn.textContent = '已复制!';
+							setTimeout(() => {
+								copyBtn.textContent = '复制';
+							}, 2000);
+						})
+						.catch(err => {
+							console.error('复制失败:', err);
+						});
+				});
+
+				// 创建包装元素
+				const wrapper = document.createElement('div');
+				wrapper.style.position = 'relative';
+				wrapper.appendChild(copyBtn);
+				wrapper.appendChild(pre.cloneNode(true));
+
+				// 替换原pre
+				pre.parentNode.replaceChild(wrapper.firstChild, pre);
+			}
+		});
+
+		// 平滑滚动到锚点
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function (e) {
+				e.preventDefault();
+				document.querySelector(this.getAttribute('href')).scrollIntoView({
+					behavior: 'smooth'
+				});
+			});
+		});
+	});
+</script>
+
+</html>

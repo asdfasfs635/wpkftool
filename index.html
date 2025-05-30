@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Wordpress仿站助手 - Wordpress标签生成器 - Wordpress站长工具箱</title>
+    <link rel="stylesheet" href="/jztools/style.css">
+    <script type="text/javascript" src="/wp-content/themes/xwz/images/jquery-3.1.0.min.js"></script>
+    <link rel="shortcut icon" href="/jztools/images/favicon.ico" type="images/x-icon" />
+</head>
+
+<body>
+    <div class="topbarw">
+        <div class="topbar clearfix">
+            <h1>Wordpress仿站助手</h1>
+        </div>
+    </div>
+
+    <main id="main">
+        <header class="subhead">
+            <h2>Wordpress标签生成器</h2>
+            <p class="lead">用于Wordpress仿站和模板开发生成页面标签，方便站长仿站建站。 </p>
+        </header>
+
+        <nav class="topnav clearfix">
+            <ul>
+                <li class="curr"><a href="/">首页标签</a></li>
+                <li><a href="/jztools/category.html">列表页标签</a></li>
+                <li><a href="/jztools/single.html">文章页标签</a></li>
+                <li><a href="/jztools/other.html">其它标签</a></li>
+                <li><a href="/jztools/wp.html">后台标签</a></li>
+                <li><a href="/jztools/en.html">多语标签</a></li>
+                <li><a href="/jquery_txdq/" target="_blank">特效大全</a></li>
+
+            </ul>
+        </nav>
+
+        <table class="dmk">
+            <tr>
+                <td height="155" colspan="5" align="center" valign="middle">
+                    <textarea name="show" id="wpcodepy"></textarea>
+                    <div id="tishi"></div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="网站名字" name="<?php bloginfo('name'); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="首页地址" name="<?php echo get_option('home'); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="主题路径" name="<?php bloginfo('template_directory'); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="CSS引入" name="<link rel='stylesheet' href='<?php bloginfo( 'stylesheet_url' ); ?>'>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="版权信息" name="/*
+Theme Name: 学做网站论坛
+Theme URI: https://www.xuewangzhan.net
+Description:学做网站论坛 公司企业主题
+Author: 学做网站论坛
+Author URI: https://www.xuewangzhan.net
+Version: 1.0
+Tags: 企业主题
+*/" onclick="myFun(this)"></td>
+            </tr>
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="调用头部模块" name="<?php get_header();?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用底部模块" name="<?php get_footer();?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用边栏模块" name="<?php get_sidebar();?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用其它模块" name="<?php include( TEMPLATEPATH . '/文件名' ); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用TDK信息" name="<title><?php if ( is_home() ) { ?>网站首页标题<?php } ?>
+<?php if ( is_tag() ) { ?><?php single_tag_title(); ?><? $paged = get_query_var('paged'); if ( $paged > 1 ) printf('_ 第 %s 页 ',$paged); ?> - <?php bloginfo('name'); ?><?php } ?>
+<?php if ( is_page() ) { ?><?php echo trim(wp_title('',0)); ?><?php if (get_query_var('page')) { echo ' _ 第'; echo get_query_var('page'); echo '页';}?> - <?php bloginfo('name'); ?><?php } ?>
+<?php if ( is_category() ) { single_cat_title(); echo ' - '; bloginfo('name'); $paged = get_query_var('paged'); if ( $paged > 1 ) printf('_ 第 %s 页 ',$paged);} ?>
+<?php if ( is_single() ) { ?><?php echo trim(wp_title('',0)); ?> - <?php bloginfo('name'); ?><?php } ?>
+<?php if ( is_author() ) { ?>文章列表<?php } ?>
+<?php if ( is_month() || is_day() ) { ?><?php the_time('Y - F'); ?> - <?php bloginfo('name'); ?><?php } ?>
+<?php if (is_search() ) {?>'<?php echo $s; ?>' - <?php bloginfo('name'); ?><?php } ?>
+<?php if (is_404() ) {?>'404' - <?php bloginfo('name'); ?><?php } ?>
+</title>
+<?php if ( is_home() ) { ?>
+<meta name='description' content='网站首页描述 '/>
+<meta name='keywords' content='网站首页关键词' />
+<?php } ?>
+<?php if ( is_single() ) { ?>
+<meta name='description' content='<?php echo trim(wp_title('',0)); ?>，<?php $des= mb_strimwidth(strip_tags(apply_filters('the_content', $post->post_content)), 0, 50,''); echo str_replace(array('\r\n', '\r', '\n'), '', $des);?>' />
+<?php } ?>
+<?php if ( is_category() ) { ?>
+<meta name='description' content='<?php bloginfo('name'); ?><?php single_cat_title(); ?>' />
+<meta name='keywords' content='<?php single_cat_title(); ?>' />
+<?php } ?>" onclick="myFun(this)"></td>
+            </tr>
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="站标路径" name="<link rel='shortcut icon' href='<?php bloginfo('template_directory'); ?>/images/favicon.ico' >" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="导航菜单函数" name="<?php
+//添加多个菜单功能
+if ( function_exists('register_nav_menus')) {register_nav_menus(array('topmenu' => ' 顶部菜单'));}
+if ( function_exists('register_nav_menus')) {register_nav_menus(array('footmenu' =>'底部菜单'));}
+
+
+
+
+?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="顶部导航调用" name="<?php wp_nav_menu( array( 'theme_location' =>'topmenu','container' => '','menu_class' => 'topnav mbg_topnav mbg_s','menu_id' => 'topmeau','depth' => 1, ) ); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="底部导航调用" name="<?php wp_nav_menu( array( 'theme_location' =>'footmenu','container' => '','menu_class' => 'ftnav mbg_ftnav mbg_s','menu_id' => 'ftmeau','depth' => 1, ) ); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="菜单当前样式" name=".current-menu-item" onclick="myFun(this)"></td>
+            </tr>
+            <tr>
+
+                <td align="center" valign="middle"> <input type="button" value="指定分类循环代码" name="<?php query_posts('cat=ID号&ignore_sticky_posts=1&showposts=显示数量'); ?>
+<?php while (have_posts()) : the_post(); ?>
+
+<?php endwhile;?>
+<?php wp_reset_query(); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="不限分类循环代码" name="<?php if (have_posts()) : ?>
+<?php while (have_posts()) : the_post(); ?>
+
+<?php endwhile;?>
+<?php endif; ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章标题" name="<?php the_title(); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章链接" name="<?php the_permalink() ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="文章简介" name="<?php echo mb_strimwidth(strip_tags(apply_filters('the_content', $post->post_content)), 0, 200,'……'); ?>" onclick="myFun(this)"></td>
+            </tr>
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="去除顶部空白" name="add_filter( 'show_admin_bar', '__return_false' );" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="图片缩略图(外)" onclick="javascript:window.open('/posts/postsimg.html','_blank')"></td>
+
+                <td align="center" valign="middle"> <input type="button" value="友情链接开启" name="add_filter( 'pre_option_link_manager_enabled', '__return_true' );" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="友情链接调用" name="<?php /*edit*/ if (current_user_can('level_10')){?><b class='mbg_flink mbg_s'></b><?php }?><?php  if ( is_home()) { ?>
+ <?php wp_list_bookmarks('title_li=&categorize=0&orderby=link_id&limit=24'); ?>
+ <?php } ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="首篇样式不同循环" name="<?php query_posts('cat=ID号&showposts=显示数量'); ?>
+<?php $query_index = 0; while (have_posts()) : $query_index++;the_post(); ?>
+    <?php if($query_index==1){?>
+
+    // 放第一条代码
+     <?php }else{?>
+
+    //放其余代码
+
+     <?php }?>
+<?php endwhile; wp_reset_query(); ?>" onclick="myFun(this)"></td>
+            </tr>
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="调用置顶文章" name="<?php $query_post = array(
+ 'posts_per_page' => 5,
+ 'post__in' => get_option('sticky_posts'),
+ 'caller_get_posts' => 1
+);
+query_posts($query_post);
+?>
+<?php while(have_posts()):the_post(); ?>
+<li><a href='<?php the_permalink() ?>'><?php the_title(); ?></a></li>
+<?php endwhile; ?>
+ <?php wp_reset_query();?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="首篇带图循环" name="<?php if (have_posts()) : ?>
+<?php query_posts('cat=ID号&showposts=显示数量'); ?>
+<?php $query_index = 0; while (have_posts()) : $query_index++;the_post(); ?>
+<?php if($query_index==1):?>
+
+
+<?php else : ?>
+
+
+<?php endif;endwhile; ?>
+
+
+<?php endif; wp_reset_query();?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="纯li菜单调用" name="<?php if(function_exists('wp_nav_menu')) wp_nav_menu(array('theme_location' =>'topmenu','container' => false, 'items_wrap' => '%3$s','depth' => 1 )); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="纯A菜单调用" name="<?php
+$menuParameters = array(
+'theme_location' =>'topmenu',
+'container' => false,
+'echo' => false,
+'items_wrap' => '%3$s',
+'depth' => 1,
+'after' => '',
+);
+echo strip_tags(wp_nav_menu( $menuParameters ), '<a>' );
+?>" onclick="myFun(this)"></td>
+
+                <td align="center" valign="middle"> <input type="button" value="指定开始条数调用" name="&offset=0" onclick="myFun(this)"></td>
+
+            </tr>
+
+
+
+
+            <tr>
+                <td align="center" valign="middle"> <input type="button" value="纯A友链调用" name="<?php wp_list_bookmarks('title_li=&categorize=0&before=&after=&show_images=0&show_description=0&orderby=link_id'); ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用所有TAG" name="<?php wp_tag_cloud( 'smallest=14&largest=14&unit=px&number=0&orderby=count&order=DESC');//A标签 ?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="标签云调用" name="<?php wp_tag_cloud('smallest=12&largest=18&unit=px&number=0&orderby=count&order=DESC');?>" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="站标图像调用" name="<link rel='shortcut icon' href='<?php bloginfo('template_directory'); ?>/images/favicon.ico' >" onclick="myFun(this)"></td>
+                <td align="center" valign="middle"> <input type="button" value="调用所有分类" name="<?php wp_list_categories('title_li=0&orderby=name&show_count=0&depth=3'); ?>" onclick="myFun(this)"></td>
+            </tr>
+        </table>
+    </main>
+
+    <script src="https://www.xuewangzhan.net/jztools/images/dm.js?v=3"></script>
+    <script src="https://www.xuewangzhan.net/wp-content/themes/xwz/images/tj.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		/* 基础样式 */
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			line-height: 1.7;
+			color: #333;
+			background-color: #f8f9fa;
+			margin: 0;
+			padding: 20px;
+		}
+
+		/* 文章容器 */
+		.xwz-modBox {
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+			padding: 30px;
+			margin: 30px auto;
+			max-width: 900px;
+			transition: all 0.3s ease;
+		}
+
+		.xwz-modBox:hover {
+			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+			transform: translateY(-3px);
+		}
+
+		/* 标题样式 */
+		.xwz-modBox header h1 {
+			color: #2c3e50;
+			font-size: 28px;
+			margin-bottom: 20px;
+			position: relative;
+			padding-bottom: 10px;
+		}
+
+		.xwz-modBox header h1:after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 60px;
+			height: 3px;
+			background: linear-gradient(90deg, #3498db, #9b59b6);
+		}
+
+		/* 内容区域 */
+		.xwz-con-main {
+			line-height: 1.8;
+			color: #555;
+		}
+
+		/* 链接样式 */
+		.xwz-con-main a {
+			color: #3498db;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.xwz-con-main a:hover {
+			color: #9b59b6;
+			text-decoration: underline;
+		}
+
+		/* 图片样式 */
+		.xwz-con-main img {
+			max-width: 100%;
+			height: auto;
+			border-radius: 8px;
+			margin: 25px 0;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			transition: transform 0.3s;
+		}
+
+		.xwz-con-main img:hover {
+			transform: scale(1.02);
+		}
+
+		/* 列表样式 */
+		.xwz-con-main ol {
+			padding-left: 25px;
+			margin: 20px 0;
+		}
+
+		.xwz-con-main li {
+			margin-bottom: 12px;
+			position: relative;
+			padding-left: 15px;
+		}
+
+		.xwz-con-main li:before {
+			content: "•";
+			position: absolute;
+			left: -15px;
+			color: #3498db;
+			font-size: 18px;
+		}
+
+		/* 代码块样式 */
+		pre {
+			background-color: #f8f9fa;
+			border: 1px solid #e9ecef;
+			border-radius: 6px;
+			padding: 18px;
+			margin: 25px 0;
+			overflow-x: auto;
+			position: relative;
+		}
+
+		pre code {
+			font-family: 'Courier New', Courier, monospace;
+			font-size: 14px;
+			color: #e83e8c;
+			line-height: 1.6;
+		}
+
+		/* 代码高亮（简单版） */
+		pre .keyword {
+			color: #e83e8c;
+		}
+
+		pre .string {
+			color: #28a745;
+		}
+
+		pre .comment {
+			color: #6c757d;
+		}
+
+		/* 导航样式 */
+		.xwz-next {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 40px;
+			padding-top: 20px;
+			border-top: 1px solid #e9ecef;
+		}
+
+		.floatLeft,
+		.floatRight {
+			font-size: 15px;
+			color: #6c757d;
+		}
+
+		.floatLeft a,
+		.floatRight a {
+			color: #3498db;
+			text-decoration: none;
+			transition: color 0.3s;
+		}
+
+		.floatLeft a:hover,
+		.floatRight a:hover {
+			color: #9b59b6;
+			text-decoration: underline;
+		}
+
+		/* 响应式设计 */
+		@media (max-width: 768px) {
+			.xwz-modBox {
+				padding: 20px;
+				margin: 20px;
+			}
+
+			.xwz-modBox header h1 {
+				font-size: 24px;
+			}
+
+			pre {
+				padding: 15px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<article class="xwz-modBox">
+		<header>
+		<h1>PHP代码判断WordPress不同页面调用边栏导航</h1>
+		</header>
+		<div class="xwz-conn mb60">
+		<p>我们在<a href="https://www.xuewangzhan.net/">自己建网站</a>时，经过碰到网站上的不同页面的边栏是显示各自栏目下的子栏目或者子页面。如果每个都去单独写的话比较麻烦，为了简洁代码，我们可以使用Wordpress的判断来显示。<br>
+		<img decoding="async" class="alignnone size-full wp-image-60362" src="https://www.xuewangzhan.net/wp-content/uploads/2021/10/bl.jpg" alt="Wordpress不同页面调用子栏目" width="358" height="516"><br>
+		Wordpress不同页面调用子栏目代码判断写法如下：</p>
+		<pre><div class="codecolorer-container php geshi" style="overflow:auto;white-space:nowrap;width:100%;"><div class="php codecolorer" style="white-space:nowrap"><span style="color: #339933;">&lt;</span>style<span style="color: #339933;">&gt;</span>span<span style="color: #339933;">.</span>nossy<span style="color: #009900;">{</span>display<span style="color: #339933;">:</span>none<span style="color: #339933;">;</span><span style="color: #009900;">}</span><span style="color: #339933;">&lt;/</span>style<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">if</span><span style="color: #009900;">(</span>is_category<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #009900;">)</span><span style="color: #009900;">{</span><span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #339933;">&lt;</span>h3<span style="color: #339933;">&gt;</span><span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> get_cat_name<span style="color: #009900;">(</span> get_category_root_id<span style="color: #009900;">(</span><span style="color: #000088;">$cat</span><span style="color: #009900;">)</span> <span style="color: #009900;">)</span><span style="color: #339933;">;</span><span style="color: #000000; font-weight: bold;">?&gt;</span><span style="color: #339933;">&lt;</span>span <span style="color: #000000; font-weight: bold;">class</span><span style="color: #339933;">=</span><span style="color: #0000ff;">"nossy"</span><span style="color: #339933;">&gt;</span><span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #000088;">$mycat</span> <span style="color: #339933;">=</span> get_category<span style="color: #009900;">(</span>get_category_root_id<span style="color: #009900;">(</span><span style="color: #000088;">$cat</span><span style="color: #009900;">)</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><span style="color: #b1b100;">echo</span> <span style="color: #990000;">strtoupper</span><span style="color: #009900;">(</span><span style="color: #000088;">$mycat</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">slug</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><span style="color: #000000; font-weight: bold;">?&gt;</span><span style="color: #339933;">&lt;/</span>span<span style="color: #339933;">&gt;&lt;/</span>h3<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #339933;">&lt;</span>ul<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span><br>
+		<span style="color: #000088;">$args</span><span style="color: #339933;">=</span><span style="color: #990000;">array</span><span style="color: #009900;">(</span><br>
+		<span style="color: #0000ff;">'child_of'</span><span style="color: #339933;">=&gt;</span> get_category_root_id<span style="color: #009900;">(</span><span style="color: #000088;">$cat</span><span style="color: #009900;">)</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'parent'</span> <span style="color: #339933;">=&gt;</span> get_category_root_id<span style="color: #009900;">(</span><span style="color: #000088;">$cat</span><span style="color: #009900;">)</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'hide_empty'</span><span style="color: #339933;">=&gt;</span><span style="color: #0000ff;">'0'</span><span style="color: #339933;">,</span><br>
+		<span style="color: #009900;">)</span><span style="color: #339933;">;</span><br>
+		<span style="color: #000088;">$categories</span><span style="color: #339933;">=</span>get_categories<span style="color: #009900;">(</span><span style="color: #000088;">$args</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><br>
+		<span style="color: #b1b100;">foreach</span><span style="color: #009900;">(</span><span style="color: #000088;">$categories</span> <span style="color: #b1b100;">as</span> <span style="color: #000088;">$category</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span><br>
+		<span style="color: #b1b100;">if</span><span style="color: #009900;">(</span><span style="color: #000088;">$cat</span> <span style="color: #339933;">==</span> <span style="color: #000088;">$category</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">term_id</span><span style="color: #009900;">)</span><span style="color: #009900;">{</span><span style="color: #000088;">$ons</span><span style="color: #339933;">=</span><span style="color: #0000ff;">'active'</span><span style="color: #339933;">;</span><span style="color: #009900;">}</span><span style="color: #b1b100;">else</span><span style="color: #009900;">{</span><span style="color: #000088;">$ons</span><span style="color: #339933;">=</span><span style="color: #0000ff;">''</span><span style="color: #339933;">;</span><span style="color: #009900;">}</span><br>
+		<span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #339933;">&lt;</span>li <span style="color: #000000; font-weight: bold;">class</span><span style="color: #339933;">=</span><span style="color: #0000ff;">'&lt;?php echo $ons;?&gt;'</span><span style="color: #339933;">&gt;&lt;</span>a href<span style="color: #339933;">=</span><span style="color: #0000ff;">'&lt;?php echo get_category_link( $category-&gt;term_id );?&gt;'</span> <span style="color: #000000; font-weight: bold;">class</span><span style="color: #339933;">=</span><span style="color: #0000ff;">"lis"</span> <span style="color: #339933;">&gt;</span><span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> <span style="color: #000088;">$category</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">name</span><span style="color: #339933;">;</span><span style="color: #000000; font-weight: bold;">?&gt;</span><span style="color: #339933;">&lt;/</span>a<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #666666; font-style: italic;">/*<br>
+		//判断子分类<br>
+		$argszi=array(<br>
+		'child_of'=&gt; $category-&gt;term_id,<br>
+		'parent' =&gt; $category-&gt;term_id,<br>
+		'hide_empty'=&gt;'0',<br>
+		);<br>
+		$categorieszi=get_categories($argszi);<br>
+		if(!empty($categorieszi)){?&gt;<br>
+		&lt;ul class='ziul'&gt;<br>
+		&lt;?php foreach($categorieszi as $categoryzi) {?&gt;<br>
+		&lt;li class='zli'&gt;&lt;a href='&lt;?php echo get_category_link( $categoryzi-&gt;term_id );?&gt;'&gt;&lt;?php echo $categoryzi-&gt;name;?&gt;&lt;/a&gt;&lt;/li&gt;<br>
+		&lt;?php }?&gt;<br>
+		&lt;/ul&gt;<br>
+		&lt;?php } */</span><span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #339933;">&lt;/</span>li<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #009900;">}</span><span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #339933;">&lt;/</span>ul<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #009900;">}</span><span style="color: #b1b100;">elseif</span><span style="color: #009900;">(</span>is_single<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #009900;">)</span><span style="color: #009900;">{</span><span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #000088;">$currecategory</span> <span style="color: #339933;">=</span> get_the_category<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><span style="color: #000088;">$djcatid</span> <span style="color: #339933;">=</span> get_category_root_id<span style="color: #009900;">(</span><span style="color: #000088;">$currecategory</span><span style="color: #009900;">[</span><span style="color: #cc66cc;">0</span><span style="color: #009900;">]</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">cat_ID</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #339933;">&lt;</span>h3<span style="color: #339933;">&gt;</span><span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> get_cat_name<span style="color: #009900;">(</span> <span style="color: #000088;">$djcatid</span> <span style="color: #009900;">)</span><span style="color: #339933;">;</span><span style="color: #000000; font-weight: bold;">?&gt;</span><span style="color: #339933;">&lt;</span>span <span style="color: #000000; font-weight: bold;">class</span><span style="color: #339933;">=</span><span style="color: #0000ff;">"nossy"</span><span style="color: #339933;">&gt;</span><span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #000088;">$mycat</span> <span style="color: #339933;">=</span> get_category<span style="color: #009900;">(</span><span style="color: #000088;">$djcatid</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><span style="color: #b1b100;">echo</span> <span style="color: #990000;">strtoupper</span><span style="color: #009900;">(</span><span style="color: #000088;">$mycat</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">slug</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><span style="color: #000000; font-weight: bold;">?&gt;</span><span style="color: #339933;">&lt;/</span>span<span style="color: #339933;">&gt;&lt;/</span>h3<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #339933;">&lt;</span>ul<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span><br>
+		<span style="color: #000088;">$args</span><span style="color: #339933;">=</span><span style="color: #990000;">array</span><span style="color: #009900;">(</span><br>
+		<span style="color: #0000ff;">'child_of'</span><span style="color: #339933;">=&gt;</span> <span style="color: #000088;">$djcatid</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'parent'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #000088;">$djcatid</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'hide_empty'</span><span style="color: #339933;">=&gt;</span><span style="color: #0000ff;">'0'</span><span style="color: #339933;">,</span><br>
+		<span style="color: #009900;">)</span><span style="color: #339933;">;</span><br>
+		<span style="color: #000088;">$categories</span><span style="color: #339933;">=</span>get_categories<span style="color: #009900;">(</span><span style="color: #000088;">$args</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><br>
+		<span style="color: #b1b100;">foreach</span><span style="color: #009900;">(</span><span style="color: #000088;">$categories</span> <span style="color: #b1b100;">as</span> <span style="color: #000088;">$category</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span><br>
+		<span style="color: #b1b100;">if</span><span style="color: #009900;">(</span><span style="color: #000088;">$currecategory</span><span style="color: #009900;">[</span><span style="color: #cc66cc;">0</span><span style="color: #009900;">]</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">cat_ID</span> <span style="color: #339933;">==</span> <span style="color: #000088;">$category</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">term_id</span><span style="color: #009900;">)</span><span style="color: #009900;">{</span><span style="color: #000088;">$ons</span><span style="color: #339933;">=</span><span style="color: #0000ff;">'active'</span><span style="color: #339933;">;</span><span style="color: #009900;">}</span><span style="color: #b1b100;">else</span><span style="color: #009900;">{</span><span style="color: #000088;">$ons</span><span style="color: #339933;">=</span><span style="color: #0000ff;">''</span><span style="color: #339933;">;</span><span style="color: #009900;">}</span><span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #339933;">&lt;</span>li <span style="color: #000000; font-weight: bold;">class</span><span style="color: #339933;">=</span><span style="color: #0000ff;">'&lt;?php echo $ons;?&gt;'</span><span style="color: #339933;">&gt;&lt;</span>a href<span style="color: #339933;">=</span><span style="color: #0000ff;">'&lt;?php echo get_category_link( $category-&gt;term_id );?&gt;'</span> <span style="color: #000000; font-weight: bold;">class</span><span style="color: #339933;">=</span><span style="color: #0000ff;">"lis"</span> <span style="color: #339933;">&gt;</span><span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> <span style="color: #000088;">$category</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">name</span><span style="color: #339933;">;</span><span style="color: #000000; font-weight: bold;">?&gt;</span><span style="color: #339933;">&lt;/</span>a<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #666666; font-style: italic;">/*<br>
+		//判断子分类<br>
+		$argszi=array(<br>
+		'child_of'=&gt; $category-&gt;term_id,<br>
+		'parent' =&gt; $category-&gt;term_id,<br>
+		'hide_empty'=&gt;'0',<br>
+		);<br>
+		$categorieszi=get_categories($argszi);<br>
+		if(!empty($categorieszi)){?&gt;<br>
+		&lt;ul class='ziul'&gt;<br>
+		&lt;?php foreach($categorieszi as $categoryzi) {?&gt;<br>
+		&lt;li class='zli'&gt;&lt;a href='&lt;?php echo get_category_link( $categoryzi-&gt;term_id );?&gt;'&gt;&lt;?php echo $categoryzi-&gt;name;?&gt;&lt;/a&gt;&lt;/li&gt;<br>
+		&lt;?php }?&gt;<br>
+		&lt;/ul&gt;<br>
+		&lt;?php } */</span><span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #339933;">&lt;/</span>li<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #009900;">}</span><span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #339933;">&lt;/</span>ul<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #009900;">}</span><span style="color: #b1b100;">elseif</span><span style="color: #009900;">(</span>is_page<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #009900;">)</span><span style="color: #009900;">{</span><br>
+		<span style="color: #000088;">$pageArray</span> <span style="color: #339933;">=</span> get_post_ancestors<span style="color: #009900;">(</span><span style="color: #000088;">$post</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">ID</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><span style="color: #666666; font-style: italic;">//获取父页面ID</span><br>
+		<span style="color: #b1b100;">if</span><span style="color: #009900;">(</span><span style="color: #000088;">$pageArray</span><span style="color: #009900;">)</span><span style="color: #009900;">{</span><br>
+		<span style="color: #000088;">$pageid</span> <span style="color: #339933;">=</span> <span style="color: #000088;">$pageArray</span><span style="color: #009900;">[</span><span style="color: #cc66cc;">0</span><span style="color: #009900;">]</span><span style="color: #339933;">;</span><br>
+		<span style="color: #009900;">}</span><span style="color: #b1b100;">else</span><span style="color: #009900;">{</span><br>
+		<span style="color: #000088;">$pageid</span> <span style="color: #339933;">=</span> <span style="color: #000088;">$post</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">ID</span><span style="color: #339933;">;</span><br>
+		<span style="color: #009900;">}</span><span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #339933;">&lt;</span>h3<span style="color: #339933;">&gt;</span><span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #b1b100;">echo</span> get_page<span style="color: #009900;">(</span><span style="color: #000088;">$pageid</span><span style="color: #009900;">)</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">post_title</span><span style="color: #339933;">;</span><span style="color: #000000; font-weight: bold;">?&gt;</span><span style="color: #339933;">&lt;</span>span <span style="color: #000000; font-weight: bold;">class</span><span style="color: #339933;">=</span><span style="color: #0000ff;">"nossy"</span><span style="color: #339933;">&gt;</span><span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #000088;">$slug</span> <span style="color: #339933;">=</span> get_page<span style="color: #009900;">(</span> <span style="color: #000088;">$pageid</span> <span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #b1b100;">echo</span> <span style="color: #990000;">strtoupper</span><span style="color: #009900;">(</span><span style="color: #000088;">$slug</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">post_name</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><span style="color: #000000; font-weight: bold;">?&gt;</span><span style="color: #339933;">&lt;/</span>span<span style="color: #339933;">&gt;&lt;/</span>h3<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #339933;">&lt;</span>ul<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span><br>
+		<span style="color: #000088;">$pages</span> <span style="color: #339933;">=</span> get_pages<span style="color: #009900;">(</span><span style="color: #0000ff;">'child_of='</span><span style="color: #339933;">.</span><span style="color: #000088;">$pageid</span><span style="color: #339933;">.</span><span style="color: #0000ff;">'&amp;sort_column=menu_order&amp;sort_order=desc&amp;parent='</span><span style="color: #339933;">.</span><span style="color: #000088;">$pageid</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><br>
+		<span style="color: #b1b100;">if</span><span style="color: #009900;">(</span><span style="color: #000088;">$pages</span><span style="color: #009900;">)</span><span style="color: #009900;">{</span><br>
+		<span style="color: #b1b100;">foreach</span><span style="color: #009900;">(</span><span style="color: #000088;">$pages</span> <span style="color: #b1b100;">as</span> <span style="color: #000088;">$page</span><span style="color: #009900;">)</span><span style="color: #009900;">{</span><br>
+		<span style="color: #b1b100;">if</span><span style="color: #009900;">(</span><span style="color: #000088;">$post</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">ID</span> <span style="color: #339933;">==</span> <span style="color: #000088;">$page</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">ID</span><span style="color: #009900;">)</span><span style="color: #009900;">{</span><span style="color: #000088;">$ons</span><span style="color: #339933;">=</span><span style="color: #0000ff;">'active'</span><span style="color: #339933;">;</span><span style="color: #009900;">}</span><span style="color: #b1b100;">else</span><span style="color: #009900;">{</span><span style="color: #000088;">$ons</span><span style="color: #339933;">=</span><span style="color: #0000ff;">''</span><span style="color: #339933;">;</span><span style="color: #009900;">}</span><br>
+		<span style="color: #b1b100;">echo</span> <span style="color: #0000ff;">'&lt;li class="'</span><span style="color: #339933;">.</span><span style="color: #000088;">$ons</span><span style="color: #339933;">.</span><span style="color: #0000ff;">'"&gt;&lt;a href="'</span> <span style="color: #339933;">.</span> get_page_link<span style="color: #009900;">(</span><span style="color: #000088;">$page</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">ID</span><span style="color: #009900;">)</span> <span style="color: #339933;">.</span> <span style="color: #0000ff;">'" class="lis"&gt;'</span> <span style="color: #339933;">.</span> <span style="color: #000088;">$page</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">post_title</span><span style="color: #339933;">.</span><span style="color: #0000ff;">'&lt;/a&gt;&lt;/li&gt;'</span><span style="color: #339933;">;</span><br>
+		<span style="color: #009900;">}</span><br>
+		<span style="color: #009900;">}</span><span style="color: #b1b100;">else</span><span style="color: #009900;">{</span><br>
+		<span style="color: #000088;">$pagesr</span> <span style="color: #339933;">=</span> get_pages<span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><br>
+		<span style="color: #b1b100;">foreach</span> <span style="color: #009900;">(</span><span style="color: #000088;">$pagesr</span> <span style="color: #b1b100;">as</span> <span style="color: #000088;">$paggr</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span><br>
+		<span style="color: #b1b100;">if</span><span style="color: #009900;">(</span><span style="color: #000088;">$post</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">ID</span> <span style="color: #339933;">==</span> <span style="color: #000088;">$page</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">ID</span><span style="color: #009900;">)</span><span style="color: #009900;">{</span><span style="color: #000088;">$ons</span><span style="color: #339933;">=</span><span style="color: #0000ff;">'active'</span><span style="color: #339933;">;</span><span style="color: #009900;">}</span><span style="color: #b1b100;">else</span><span style="color: #009900;">{</span><span style="color: #000088;">$ons</span><span style="color: #339933;">=</span><span style="color: #0000ff;">''</span><span style="color: #339933;">;</span><span style="color: #009900;">}</span><br>
+		<span style="color: #b1b100;">echo</span> <span style="color: #0000ff;">'&lt;li class="'</span><span style="color: #339933;">.</span><span style="color: #000088;">$ons</span><span style="color: #339933;">.</span><span style="color: #0000ff;">'"&gt;&lt;a href="'</span> <span style="color: #339933;">.</span> get_page_link<span style="color: #009900;">(</span><span style="color: #000088;">$paggr</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">ID</span><span style="color: #009900;">)</span><span style="color: #339933;">.</span> <span style="color: #0000ff;">'" class="lis"&gt;'</span> <span style="color: #339933;">.</span> <span style="color: #000088;">$paggr</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">post_title</span><span style="color: #339933;">.</span> <span style="color: #0000ff;">'&lt;/a&gt;&lt;/li&gt;'</span><span style="color: #339933;">;</span><br>
+		<span style="color: #009900;">}</span><br>
+		<span style="color: #009900;">}</span><br>
+		<span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #339933;">&lt;/</span>ul<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #009900;">}</span><span style="color: #b1b100;">else</span><span style="color: #009900;">{</span><span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #339933;">&lt;</span>h3<span style="color: #339933;">&gt;</span>栏目导航<span style="color: #339933;">&lt;</span>span <span style="color: #000000; font-weight: bold;">class</span><span style="color: #339933;">=</span><span style="color: #0000ff;">"nossy"</span><span style="color: #339933;">&gt;</span>MEAU<span style="color: #339933;">&lt;/</span>span<span style="color: #339933;">&gt;&lt;/</span>h3<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #339933;">&lt;</span>ul<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span><br>
+		<span style="color: #000088;">$args</span><span style="color: #339933;">=</span><span style="color: #990000;">array</span><span style="color: #009900;">(</span><br>
+		<span style="color: #0000ff;">'orderby'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'ID'</span><span style="color: #339933;">,</span><br>
+		<span style="color: #0000ff;">'order'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'ASC'</span><span style="color: #339933;">,</span><br>
+		<span style="color: #009900;">)</span><span style="color: #339933;">;</span><br>
+		<span style="color: #000088;">$categories</span><span style="color: #339933;">=</span>get_categories<span style="color: #009900;">(</span><span style="color: #000088;">$args</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span><br>
+		<span style="color: #000088;">$kk</span><span style="color: #339933;">=</span><span style="color: #cc66cc;">1</span><span style="color: #339933;">;</span><br>
+		<span style="color: #b1b100;">foreach</span><span style="color: #009900;">(</span><span style="color: #000088;">$categories</span> <span style="color: #b1b100;">as</span> <span style="color: #000088;">$category</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span><br>
+		<span style="color: #b1b100;">echo</span> <span style="color: #0000ff;">'&lt;li class="'</span><span style="color: #339933;">.</span><span style="color: #000088;">$ons</span><span style="color: #339933;">.</span><span style="color: #0000ff;">'"&gt;&lt;a href="'</span> <span style="color: #339933;">.</span> get_category_link<span style="color: #009900;">(</span> <span style="color: #000088;">$category</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">term_id</span> <span style="color: #009900;">)</span> <span style="color: #339933;">.</span> <span style="color: #0000ff;">'" class="lis" &gt;'</span> <span style="color: #339933;">.</span> <span style="color: #000088;">$category</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">name</span><span style="color: #339933;">.</span><span style="color: #0000ff;">'&lt;/a&gt;&lt;/li&gt;'</span><span style="color: #339933;">;</span><br>
+		<span style="color: #000088;">$kk</span><span style="color: #339933;">++;</span><br>
+		<span style="color: #b1b100;">if</span><span style="color: #009900;">(</span><span style="color: #000088;">$kk</span><span style="color: #339933;">&gt;</span><span style="color: #cc66cc;">6</span><span style="color: #009900;">)</span><br>
+		<span style="color: #b1b100;">break</span><span style="color: #339933;">;</span><br>
+		<span style="color: #009900;">}</span><br>
+		<span style="color: #000000; font-weight: bold;">?&gt;</span><br>
+		<span style="color: #339933;">&lt;/</span>ul<span style="color: #339933;">&gt;</span><br>
+		<span style="color: #000000; font-weight: bold;">&lt;?php</span> <span style="color: #009900;">}</span><span style="color: #000000; font-weight: bold;">?&gt;</span></div></div>
+		</pre>
+		<p>把上面的代码保存成sidebar.php，可以在任何页面调用这个PHP文件来自动判断显示边栏导航了。</p>
+		</div>
+
+		</article>
+
+</body>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		// 代码块复制功能
+		document.querySelectorAll('pre').forEach(pre => {
+			const code = pre.querySelector('code');
+			if (code) {
+				const copyBtn = document.createElement('button');
+				copyBtn.className = 'copy-btn';
+				copyBtn.textContent = '复制';
+				copyBtn.style.position = 'absolute';
+				copyBtn.style.top = '10px';
+				copyBtn.style.right = '10px';
+				copyBtn.style.padding = '5px 10px';
+				copyBtn.style.background = '#f8f9fa';
+				copyBtn.style.border = 'none';
+				copyBtn.style.borderRadius = '4px';
+				copyBtn.style.cursor = 'pointer';
+
+				// 点击复制
+				copyBtn.addEventListener('click', function () {
+					navigator.clipboard.writeText(code.textContent)
+						.then(() => {
+							copyBtn.textContent = '已复制!';
+							setTimeout(() => {
+								copyBtn.textContent = '复制';
+							}, 2000);
+						})
+						.catch(err => {
+							console.error('复制失败:', err);
+						});
+				});
+
+				// 创建包装元素
+				const wrapper = document.createElement('div');
+				wrapper.style.position = 'relative';
+				wrapper.appendChild(copyBtn);
+				wrapper.appendChild(pre.cloneNode(true));
+
+				// 替换原pre
+				pre.parentNode.replaceChild(wrapper.firstChild, pre);
+			}
+		});
+
+		// 平滑滚动到锚点
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function (e) {
+				e.preventDefault();
+				document.querySelector(this.getAttribute('href')).scrollIntoView({
+					behavior: 'smooth'
+				});
+			});
+		});
+	});
+</script>
+
+</html>
